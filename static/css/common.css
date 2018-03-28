@@ -1,0 +1,35 @@
+@charset "utf-8";
+blockquote,body,button,dd,div,dl,dt,form,h1,h2,h3,h4,h5,h6,input,li,ol,p,pre,td,textarea,th,ul{margin:0;padding:0;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+img{display:inline-block;border:none;vertical-align:middle;}
+li{list-style:none}
+table{border-collapse:collapse;border-spacing:0}
+h1,h2,h3{font-size:14px;font-weight:400}
+h4,h5,h6{font-size:100%;font-weight:400}
+button,input,optgroup,option,select,textarea{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;outline:0}
+pre{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}
+hr{height:1px;margin:10px 0;border:0;background-color:#e2e2e2;clear:both}
+a{color:#3399ff;text-decoration:none;cursor:pointer;}
+a:hover{color:#0c2d5f}
+a cite{font-style:normal;*cursor:pointer}
+em{font-style:normal;}
+body{color:#2c3e50;min-width:1200px;background:#fff;}
+
+/*深色主题*/
+.header{
+    background-color: #242f42;
+}
+.login-wrap{
+    background: #324157;
+}
+.plugins-tips{
+    background: #eef1f6;
+}
+.plugins-tips a{
+    color: #20a0ff;
+}
+.el-upload--text em {
+    color: #20a0ff;
+}
+.pure-button{
+    background: #20a0ff;
+}
