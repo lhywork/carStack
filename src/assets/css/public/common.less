@@ -1,0 +1,154 @@
+.main-content {
+    background: #fff;
+    position: fixed;
+    border-left: solid 1px #b5cfd9;
+    right: 0;
+    bottom: 0;
+    top: 110px;
+    left: 180px;
+    padding: 15px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    overflow: auto;
+    border-top: 1px solid #b5cfd9;
+    padding-right: 15px;
+    font-size: 14px;
+    .panel-cont{
+    	padding:20px 0; 
+    	overflow:hidden;
+    }
+}
+.bg{ 
+	width:100%; 
+	height:100%; 
+	position:absolute; 
+	background:url(../images/bg.jpg) 
+}
+.content {
+    width: 100%;
+}
+
+
+/*提示*/
+
+.error-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .6);
+    z-index: 999;
+    cursor: pointer;
+    .error-container {
+        background: #fff;
+        border: 1px solid #0ae;
+        text-align: center;
+        width: 450px;
+        height: 256px;
+        padding-bottom: 30px;
+        border-radius: 5px 5px 0 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -225px;
+        margin-top: -128px;
+        z-index: 1000;
+        h1 {
+            font-size: 16px;
+            padding: 12px 0;
+            background: #0ae;
+            color: #fff;
+        }
+    }
+    .errorcon {
+        padding: 35px 0;
+        text-align: center;
+        color: #0ae;
+        font-size: 18px;
+    }
+    .errorcon i {
+        display: block;
+        margin: 12px auto;
+        font-size: 30px;
+    }
+    .errorcon span {
+        color: red;
+    }
+
+    .errorcon h4 {
+        font-size: 14px;
+        color: #666;
+    }
+
+    .errorcon a {
+        color: #0ae;
+    }
+}
+
+.uploader-button {
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.uploader-button input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+}
+
+.pagelist {padding:10px 0; text-align:center;}
+.pagelist span,.pagelist a{ border-radius:3px; border:1px solid #dfdfdf;display:inline-block; padding:5px 12px;cursor: pointer;}
+.pagelist a{ margin:0 3px;}
+.pagelist span.current{ background:#09F; color:#FFF; border-color:#09F; margin:0 2px;}
+.pagelist a:hover{background:#09F; color:#FFF; border-color:#09F; }
+.pagelist label{ padding-left:15px; color:#999;}
+.pagelist label b{color:red; font-weight:normal; margin:0 3px;}
+
+
+input,select,textarea{color:#333;}
+
+.panel{background:#fff;}
+form .form-group:last-child{padding-bottom:0;}
+
+// .header{height:70px; overflow:hidden; background:url(../images/bg.jpg) no-repeat 0 -1000px; }
+
+
+/***主要内容***/
+
+.content .title{ border-bottom:1px solid #dfdfdf; line-height:35px; font-size:14px; font-weight:bold; color:#09c}
+.form-x .form-group .label{ width:10%;}
+.form-x .form-button { margin-left:10%;}
+.w50 { width:25%; float:left;}
+.form-x .tipss{ float:left; padding-left:10px; color:#888; line-height:42px;}
+.input-help { float: left;line-height: 42px;padding-left: 10px;}
+.input-help li{ float:left;margin-left:10px;}
+
+.label label{ font-weight:normal; color:#333;}
+.form-group{ margin-bottom:12px;}
+.button{ padding:8px 15px;}
+.form-group .field .file{ background:#FFF; border:0px;}
+.form-group .field input[type=radio]{ vertical-align:middle; line-height:35px;margin-right: 10px;margin-left: 10px;}
+.form-group .radio { line-height:35px;}
+.table th{ text-align:center;}
+.table td { vertical-align:middle;}
+.table td .tTitle{display: inline-block;max-height: 50px;overflow: hidden;}
+.tip img{width:100px; height:100px;}
+.clear{ clear:both; overflow:hidden;}
+
+
+.search{ overflow:hidden;}
+.search li{float:left; margin-right:15px; line-height:35px;}
+
+.button.bg-main.icon-check-square-o{ padding:10px 30px;}
+.button.bg-main.icon-check-square-o:hover{ background:#08bbe1;}
+input[type="checkbox"], input[type="radio"]{ width:15px; height:15px; vertical-align:-3px; margin-right:5px;}
+
+textarea[name=content]{width:100%; height:500px; border:1px solid #ddd; border-radius:3px; -webkit-border-radius:3px;}
+
+/***表格样式***/
