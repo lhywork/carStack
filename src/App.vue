@@ -12,7 +12,7 @@ export default {
 
 <style>
 @import "../static/css/common.css";
-html, body, #app, .wrapper {
+#app, .wrapper, body, html {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -21,7 +21,6 @@ html, body, #app, .wrapper {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 </style>
