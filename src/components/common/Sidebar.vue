@@ -40,7 +40,7 @@
                         ]
                     },
                     {
-                        icon: 'el-icon-menu',
+                        icon: 'fa-inbox',
                         index: '2',
                         title: '标的管理',
                         subs: [

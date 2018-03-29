@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <div class="logo">后台管理系统</div>
+        <div class="logo">车栈金融后台管理</div>
         <div class="user-info">
             <el-dropdown trigger="click" @command="handleCommand">
                 <span class="el-dropdown-link">
@@ -51,6 +51,7 @@
         float: left;
         width:250px;
         text-align: center;
+        font-family: cursive;
     }
     .user-info {
         float: right;
