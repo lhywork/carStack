@@ -30,7 +30,7 @@
                         title: '资产端管理',
                         subs: [
                             {
-                                index: 'basetable',
+                                index: 'index',
                                 title: '基础资料管理'
                             },
                             {
@@ -77,17 +77,21 @@
     .sidebar{
         display: block;
         position: absolute;
-        width: 250px;
+        width: 180px;
         left: 0;
-        top: 70px;
+        top: 60px;
         bottom:0;
         background: #2E363F;
         font-size: 14px;
     }
+    .el-menu {
+        border: none;
+        width: 100%;
+    }
+    .el-submenu .el-menu-item {
+        min-width: 180px;
+    }
     .sidebar > ul {
         height:100%;
-    }
-    .fa-margin{
-        margin-right: 5px;
     }
 </style>

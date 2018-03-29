@@ -16,19 +16,49 @@ body{color:#2c3e50;min-width:1200px;background:#fff;}
 
 /*深色主题*/
 .content {
-    background: none repeat scroll 0 0 #fff;
+    background: none repeat scroll 0 0 #f7f7f7;
     position: absolute;
-    left: 250px;
+    left: 180px;
     right: 0;
-    top: 70px;
+    top: 60px;
     bottom: 0;
     width: auto;
-    padding: 40px;
+    padding: 20px;
     box-sizing: border-box;
     overflow-y: scroll;
 }
+.main-content{
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    background-color: #fff;
+    border: 1px solid #dfe6ec;
+    font-size: 14px;
+    color: #1f2d3d;
+    padding: 25px 20px;
+    border-radius: 4px;
+}
+.main-title{
+    font-weight: bold;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: solid 1px #ddd;
+}
+.el-table {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    background-color: #fff;
+    border: 1px solid #dfe6ec;
+    font-size: 14px;
+    color: #1f2d3d;
+}
 .header{
     background-color: #324057;
+    border-bottom: 1px solid #1f2d3d;
 }
 .login-wrap{
     background: #324157;
@@ -45,6 +75,16 @@ body{color:#2c3e50;min-width:1200px;background:#fff;}
 .pure-button{
     background: #20a0ff;
 }
+.button{border:solid 1px #ddd;background:transparent;border-radius:4px;font-size:14px;padding:6px 15px;margin:0;display:inline-block;line-height:20px;transition:all 1s cubic-bezier(0.175, 0.885, 0.32, 1) 0s;}
+.button[disabled]{pointer-events:none;cursor:not-allowed;webkit-box-shadow:none;box-shadow:none;filter:alpha(opacity=50);opacity:.5;}
+.button:active{background-image:none;outline:0;transition:all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1) 0s;}
+.button:hover{transition:all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1) 0s;}
+.button-block{display:block;width:100%;}
+.button-large{padding:15px 20px;font-size:24px;line-height:24px;}
+.button-big{padding:10px 15px;font-size:18px;line-height:22px;}
+.button-small{padding:5px 10px;font-size:12px;font-weight:normal;line-height:18px;}
+.button-little{padding:3px 5px;font-size:12px;font-weight:normal;line-height:16px;}
+.button.bg-main,.button.bg-sub,.button.bg-dot,.button.bg-black,.button.bg-gray,.button.bg-red,.button.bg-yellow,.button.bg-blue,.button.bg-green{color:#fff;}
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
@@ -69,6 +109,7 @@ body{color:#2c3e50;min-width:1200px;background:#fff;}
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin-right: 8px;
 }
 /* makes the font 33% larger relative to the icon container */
 .fa-lg {
