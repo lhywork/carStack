@@ -4,14 +4,14 @@
             <template v-for="item in items">
                 <template v-if="item.subs">
                     <el-submenu :index="item.index">
-                        <template slot="title"><i :class="item.icon"></i>{{ item.title }}</template>
+                        <template slot="title"><i class="fa fa-margin" :class="item.icon"></i>{{ item.title }}</template>
                         <el-menu-item v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">{{ subItem.title }}
                         </el-menu-item>
                     </el-submenu>
                 </template>
                 <template v-else>
                     <el-menu-item :index="item.index">
-                        <i :class="item.icon"></i>{{ item.title }}
+                        <i class="fa fa-margin" :class="item.icon"></i>{{ item.title }}
                     </el-menu-item>
                 </template>
             </template>
@@ -25,61 +25,42 @@
             return {
                 items: [
                     {
-                        icon: 'el-icon-setting',
-                        index: 'readme',
-                        title: '自述'
+                        icon: 'fa-money',
+                        index: '1',
+                        title: '资产端管理',
+                        subs: [
+                            {
+                                index: 'basetable',
+                                title: '基础资料管理'
+                            },
+                            {
+                                index: 'vuetable',
+                                title: '授权额度管理'
+                            }
+                        ]
                     },
                     {
                         icon: 'el-icon-menu',
                         index: '2',
-                        title: '表格',
+                        title: '标的管理',
                         subs: [
                             {
                                 index: 'basetable',
-                                title: '基础表格'
+                                title: '标的管理'
                             },
                             {
                                 index: 'vuetable',
-                                title: 'Vue表格组件'
+                                title: '初审'
+                            },
+                            {
+                                index: 'vuetable',
+                                title: '复审'
+                            },
+                            {
+                                index: 'vuetable',
+                                title: '核对真实借款金额'
                             }
                         ]
-                    },
-                    {
-                        icon: 'el-icon-date',
-                        index: '3',
-                        title: '表单',
-                        subs: [
-                            {
-                                index: 'baseform',
-                                title: '基本表单'
-                            },
-                            {
-                                index: 'vueeditor',
-                                title: '编辑器'
-                            },
-                            {
-                                index: 'markdown',
-                                title: 'markdown'
-                            },
-                            {
-                                index: 'upload',
-                                title: '文件上传'
-                            }
-                        ]
-                    },
-                    {
-                        icon: 'el-icon-star-on',
-                        index: 'basecharts',
-                        title: '图表'
-                    },
-                    {
-                        icon: 'el-icon-upload2',
-                        index: 'drag',
-                        title: '拖拽'
-                    },
-                    {
-                        index: 'allobject',
-                        title: '所有标的'
                     }
                 ]
             }
@@ -101,8 +82,12 @@
         top: 70px;
         bottom:0;
         background: #2E363F;
+        font-size: 14px;
     }
     .sidebar > ul {
         height:100%;
+    }
+    .fa-margin{
+        margin-right: 5px;
     }
 </style>
