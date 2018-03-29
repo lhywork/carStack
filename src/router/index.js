@@ -23,9 +23,9 @@ export default new Router({
         children: [{
             path: '/',
             component: Index
-        // }, {
-        //     path: '/CourseCheck',
-        //     component: CourseCheck
+        }, {
+            path: '/allobject',
+            component: resolve => require(['../components/page/allobject.vue'], resolve)
         // }, {
         //     path: '/CourseRmend',
         //     component: CourseRmend

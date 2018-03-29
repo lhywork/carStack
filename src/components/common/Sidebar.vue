@@ -76,6 +76,10 @@
                         icon: 'el-icon-upload2',
                         index: 'drag',
                         title: '拖拽'
+                    },
+                    {
+                        index: 'allobject',
+                        title: '所有标的'
                     }
                 ]
             }
