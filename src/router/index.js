@@ -2,9 +2,11 @@ import Vue from 'vue';
 import Router from 'vue-router';
 Vue.use(Router); //将VueRouter注入Vue
 
-import Login from '@/components/page/Login';
 import Home from '@/components/common/Home';
+import Login from '@/components/page/Login';
 import Index from '@/components/page/Index';
+import MaterialAdd from '@/components/page/MaterialAdd';
+
 
 export default new Router({
     routes: [{
@@ -23,6 +25,9 @@ export default new Router({
         children: [{
             path: '/',
             component: Index
+        },{
+            path: '/MaterialAdd',
+            component: MaterialAdd
         }, {
             path: '/allobject',
             component: resolve => require(['../components/page/allobject.vue'], resolve)

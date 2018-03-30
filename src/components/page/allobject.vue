@@ -126,7 +126,7 @@
 </template>
 
 <script>
-    import { getCourseTypeList,addCourseType,delCourseType,updateCourseType } from '@/api';
+    
     export default {
         data() {
             return {
@@ -171,79 +171,10 @@
             }
         },
         created(){
-            this.getData();
+           
         },
         methods: {
-            //获取课程类别数据
-            getData() {
-                const self = this;
-                const Params = self.curPage + '/' + self.rows;
-                getCourseTypeList(Params).then((res) => {
-                    self.tableData = res.data.rows;
-                })
-            },
-            //新增课程类别
-            handleAdd() {
-                const self = this;    
-                self.$prompt('请输入课程类别', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    inputPattern: /\S/,
-                    inputErrorMessage: '课程类别不能为空'
-                }).then(({ value }) => {
-                    const Params = { 
-                        name: value               
-                    };
-                    addCourseType(Params).then((res) => {
-                        if(res.data.flag){
-                            self.$message.success(res.data.msg);
-                            self.getData();
-                        }
-                    })
-                });
-            },
-            //编辑课程类别
-            handleEdit(name,id){
-                const self = this;    
-                self.$prompt('请输入修改课程类别', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    inputValue:name,
-                    inputPattern: /\S/,
-                    inputErrorMessage: '课程类别不能为空'
-                }).then(({ value }) => {
-                    let Value = value.replace(/(^\s+)|(\s+$)/g, ""); //去除空格
-                    if(name == Value){
-                        return false;
-                    };
-                    let Params = { 
-                        id: id,
-                        name: Value               
-                    };
-                    updateCourseType(id,Params).then((res) => {
-                        if(res.data.flag){
-                            self.$message.success(res.data.msg);
-                            self.getData();
-                        }
-                    });
-                });
-            },
-            //删除课程类别
-            handleDel(id){
-                const self = this;
-                self.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-                    type: 'warning'
-                }).then(() => {
-                    delCourseType(id).then((res) => {
-                        if(res.data.flag){
-                            self.$message.success(res.data.msg);
-                            self.getData();
-                        }
-                    });
-                }).catch(() => {
-                    // this.$message.info('已取消删除!');          
-                });
-            }
+
         }
     }
 </script>

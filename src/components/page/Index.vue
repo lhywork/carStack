@@ -19,14 +19,12 @@
               </el-col>
               <el-col :span="6">
                 <el-select v-model="dealer" @change="choseDealer" placeholder="选择经销商类型">
-                    <el-option v-for="item in dealer" :key="item.id" :label="item.value" :value="item.id"></el-option>
+                    <el-option v-for="item in dealerarr" :key="item.id" :label="item.label" :value="item.value"></el-option>
                 </el-select>
               </el-col>
               <el-col :span="6">
                 <el-select v-model="audit" @change="choseAudit" placeholder="选择审核状态">
-                    <el-option  :label="0" :value="0">待审核</el-option>
-                    <el-option  :label="1" :value="1">审核成功</el-option>
-                    <el-option  :label="2" :value="2">审核失败</el-option>
+                    <el-option v-for="item in auditarr" :key="item.value" :label="item.label" :value="item.value"></el-option>
                 </el-select>
               </el-col>
             </el-row>     
@@ -41,30 +39,37 @@
               </el-col>
               <el-col :span="6">
                 <el-input v-model="input" placeholder="公司名称"></el-input>
-              </el-col>
-              <el-col :span="3">
-                <el-button type="primary">搜索</el-button>
-              </el-col>
-              <el-col :span="3">
-                <el-button type="warning">导出excel</el-button>
-              </el-col>
+              </el-col>        
+                <el-button class="marginl10" type="primary"><i class="el-icon-search"></i><span>搜索</span></el-button>         
+                <el-button type="warning"><i class="el-icon-download"></i><span>导出excel</span></el-button>        
             </el-row>         
         </div>
     </div>
     <div class="main-form">
-        <el-table :data="tableData" style="width: 100%" height="500" header-align="center">
-            <el-table-column fixed prop="date" label="姓名" min-width="80"></el-table-column>
-            <el-table-column prop="name" label="手机号码" min-width="140"></el-table-column>
-            <el-table-column prop="province" label="公司名称" min-width="140"></el-table-column>
-            <el-table-column prop="city" label="地区" min-width="100"></el-table-column>
-            <el-table-column prop="address" label="同盟" min-width="100"></el-table-column>
-            <el-table-column prop="zip" label="注册时间" min-width="100"></el-table-column>
-            <el-table-column prop="zip" label="账户状态" min-width="100"></el-table-column>
-            <el-table-column prop="zip" label="审核状态" min-width="100"></el-table-column>
+        <el-table :data="tableData" style="width: 100%" height="500" >
+            <el-table-column fixed prop=":index"  label="序号" min-width="80" header-align="center"></el-table-column>
+            <el-table-column prop="account_name" label="姓名" min-width="80" ></el-table-column>
+            <el-table-column prop="mobile" label="手机号码" min-width="140" ></el-table-column>
+            <el-table-column prop="company_name" label="公司名称" min-width="140" ></el-table-column>
+            <el-table-column prop="addr_area" label="地区" min-width="100"></el-table-column>
+            <el-table-column prop="dealer_type" label="同盟" min-width="100"></el-table-column>
+            <el-table-column prop="add_time" label="注册时间" min-width="100"></el-table-column>
+            <el-table-column prop="account_status" label="账户状态" min-width="100">
+                <template scope="scope">
+                    {{ scope.row.account_status ? '已启用' : '未启用' }}
+                </template>
+            </el-table-column>
+            <el-table-column prop="auditor_status" label="审核状态" min-width="100">
+                <template scope="scope" >
+                    <span v-if = "scope.row.auditor_status == 0">待审核</span>
+                    <span v-else-if = "scope.row.auditor_status == 1">审核成功</span>
+                    <span v-else = "scope.row.auditor_status == 2">审核失败</span>
+                </template>
+            </el-table-column>
             <el-table-column label="操作" min-width="100">
               <template slot-scope="scope">
-                <el-button @click="" type="text" size="small">查看</el-button>
-                <el-button type="text" size="small">编辑</el-button>
+                <el-button @click="" type="success" size="small">查看</el-button>
+                <el-button type="danger" size="small">编辑</el-button>
               </template>
             </el-table-column>
         </el-table>
@@ -83,16 +88,36 @@ export default {
       shi1: [],  
       qu: '',  
       qu1: [],  
-      city:'',
-      dealer:'',
-      audit:'', 
+      city:'', 
       block:'',
       input:'',
-      tableData:''  
+      dealer:'',
+      dealerarr:[{
+          value: '1',
+          label: '普通合伙人'
+        }, {
+          value: '2',
+          label: '城市分栈'
+        }, {
+          value: '3',
+          label: '省栈同盟'
+      }],
+      audit:'',
+      auditarr: [{
+          value: '0',
+          label: '待审核'
+        }, {
+          value: '1',
+          label: '审核成功'
+        }, {
+          value: '2',
+          label: '审核失败'
+        }],
+      tableData:[]  
     }  
   },  
   methods:{  
-    // 加载china地点数据，三级  
+      // 加载china地点数据，三级  
       getCityData:function(){  
         var that = this;  
         this.$axios.get(this.mapJson).then(function(response){  
@@ -155,32 +180,50 @@ export default {
             // console.log(this.E)  
           }  
         }  
+      },
+      getListData:function() {
+        const that = this;
+        const params = {
+            addr_province:'',
+            addr_city:'',
+            dealer_type:'',
+            auditor_status:''
+        }
+        this.$ajax.getBaseMaterialList(params).then((res)=> {
+            that.tableData = res.lists;
+        });
+      },
+      //点击添加
+      handleAdd(){
+        // sessionStorage.setItem('sub_title','添加课程');
+        this.$router.push('/MaterialAdd');
       },  
       choseDealer:function(e) {
 
       },
       choseAudit:function(e) {
-        console.log(e)
+        // console.log(e)
       } 
     },  
     created:function(){  
-      this.getCityData()  
+      this.getCityData();
+      this.getListData();  
     }  
 }  
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .search-box {
-        padding: 10px;
+        padding: 10px 0;
         border-bottom: solid 1px #dfe6ec;
         line-height: 35px;
     }
     .action-bar{
-        padding: 10px;
+        padding: 10px 0;
     }
     .barli{
         width: 100%;
-        margin-bottom: 10px;
+        margin-bottom: 14px;
     }
     .el-row{
         width: 1000px;
@@ -188,15 +231,7 @@ export default {
     .el-input{
         width: 216px;
     }
-    .main-form {
-        width: 100%;
-    }
-    .el-table thead{
-        font-size: 14px;
-        color: #1f2d3d;
-    }
-    .el-table th {
-        background-color: #eef1f6;
-        text-align: center;
+    .marginl10{
+        margin-left:10px;
     }
 </style>
