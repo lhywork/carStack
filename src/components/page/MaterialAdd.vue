@@ -4,12 +4,12 @@
         <h2 class="main-title"><i class="fa fa-tags"></i>经销商资料</h2>
         <div class="main-form">
             <div id="J_Form" class="form-content">
-                <el-form :inline="true" :model="formInline" :label-position="right" label-width="130px" class="demo-form-inline">
+                <el-form :inline="true" :model="formInline" :label-position="'right'" label-width="130px" class="demo-form-inline">
                     <el-form-item label="账号">
                         <el-input v-model="formInline.user" placeholder="请输入账号"></el-input>
                     </el-form-item>
                     <el-form-item label="Email地址">
-                        <el-input v-model="formInline.user" placeholder="请输邮箱地址"></el-input>
+                        <el-input v-model="formInline.user" placeholder="请输入邮箱地址"></el-input>
                     </el-form-item>
                     <el-form-item label="密码">
                         <el-input v-model="formInline.user" placeholder="请输入6位以上密码"></el-input>
@@ -28,13 +28,14 @@
                     </el-form-item>
                     <el-form-item class="card-laber-item" label="身份证照片">
                     </el-form-item>
-                    <el-form-item label="公司地址">
+                    <el-form-item class="card-laber-item" label="公司地址">
                         <el-select class="select-item" v-model="sheng" @change="choseProvince" placeholder="选择省份">
                             <el-option v-for="item in province" :key="item.id" :label="item.value" :value="item.id"></el-option>
                         </el-select>
                         <el-select class="select-item" v-model="shi" @change="choseCity" placeholder="选择市">
                             <el-option v-for="item in shi1" :key="item.id" :label="item.value" :value="item.id"></el-option>
                         </el-select>
+                        <el-input class="address-input" v-model="formInline.user" placeholder="请输入详细地址"></el-input>
                     </el-form-item>
                     <el-form-item class="card-item" label="">
                         <template>
@@ -68,29 +69,101 @@
         <h2 class="main-title"><i class="fa fa-tags"></i>公司资料</h2>
         <div class="main-form">
             <div id="J_Form" class="form-content">
-                <el-form :inline="true" :model="formInline" :label-position="right" label-width="130px" class="demo-form-inline">
-                    <el-form-item label="账号">
-                        <el-input v-model="formInline.user" placeholder="请输入账号"></el-input>
+                <el-form :inline="true" :model="formInline" :label-position="'right'" label-width="130px" class="demo-form-inline">
+                    <el-form-item label="公司名称">
+                        <el-input v-model="formInline.user" placeholder="请输入公司名称"></el-input>
                     </el-form-item>
-                    <el-form-item label="Email地址">
-                        <el-input v-model="formInline.user" placeholder="请输邮箱地址"></el-input>
+                    <el-form-item label="经营年限">
+                        <el-input v-model="formInline.user" placeholder="请输入经营年限"></el-input>
                     </el-form-item>
-                    <el-form-item label="密码">
-                        <el-input v-model="formInline.user" placeholder="请输入6位以上密码"></el-input>
+                    <el-form-item class="block-item" label="公司简介">
+                        <el-input type="textarea" v-model="formInline.user"></el-input>
                     </el-form-item>
-                    <el-form-item label="手机号码">
-                        <el-input v-model="formInline.user" placeholder="请输入手机号码"></el-input>
+                    <el-form-item class="block-item" label="分栈名称">
+                        <el-input v-model="formInline.user" placeholder="请输入分栈名称"></el-input>
                     </el-form-item>
-                    <el-form-item label="姓名">
-                        <el-input v-model="formInline.user" placeholder="请输入真实姓名"></el-input>
+                    <el-form-item class="block-item" label="分栈介绍">
+                        <el-input type="textarea" v-model="formInline.user"></el-input>
                     </el-form-item>
-                    <el-form-item label="固定电话">
-                        <el-input v-model="formInline.user" placeholder="请输入固定电话"></el-input>
+                    <el-form-item class="block-item" label="公司合同显示名称">
+                        <el-input v-model="formInline.user" placeholder="请输入公司合同显示名称"></el-input>
                     </el-form-item>
-                    <el-form-item label="身份证号">
-                        <el-input v-model="formInline.user" placeholder="请输入二代身份证号码"></el-input>
+                    <el-form-item label="车栈照片">
+                        <div class="card-border">
+                            <i class="plus-icon el-icon-plus"></i>
+                        </div>
+                    </el-form-item>
+                    <el-form-item label="营业执照">
+                        <div class="card-border">
+                            <i class="plus-icon el-icon-plus"></i>
+                        </div>
+                    </el-form-item>
+                    <el-form-item class="block-item" label="场地租赁合同">
+                        <div class="card-border">
+                            <i class="plus-icon el-icon-plus"></i>
+                        </div>
+                    </el-form-item>
+                    <el-form-item class="block-item" label="场地照片">
+                        <div class="card-border">
+                            <i class="plus-icon el-icon-plus"></i>
+                        </div>
+                    </el-form-item>
+                    <el-form-item class="block-item" label="申请表">
+                        <div class="card-border">
+                            <i class="plus-icon el-icon-plus"></i>
+                        </div>
                     </el-form-item>
                 </el-form>
+            </div>
+        </div>
+    </div>
+    <div class="main-module">
+        <h2 class="main-title"><i class="fa fa-tags"></i>附件信息</h2>
+        <div class="main-form">
+            <div id="J_Form" class="form-content">
+                <el-form :inline="true" :model="formInline" :label-position="'right'" label-width="130px" class="demo-form-inline">
+                    <el-form-item label="车商增信报告">
+                        <el-input v-model="formInline.user" placeholder="请输入公司名称"></el-input>
+                    </el-form-item>
+                    <el-form-item label="经营流水电子版">
+                        <el-input v-model="formInline.user" placeholder="请输入经营年限"></el-input>
+                    </el-form-item>
+                    <el-form-item class="card-laber-item" label="担保人姓名">
+                        <el-input v-model="formInline.user" placeholder="请输入担保人姓名"></el-input>
+                    </el-form-item>
+                    <el-form-item class="card-laber-item" label="身份证照片">
+                    </el-form-item>
+                    <el-form-item class="card-laber-item" label="担保人手机号">
+                        <el-input v-model="formInline.user" placeholder="请输入担保人手机号"></el-input>
+                        <el-select class="address-input" v-model="gx"  placeholder="与被担保人关系">
+                            <el-option v-for="item in dbr" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                    </el-form-item>             
+                    <el-form-item class="card-item" label="">
+                        <template>
+                            <div class="card-box">
+                                <div class="card-left">
+                                    <div class="card-border">
+                                        <i class="plus-icon el-icon-plus"></i>
+                                    </div>
+                                    <p>（身份证正面）</p>   
+                                </div>
+                                <div class="card-right">
+                                    <div class="card-border">
+                                        <i class="plus-icon el-icon-plus"></i>
+                                    </div>
+                                    <p>（身份证反面）</p> 
+                                </div>
+                            </div>
+                        </template>
+                    </el-form-item>
+                    <el-form-item class="block-item" label="资产证明">
+                        <div class="card-border">
+                            <i class="plus-icon el-icon-plus"></i>
+                        </div>
+                    </el-form-item>
+                </el-form>
+                <el-button class="form-submit" type="success">确认提交</el-button>
             </div>
         </div>
     </div>
@@ -107,7 +180,18 @@ export default {
           shi1: [],  
           qu: '',  
           qu1: [],  
-          city:'', 
+          city:'',
+          gx:'',
+          dbr: [{
+              value: '1',
+              label: '父子'
+            }, {
+              value: '2',
+              label: '朋友'
+            }, {
+              value: '3',
+              label: '夫妻'
+          }], 
           formInline: {
               user: '',
               region: ''
@@ -209,8 +293,11 @@ export default {
     .form-content{
         width: 900px;
     }
-    .card-laber-item{
+    .el-form-item{
         width: 350px;
+    }
+    .card-laber-item{
+        width: 354px;
     }
     .el-form--inline .card-item .el-form-item__content{
         display:block;
@@ -235,6 +322,7 @@ export default {
         line-height: 80px;
         border-radius: 4px; 
         border: 1px solid #dcdfe6;
+        text-align: center;
         cursor: pointer;
     }
     .card-right{
@@ -253,5 +341,23 @@ export default {
     }
     .select-item .el-input{
         width: 110px;
+    }
+    .block-item{
+        display: block;
+        width: 100%;
+    }
+    .el-textarea{
+        width: 586px;
+    }
+    .main-form{
+        padding: 20px 0;
+    }
+    .address-input{
+        width: 222px;
+        display: block;
+        margin-top: 15px;
+    }
+    .form-submit{
+        float: right;
     }  
 </style>

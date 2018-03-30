@@ -2,7 +2,7 @@
   <div class="main-content">
     <h2 class="main-title"><i class="fa fa-tags"></i>基础资料管理</h2>
     <div class="search-box">
-        <a class="button border-main" href="javascript:void(0);" @click="handleAdd()"><i class="fa fa-plus-square-o"></i>新增</a>
+        <el-button type="primary" @click="handleAdd()"><i class="fa fa-plus-square-o"></i>新增</el-button>
     </div>
     <div class="action-bar">
         <div class="barli">
@@ -233,5 +233,8 @@ export default {
     }
     .marginl10{
         margin-left:10px;
+    }
+    .main-form{
+        padding: 10px 0;
     }
 </style>
