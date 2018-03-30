@@ -1,6 +1,6 @@
 <template>
     <div class="sidebar">
-        <el-menu :default-active="onRoutes" class="el-menu-vertical-demo" background-color="#324157" text-color="#fff" >
+        <el-menu :default-active="onRoutes" class="el-menu-vertical-demo" background-color="#324157" text-color="#fff" nique-opened router>
             <template v-for="item in items">
                 <template v-if="item.subs">
                     <el-submenu :index="item.index">
@@ -45,8 +45,8 @@
                         title: '标的管理',
                         subs: [
                             {
-                                index: 'basetable',
-                                title: '标的管理'
+                                index: 'allobject',
+                                title: '所有标的'
                             },
                             {
                                 index: 'vuetable',
