@@ -52,16 +52,21 @@
         </div>
     </div>
     <div class="main-form">
-        <el-table :data="tableData" style="width: 100%" height="500">
-            <el-table-column fixed prop="date" label="姓名" width="100"></el-table-column>
-            <el-table-column prop="name" label="手机号码" width="100"></el-table-column>
-            <el-table-column prop="province" label="公司名称" width="100"></el-table-column>
-            <el-table-column prop="city" label="地区" width="100"></el-table-column>
-            <el-table-column prop="address" label="同盟" width="100"></el-table-column>
-            <el-table-column prop="zip" label="注册时间" width="100"></el-table-column>
-            <el-table-column prop="zip" label="账户状态" width="100"></el-table-column>
-            <el-table-column prop="zip" label="审核状态" width="100"></el-table-column>
-            <el-table-column prop="zip" label="操作" width="100"></el-table-column>
+        <el-table :data="tableData" style="width: 100%" height="500" header-align="center">
+            <el-table-column fixed prop="date" label="姓名" min-width="80"></el-table-column>
+            <el-table-column prop="name" label="手机号码" min-width="140"></el-table-column>
+            <el-table-column prop="province" label="公司名称" min-width="140"></el-table-column>
+            <el-table-column prop="city" label="地区" min-width="100"></el-table-column>
+            <el-table-column prop="address" label="同盟" min-width="100"></el-table-column>
+            <el-table-column prop="zip" label="注册时间" min-width="100"></el-table-column>
+            <el-table-column prop="zip" label="账户状态" min-width="100"></el-table-column>
+            <el-table-column prop="zip" label="审核状态" min-width="100"></el-table-column>
+            <el-table-column label="操作" min-width="100">
+              <template slot-scope="scope">
+                <el-button @click="" type="text" size="small">查看</el-button>
+                <el-button type="text" size="small">编辑</el-button>
+              </template>
+            </el-table-column>
         </el-table>
     </div>
   </div>
@@ -155,7 +160,7 @@ export default {
 
       },
       choseAudit:function(e) {
-
+        console.log(e)
       } 
     },  
     created:function(){  
@@ -183,7 +188,7 @@ export default {
     .el-input{
         width: 216px;
     }
-    table {
+    .main-form {
         width: 100%;
     }
     .el-table thead{
@@ -192,5 +197,6 @@ export default {
     }
     .el-table th {
         background-color: #eef1f6;
-    } 
+        text-align: center;
+    }
 </style>
