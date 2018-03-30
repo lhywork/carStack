@@ -1,15 +1,15 @@
 <template>
     <div class="panel">
         <div class="panel-head">
-            <h5><span class="icon-key"></span>{{title}}</h5>
+            <h5><span class="el-icon-star-off"></span>{{title}}</h5>
         </div>
         <div class="panel-cont">
             <div id="listform">
                 <div class="padding border-bottom">
                     <ul class="search">
                         <li>
-                            <a class="button border-main icon-plus-square-o" href="javascript:void(0);" @click="handleAdd()">
-                                新增
+                            <a class="button border-main" href="javascript:void(0);" @click="Addobject()">
+                                <i class="fa fa-plus-square-o"></i>新增
                             </a>
                         </li>
                     </ul>
@@ -89,34 +89,53 @@
                           type="date"
                           placeholder="选择日期" class="marl14">
                         </el-date-picker>
+                        <el-button type="primary" class="inquire">查询</el-button>
+                        <el-button type="warning">导出excel</el-button>
                       </div>
                 </div>
                 <table class="table table-hover text-center">
                     <tbody>
                         <tr>
-                            <th>ID</th>
-                            <th>课程类型</th>
+                            <th>标的流水号</th>
+                            <th>借款产品</th>
+                            <th>借款人/机构</th>
+                            <th>申请金额</th>
+                            <th>评估定价</th>
+                            <th>审核状态</th>
+                            <th>申请时间</th>
                             <th>操作</th>
-                            <th>更新时间</th>
                         </tr>
                     </tbody>
                     <tbody id="course-list">
-                        <tr v-for="item in tableData">
-                            <td>{{item.id}}</td>
-                            <td>{{item.name}}</td>                       
-                            <td>
-                                <div class="button-group">
-                                    <a class="button border-main" href="javascript:void(0);" @click="handleEdit(item.name,item.id)">
-                                        <span class="icon-edit"></span>
-                                        编辑
-                                    </a>
-                                    <a class="button border-red" href="javascript:void(0);" @click="handleDel(item.id)">
-                                        <span class="icon-trash-o"></span>
-                                        删除
-                                    </a>
-                                </div>
-                            </td>
-                            <td>{{item.updateTime}}</td>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>                       
+                            <td>1</td>
+                            <td>2</td> 
+                            <td>1</td>
+                            <td>未审</td>
+                            <td>1</td>
+                            <td><el-button type="primary">审核</el-button></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>                       
+                            <td>1</td>
+                            <td>2</td> 
+                            <td>1</td>
+                            <td>通过</td>
+                            <td>1</td>
+                            <td><el-button type="primary">查看</el-button></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>                       
+                            <td>1</td>
+                            <td>2</td> 
+                            <td>1</td>
+                            <td>不通过</td>
+                            <td>1</td>
+                            <td><el-button type="primary">查看</el-button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -126,14 +145,10 @@
 </template>
 
 <script>
-    import { getCourseTypeList,addCourseType,delCourseType,updateCourseType } from '@/api';
     export default {
         data() {
             return {
                 title: "所有标的",
-                curPage: 1,
-                rows:50,
-                tableData: [],
                 originoptions: [{
                   value: '01',
                   label: 'A机构'
@@ -171,78 +186,12 @@
             }
         },
         created(){
-            this.getData();
+            
         },
         methods: {
-            //获取课程类别数据
-            getData() {
+            Addobject:function(){
                 const self = this;
-                const Params = self.curPage + '/' + self.rows;
-                getCourseTypeList(Params).then((res) => {
-                    self.tableData = res.data.rows;
-                })
-            },
-            //新增课程类别
-            handleAdd() {
-                const self = this;    
-                self.$prompt('请输入课程类别', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    inputPattern: /\S/,
-                    inputErrorMessage: '课程类别不能为空'
-                }).then(({ value }) => {
-                    const Params = { 
-                        name: value               
-                    };
-                    addCourseType(Params).then((res) => {
-                        if(res.data.flag){
-                            self.$message.success(res.data.msg);
-                            self.getData();
-                        }
-                    })
-                });
-            },
-            //编辑课程类别
-            handleEdit(name,id){
-                const self = this;    
-                self.$prompt('请输入修改课程类别', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    inputValue:name,
-                    inputPattern: /\S/,
-                    inputErrorMessage: '课程类别不能为空'
-                }).then(({ value }) => {
-                    let Value = value.replace(/(^\s+)|(\s+$)/g, ""); //去除空格
-                    if(name == Value){
-                        return false;
-                    };
-                    let Params = { 
-                        id: id,
-                        name: Value               
-                    };
-                    updateCourseType(id,Params).then((res) => {
-                        if(res.data.flag){
-                            self.$message.success(res.data.msg);
-                            self.getData();
-                        }
-                    });
-                });
-            },
-            //删除课程类别
-            handleDel(id){
-                const self = this;
-                self.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-                    type: 'warning'
-                }).then(() => {
-                    delCourseType(id).then((res) => {
-                        if(res.data.flag){
-                            self.$message.success(res.data.msg);
-                            self.getData();
-                        }
-                    });
-                }).catch(() => {
-                    // this.$message.info('已取消删除!');          
-                });
+                self.$router.push('/Addobject');
             }
         }
     }
@@ -250,12 +199,14 @@
 
 <style scoped>
     .el-formz{
-        margin: 10px 30px ;
+        padding: 10px 30px ;
+        border-bottom: 1px solid #ddd;
     }
     .el-form-item{
         display: inline-block;
         margin-right: 20px;
         vertical-align: top;
+        margin-bottom: 0!important
     }
     .el-form-item__label{
         display: inline-block;
@@ -342,5 +293,8 @@
     }
     .demonstration{
         padding-left: 9px;
+    }
+    .inquire{
+        margin-left: 55px;
     }
 </style>
