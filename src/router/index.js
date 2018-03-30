@@ -29,11 +29,11 @@ export default new Router({
             path: '/MaterialAdd',
             component: MaterialAdd
         }, {
-            path: '/allobject',
-            component: resolve => require(['../components/page/allobject.vue'], resolve)
-        // }, {
-        //     path: '/CourseRmend',
-        //     component: CourseRmend
+            path: '/Allobject',
+            component: resolve => require(['../components/page/Allobject.vue'], resolve)
+        }, {
+            path: '/Addobject',
+            component: resolve => require(['../components/page/Addobject.vue'], resolve)
         // }, {
         //     path: '/CourseType',
         //     component: CourseType

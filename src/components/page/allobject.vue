@@ -1,15 +1,15 @@
 <template>
     <div class="panel">
         <div class="panel-head">
-            <h5><span class="icon-key"></span>{{title}}</h5>
+            <h5><span class="el-icon-star-off"></span>{{title}}</h5>
         </div>
         <div class="panel-cont">
             <div id="listform">
                 <div class="padding border-bottom">
                     <ul class="search">
                         <li>
-                            <a class="button border-main icon-plus-square-o" href="javascript:void(0);" @click="handleAdd()">
-                                新增
+                            <a class="button border-main" href="javascript:void(0);" @click="Addobject()">
+                                <i class="fa fa-plus-square-o"></i>新增
                             </a>
                         </li>
                     </ul>
@@ -89,34 +89,53 @@
                           type="date"
                           placeholder="选择日期" class="marl14">
                         </el-date-picker>
+                        <el-button type="primary" class="inquire">查询</el-button>
+                        <el-button type="warning">导出excel</el-button>
                       </div>
                 </div>
                 <table class="table table-hover text-center">
                     <tbody>
                         <tr>
-                            <th>ID</th>
-                            <th>课程类型</th>
+                            <th>标的流水号</th>
+                            <th>借款产品</th>
+                            <th>借款人/机构</th>
+                            <th>申请金额</th>
+                            <th>评估定价</th>
+                            <th>审核状态</th>
+                            <th>申请时间</th>
                             <th>操作</th>
-                            <th>更新时间</th>
                         </tr>
                     </tbody>
                     <tbody id="course-list">
-                        <tr v-for="item in tableData">
-                            <td>{{item.id}}</td>
-                            <td>{{item.name}}</td>                       
-                            <td>
-                                <div class="button-group">
-                                    <a class="button border-main" href="javascript:void(0);" @click="handleEdit(item.name,item.id)">
-                                        <span class="icon-edit"></span>
-                                        编辑
-                                    </a>
-                                    <a class="button border-red" href="javascript:void(0);" @click="handleDel(item.id)">
-                                        <span class="icon-trash-o"></span>
-                                        删除
-                                    </a>
-                                </div>
-                            </td>
-                            <td>{{item.updateTime}}</td>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>                       
+                            <td>1</td>
+                            <td>2</td> 
+                            <td>1</td>
+                            <td>未审</td>
+                            <td>1</td>
+                            <td><el-button type="primary">审核</el-button></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>                       
+                            <td>1</td>
+                            <td>2</td> 
+                            <td>1</td>
+                            <td>通过</td>
+                            <td>1</td>
+                            <td><el-button type="primary">查看</el-button></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>                       
+                            <td>1</td>
+                            <td>2</td> 
+                            <td>1</td>
+                            <td>不通过</td>
+                            <td>1</td>
+                            <td><el-button type="primary">查看</el-button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -126,14 +145,10 @@
 </template>
 
 <script>
-    
     export default {
         data() {
             return {
                 title: "所有标的",
-                curPage: 1,
-                rows:50,
-                tableData: [],
                 originoptions: [{
                   value: '01',
                   label: 'A机构'
@@ -171,22 +186,27 @@
             }
         },
         created(){
-           
+            
         },
         methods: {
-
+            Addobject:function(){
+                const self = this;
+                self.$router.push('/Addobject');
+            }
         }
     }
 </script>
 
 <style scoped>
     .el-formz{
-        margin: 10px 30px ;
+        padding: 10px 30px ;
+        border-bottom: 1px solid #ddd;
     }
     .el-form-item{
         display: inline-block;
         margin-right: 20px;
         vertical-align: top;
+        margin-bottom: 0!important
     }
     .el-form-item__label{
         display: inline-block;
@@ -273,5 +293,8 @@
     }
     .demonstration{
         padding-left: 9px;
+    }
+    .inquire{
+        margin-left: 55px;
     }
 </style>

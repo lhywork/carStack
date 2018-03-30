@@ -45,7 +45,7 @@
                         title: '标的管理',
                         subs: [
                             {
-                                index: 'allobject',
+                                index: 'Allobject',
                                 title: '所有标的'
                             },
                             {
