@@ -29,7 +29,6 @@ body{color:#2c3e50;min-width:1200px;background:#fff;}
 }
 .main-content{
     overflow: hidden;
-    width: 100%;
     max-width: 100%;
     background-color: #fff;
     border: 1px solid #dfe6ec;
@@ -55,6 +54,9 @@ body{color:#2c3e50;min-width:1200px;background:#fff;}
     border: 1px solid #dfe6ec;
     font-size: 14px;
     color: #1f2d3d;
+}
+.main-form {
+    padding: 10px 0;
 }
 .header{
     background-color: #324057;

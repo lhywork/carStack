@@ -65,9 +65,9 @@
         width:100%;
         margin-top: -230px;
         text-align: center;
-        font-size:30px;
+        font-size:32px;
         color: #fff;
-
+        font-family: cursive;
     }
     .ms-login{
         position: absolute;
