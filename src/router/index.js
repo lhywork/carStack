@@ -3,17 +3,13 @@ import Router from 'vue-router';
 Vue.use(Router); //将VueRouter注入Vue
 
 import Home from '@/components/common/Home';
-import Login from '@/components/page/Login';
-import Index from '@/components/page/Index';
-import MaterialAdd from '@/components/page/MaterialAdd';
-import GrantlimitList from '@/components/page/GrantlimitList'
 
 
 export default new Router({
     routes: [{
         path: '/login',
         name: '',
-        component: Login,
+        component: resolve => require(['@/components/page/Login.vue'], resolve),
         hidden: true
     }, {
         path: '*',
@@ -28,16 +24,16 @@ export default new Router({
         children: [{
             path: '/index',
             name: '基础资料管理',
-            component: Index
+            component: resolve => require(['@/components/page/Index.vue'], resolve)
         },{
             path: '/MaterialAdd',
             name: '新增基础资料',
-            component: MaterialAdd,
+            component: resolve => require(['@/components/page/MaterialAdd.vue'], resolve),
             hidden: true
         },{
             path: '/GrantlimitList',
             name: '授权额度管理',
-            component: GrantlimitList
+            component: resolve => require(['@/components/page/GrantlimitList.vue'], resolve)
         }]
     },{
         path: '/',
@@ -47,11 +43,12 @@ export default new Router({
         children: [{
             path: '/Allobject',
             name: '所有标的',
-            component: resolve => require(['../components/page/Allobject.vue'], resolve)
+            component: resolve => require(['@/components/page/Allobject.vue'], resolve)
         },{
             path: '/Addobject',
             name: '新增标的信息',
-            component: resolve => require(['../components/page/Addobject.vue'], resolve)
+            hidden: true,
+            component: resolve => require(['@/components/page/Addobject.vue'], resolve)
         // }, {
         //     path: '/CourseType',
         //     component: CourseType

@@ -66,7 +66,7 @@
                     <span v-else = "scope.row.auditor_status == 2">审核失败</span>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" min-width="100">
+            <el-table-column label="操作" min-width="150">
                 <template slot-scope="scope">
                     <el-button @click="" type="success" size="small">查看</el-button>
                     <el-button type="danger" size="small">编辑</el-button>
