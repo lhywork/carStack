@@ -66,16 +66,16 @@
                         </template>
                     </el-form-item>
                     <el-form-item label="升级为分栈经销商">
-                        <el-radio-group>
-                          <el-radio label="是"></el-radio>
-                          <el-radio label="否"></el-radio>
+                        <el-radio-group v-model="isStack">
+                          <el-radio label="true">是</el-radio>
+                          <el-radio label="false">否</el-radio>
                         </el-radio-group>
                     </el-form-item>
                 </el-form>
             </div>
         </div>
     </div>
-    <div class="main-module">
+    <div class="main-module" v-show="isStack == 'true'">
         <h2 class="main-title"><i class="fa fa-tags"></i>公司资料</h2>
         <div class="main-form">
             <div id="J_Form" class="form-content">
@@ -127,7 +127,7 @@
             </div>
         </div>
     </div>
-    <div class="main-module">
+    <div class="main-module" v-show="isStack == 'true'">
         <h2 class="main-title"><i class="fa fa-tags"></i>附件信息</h2>
         <div class="main-form">
             <div id="J_Form" class="form-content">
@@ -180,11 +180,11 @@
                             <i class="plus-icon el-icon-plus"></i>
                         </div>
                     </el-form-item>
-                </el-form>
-                <el-button class="form-submit" type="success">确认提交</el-button>
+                </el-form>                
             </div>
         </div>
     </div>
+    <el-button class="form-submit" type="success">确认提交</el-button>
   </div>
 </template>
 <script>
@@ -201,6 +201,7 @@ export default {
           city:'',
           gx:'',
           imageUrl: '',
+          isStack:'true',
           dbr: [{
               value: '1',
               label: '父子'
@@ -399,6 +400,7 @@ export default {
         margin-top: 15px;
     }
     .form-submit{
-        float: right;
+        display: block;
+        margin: 0 auto;      
     }  
 </style>

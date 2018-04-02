@@ -29,7 +29,8 @@
             <el-table-column prop="account_status" label="授权金额" min-width="100"></el-table-column>
             <el-table-column prop="auditor_status" label="已用额度" min-width="100"></el-table-column>
             <el-table-column label="操作" min-width="100">
-                <template slot-scope="scope">
+                <template slot-scope="scope">       
+                    <el-button @click="" type="success" size="small">立即评分</el-button>
                     <el-button @click="" type="success" size="small">查看</el-button>
                     <el-button type="danger" size="small">编辑</el-button>
                 </template>
@@ -151,7 +152,7 @@ export default {
             dealer_type:'',
             auditor_status:''
         }
-        this.$ajax.getBaseMaterialList(params).then((res)=> {
+        this.$ajax.getGrantMaterialList(params).then((res)=> {
             that.tableData = res.lists;
         });
       },
