@@ -12,31 +12,43 @@ import GrantlimitList from '@/components/page/GrantlimitList'
 export default new Router({
     routes: [{
         path: '/login',
-        name: 'login',
-        component: Login
-    }, {
-        path: '/',
-        redirect: '/login'
+        name: '',
+        component: Login,
+        hidden: true
     }, {
         path: '*',
-        redirect: '/login'
+        name: '',
+        redirect: '/login',
+        hidden: true
     }, {
-        path: '/index',
+        path: '/',
+        name: '资产端管理',
         component: Home,
         children: [{
-            path: '/',
+            path: '/index',
+            name: '基础资料管理',
             component: Index
         },{
             path: '/MaterialAdd',
-            component: MaterialAdd
+            name: '新增基础资料',
+            component: MaterialAdd,
+            hidden: true
         },{
             path: '/GrantlimitList',
+            name: '授权额度管理',
             component: GrantlimitList
-        },{
+        }]
+    },{
+        path: '/',
+        name: '标的管理',
+        component: Home,
+        children: [{
             path: '/Allobject',
+            name: '所有标的',
             component: resolve => require(['../components/page/Allobject.vue'], resolve)
         },{
             path: '/Addobject',
+            name: '新增标的信息',
             component: resolve => require(['../components/page/Addobject.vue'], resolve)
         // }, {
         //     path: '/CourseType',

@@ -1,19 +1,26 @@
 <template>
     <div class="sidebar">
-        <el-menu :default-active="onRoutes" class="el-menu-vertical-demo" background-color="#324157" text-color="#fff" nique-opened router>
-            <template v-for="item in items">
+        <el-menu :default-active="$route.path" class="el-menu-vertical-demo" background-color="#324157" text-color="#fff" nique-opened router>
+           <!--  <template v-for="item in $router.options.routes" v-if="!item.hidden">
                 <template v-if="item.subs">
                     <el-submenu :index="item.index">
-                        <template slot="title"><i class="fa fa-margin" :class="item.icon"></i>{{ item.title }}</template>
-                        <el-menu-item v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">{{ subItem.title }}
+                        <template slot="title"><i class="fa fa-margin" :class="item.icon"></i>{{ item.name }}</template>
+                        <el-menu-item v-for="(subItem,i) in item.children" :key="i" >{{ subItem.name }}
                         </el-menu-item>
                     </el-submenu>
                 </template>
                 <template v-else>
                     <el-menu-item :index="item.index">
-                        <i class="fa fa-margin" :class="item.icon"></i>{{ item.title }}
+                        <i class="fa fa-margin" :class="item.icon"></i>{{ item.name }}
                     </el-menu-item>
                 </template>
+            </template> -->
+            <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
+                <el-submenu :index="index+''" v-if="!item.leaf">
+                    <template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
+                    <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
+                </el-submenu>
+                <el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path"><i :class="item.iconCls"></i>{{item.children[0].name}}</el-menu-item>
             </template>
         </el-menu>
     </div>
@@ -68,8 +75,11 @@
         computed:{
             onRoutes(){
                 return this.$route.path.replace('/','');
-            }
-        }
+            } 
+        },  
+        created:function(){  
+          console.log(this.$route) 
+        } 
     }
 </script>
 

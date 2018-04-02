@@ -4,12 +4,9 @@
             <!-- <i class="fa fa-bars"  :class="{isactive:changeBarDirection}"></i> -->
         </span>
         <el-breadcrumb class="breadcrumb" separator="/">
-            <el-breadcrumb-item :to="{ path: '/index' }">所在位置：{{$route.name}}</el-breadcrumb-item>
-            <div class="el-breadcrumb breadcrumb-inner f-fr">
-                <el-breadcrumb-item 
-                    v-for='(item,index) in $route.matched'
-                    :key='index'
-                    v-if='item.name'>
+            <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
+            <div class="el-breadcrumb el-breadcrumb-inner f-fr">
+                <el-breadcrumb-item v-for='(item,index) in $route.matched' :key='index' v-if='item.name'>
                     {{item.name}}
                 </el-breadcrumb-item>
             </div>
@@ -82,13 +79,23 @@ export default {
             }
         }
         .breadcrumb{
-            height: 30px;
-            line-height: 30px;
             .breadbutton{
                 float:left;
                 margin:4px 5px 0 0;
                 
             }
         }
+    }
+    .el-breadcrumb__separator{
+        color: #606266; 
+    }
+    .el-breadcrumb-inner span{
+        font-weight: 400;
+        color: #606266;
+        cursor: text;
+    }
+    .el-breadcrumb__inner a:hover, .el-breadcrumb__inner:hover{
+        color: #606266;
+        cursor: text;
     }
 </style>
