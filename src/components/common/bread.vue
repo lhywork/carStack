@@ -94,8 +94,5 @@ export default {
         color: #606266;
         cursor: text;
     }
-    .el-breadcrumb__inner a:hover, .el-breadcrumb__inner:hover{
-        color: #606266;
-        cursor: text;
-    }
+
 </style>
