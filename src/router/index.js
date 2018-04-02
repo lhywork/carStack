@@ -49,34 +49,6 @@ export default new Router({
             name: '新增标的信息',
             hidden: true,
             component: resolve => require(['@/components/page/Addobject.vue'], resolve)
-        // }, {
-        //     path: '/CourseType',
-        //     component: CourseType
-        // }, {
-        //     path: '/CourseAdd',
-        //     component: CourseAdd
-        // }, {
-        //     path: '/CourseEdit',
-        //     name: 'CourseEdit',
-        //     component: CourseEdit
-        // }, {
-        //     path: '/AppManage',
-        //     component: AppManage
-        // }, {
-        //     path: '/AppManageAdd',
-        //     component: AppManageAdd
-        // }, {
-        //     path: '/AppManageEdit',
-        //     component: AppManageEdit
-        // }, {
-        //     path: '/AdminRole',
-        //     component: AdminRole
-        // }, {
-        //     path: '/AdminEdit',
-        //     component: AdminEdit
-        // }, {
-        //     path: '/AdminAdd',
-        //     component: AdminAdd
         }]
     }]
 });
