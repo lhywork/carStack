@@ -34,7 +34,7 @@
                                 title: '基础资料管理'
                             },
                             {
-                                index: 'vuetable',
+                                index: 'GrantlimitList',
                                 title: '授权额度管理'
                             }
                         ]

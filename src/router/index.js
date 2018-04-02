@@ -6,6 +6,7 @@ import Home from '@/components/common/Home';
 import Login from '@/components/page/Login';
 import Index from '@/components/page/Index';
 import MaterialAdd from '@/components/page/MaterialAdd';
+import GrantlimitList from '@/components/page/GrantlimitList'
 
 
 export default new Router({
@@ -28,10 +29,13 @@ export default new Router({
         },{
             path: '/MaterialAdd',
             component: MaterialAdd
-        }, {
+        },{
+            path: '/GrantlimitList',
+            component: GrantlimitList
+        },{
             path: '/Allobject',
             component: resolve => require(['../components/page/Allobject.vue'], resolve)
-        }, {
+        },{
             path: '/Addobject',
             component: resolve => require(['../components/page/Addobject.vue'], resolve)
         // }, {
