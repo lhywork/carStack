@@ -20,15 +20,15 @@
     <div class="main-form">
         <el-table :data="tableData" style="width: 100%" height="500" >
             <el-table-column fixed prop=":index"  label="序号" min-width="80" header-align="center"></el-table-column>
-            <el-table-column prop="company_name" label="公司名称" min-width="80" ></el-table-column>
-            <el-table-column prop="mobile" label="手机号码" min-width="100" ></el-table-column>
-            <el-table-column prop="addr_area" label="省份" min-width="100" ></el-table-column>
-            <el-table-column prop="dealer_type" label="是否同盟" min-width="100"></el-table-column>
-            <el-table-column prop="grant_type" label="额度类型" min-width="100"></el-table-column>
-            <el-table-column prop="risk_score" label="风控评分" min-width="100"></el-table-column>
-            <el-table-column prop="grant_account" label="授权金额" min-width="100"></el-table-column>
-            <el-table-column prop="use_account" label="已用额度" min-width="100"></el-table-column>
-            <el-table-column label="操作" min-width="200">
+            <el-table-column prop="company_name" label="公司名称" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="mobile" label="手机号码" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="addr_area" label="省份" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="dealer_type" label="是否同盟" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="grant_type" label="额度类型" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="risk_score" label="风控评分" ></el-table-column>
+            <el-table-column prop="grant_account" label="授权金额" ></el-table-column>
+            <el-table-column prop="use_account" label="已用额度"></el-table-column>
+            <el-table-column label="操作" min-width="240">
                 <template slot-scope="scope">       
                     <el-button @click="" type="primary" size="small">立即评分</el-button>
                     <el-button @click="" type="success" size="small">查看</el-button>
