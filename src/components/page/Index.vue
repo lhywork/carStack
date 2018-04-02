@@ -55,22 +55,22 @@
             <el-table-column prop="dealer_type" label="同盟" min-width="100"></el-table-column>
             <el-table-column prop="add_time" label="注册时间" min-width="100"></el-table-column>
             <el-table-column prop="account_status" label="账户状态" min-width="100">
-                <template scope="scope">
+                <template slot-scope="scope">
                     {{ scope.row.account_status ? '已启用' : '未启用' }}
                 </template>
             </el-table-column>
             <el-table-column prop="auditor_status" label="审核状态" min-width="100">
-                <template scope="scope" >
+                <template slot-scope="scope" >
                     <span v-if = "scope.row.auditor_status == 0">待审核</span>
                     <span v-else-if = "scope.row.auditor_status == 1">审核成功</span>
                     <span v-else = "scope.row.auditor_status == 2">审核失败</span>
                 </template>
             </el-table-column>
             <el-table-column label="操作" min-width="100">
-              <template slot-scope="scope">
-                <el-button @click="" type="success" size="small">查看</el-button>
-                <el-button type="danger" size="small">编辑</el-button>
-              </template>
+                <template slot-scope="scope">
+                    <el-button @click="" type="success" size="small">查看</el-button>
+                    <el-button type="danger" size="small">编辑</el-button>
+                </template>
             </el-table-column>
         </el-table>
     </div>
