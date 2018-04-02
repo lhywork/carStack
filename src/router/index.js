@@ -23,6 +23,7 @@ export default new Router({
     }, {
         path: '/',
         name: '资产端管理',
+        iconCls:'fa-money',
         component: Home,
         children: [{
             path: '/index',
@@ -41,6 +42,7 @@ export default new Router({
     },{
         path: '/',
         name: '标的管理',
+        iconCls:'fa-inbox',
         component: Home,
         children: [{
             path: '/Allobject',
