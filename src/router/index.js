@@ -49,6 +49,18 @@ export default new Router({
             name: '新增标的信息',
             hidden: true,
             component: resolve => require(['@/components/page/Addobject.vue'], resolve)
+        },{
+            path: '/Firstobject',
+            name: '初审标的信息',
+            component: resolve => require(['@/components/page/Firstobject.vue'], resolve)
+        },{
+            path: '/Secondobject',
+            name: '复审标的信息',
+            component: resolve => require(['@/components/page/Secondobject.vue'], resolve)
+        },{
+            path: '/Thirdlyobject',
+            name: '核对真实借款金额',
+            component: resolve => require(['@/components/page/Thirdlyobject.vue'], resolve)
         }]
     }]
 });

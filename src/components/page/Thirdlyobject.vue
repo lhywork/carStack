@@ -87,7 +87,7 @@
                         <el-date-picker
                           v-model="datatime1"
                           type="date"
-                          placeholder="选择日期">
+                          placeholder="选择日期" class="marl14">
                         </el-date-picker>
                     </el-col>
                 </el-row>
@@ -155,7 +155,7 @@
                         <el-date-picker
                           v-model="datatime4"
                           type="date"
-                          placeholder="选择日期">
+                          placeholder="选择日期" class="marl14">
                         </el-date-picker>
                     </el-col>
                 </el-row>
@@ -184,7 +184,7 @@
                         <el-date-picker
                           v-model="datatime2"
                           type="date"
-                          placeholder="选择日期">
+                          placeholder="选择日期" class="marl14">
                         </el-date-picker>
                         </el-col>
                     <el-col :span="10">
@@ -274,12 +274,12 @@
                             </el-select>
                         </div>
                     </el-col>
-                    <el-col :span="10" class="marl14">
-                        <label for="payNumber" class="el-form-item__label ">交强险到期年月:</label>
+                    <el-col :span="10">
+                        <label for="payNumber" class="el-form-item__label">交强险到期年月:</label>
                         <el-date-picker
                           v-model="datatime5"
                           type="date"
-                          placeholder="选择日期">
+                          placeholder="选择日期" class="marl14">
                         </el-date-picker>
                     </el-col>
                 </el-row>
@@ -302,7 +302,7 @@
                         <el-date-picker
                           v-model="datatime6"
                           type="date"
-                          placeholder="选择日期">
+                          placeholder="选择日期" class="marl14">
                         </el-date-picker>
                     </el-col>
                 </el-row>
@@ -740,8 +740,5 @@
     }
     .marl17{
       margin-left: 17px;
-    }
-    .marl14{
-      margin-left: 14px;
     }
 </style>
