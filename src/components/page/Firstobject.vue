@@ -6,89 +6,43 @@
                 <el-row :gutter="10">
                   <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label">选择借款产品:</label>
-                        <div class="el-form-item__content">
-                            <el-select v-model="value01" placeholder="请选择">
-                                <el-option
-                                  v-for="item in options01"
-                                  :key="item.value"
-                                  :label="item.label"
-                                  :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
+                        <label for="payNumber" class="el-form-item__label">111111:</label>
                   </el-col>
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl42">主品牌:</label>
-                        <div class="el-form-item__content">
-                            <el-select v-model="value02" placeholder="请选择">
-                                <el-option
-                                  v-for="item in options02"
-                                  :key="item.value"
-                                  :label="item.label"
-                                  :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl28">车辆名称:</label>
-                        <div class="el-form-item__content">
-                            <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
-                        </div>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl27">厂商系列:</label>
-                        <div class="el-form-item__content">
-                            <el-select v-model="value03" placeholder="请选择">
-                                <el-option
-                                  v-for="item in options03"
-                                  :key="item.value"
-                                  :label="item.label"
-                                  :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl42">零售价:</label>
-                        <div class="el-form-item__content">
-                            <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
-                        </div>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl54">型号:</label>
-                        <div class="el-form-item__content">
-                            <el-select v-model="value04" placeholder="请选择">
-                                <el-option
-                                  v-for="item in options04"
-                                  :key="item.value"
-                                  :label="item.label"
-                                  :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl42">批发价:</label>
-                        <div class="el-form-item__content">
-                            <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
-                        </div>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="10">
                     <el-col :span="10">
-                        <span class="demonstration padl20">信息有效期:</span>
-                        <el-date-picker
-                          v-model="datatime1"
-                          type="date"
-                          placeholder="选择日期">
-                        </el-date-picker>
+                        <label for="payNumber padl20" class="el-form-item__label">信息有效期:</label>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                 </el-row>
             </div>
@@ -97,130 +51,68 @@
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label">车辆识别代码:</label>
-                        <div class="el-form-item__content">
-                            <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
-                        </div>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl28">汽车颜色:</label>
-                        <div class="el-form-item__content">
-                            <el-select v-model="value05" placeholder="请选择">
-                                <el-option
-                                  v-for="item in options05"
-                                  :key="item.value"
-                                  :label="item.label"
-                                  :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl27">行驶里程:</label>
-                        <div class="el-form-item__content">
-                            <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
-                        </div>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl28">内饰颜色:</label>
-                        <div class="el-form-item__content">
-                            <el-select v-model="value06" placeholder="请选择">
-                                <el-option
-                                  v-for="item in options06"
-                                  :key="item.value"
-                                  :label="item.label"
-                                  :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl27">车辆性质:</label>
-                        <div class="el-form-item__content">
-                            <el-select v-model="value07" placeholder="请选择">
-                                <el-option
-                                  v-for="item in options07"
-                                  :key="item.value"
-                                  :label="item.label"
-                                  :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl13">保险有效期:</label>
-                        <el-date-picker
-                          v-model="datatime4"
-                          type="date"
-                          placeholder="选择日期">
-                        </el-date-picker>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="24">
                     <el-col :span="14">
                         <span class="demonstration padl20">车辆所在地:</span>
-                        <el-select v-model="sheng" @change="choseProvince" placeholder="选择省份">
-                        <el-option v-for="item in province" :key="item.id" :label="item.value" :value="item.id"></el-option>
-                        </el-select>
-                        <el-select v-model="shi" @change="choseCity" placeholder="选择市">
-                            <el-option v-for="item in shi1" :key="item.id" :label="item.value" :value="item.id"></el-option>
-                        </el-select>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl13">年检有效期:</label>
-                        <el-date-picker
-                          v-model="datatime3"
-                          type="date"
-                          placeholder="选择日期" class="marl14">
-                        </el-date-picker>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label">车辆出厂年月:</label>
-                        <el-date-picker
-                          v-model="datatime2"
-                          type="date"
-                          placeholder="选择日期">
-                        </el-date-picker>
-                        </el-col>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                    </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl56">排量:</label>
-                        <div class="el-form-item__content">
-                            <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
-                        </div>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl42">变速器:</label>
-                        <div class="el-form-item__content">
-                            <el-select v-model="value08" placeholder="请选择">
-                                <el-option
-                                  v-for="item in options08"
-                                  :key="item.value"
-                                  :label="item.label"
-                                  :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl56">备注:</label>
-                        <div class="el-form-item__content">
-                            <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
-                        </div>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                 </el-row>
                 <h5 class="mart10">车辆照片:</h5>
                 <el-row :gutter="10">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl28">是否上牌:</label>
-                        <el-radio v-model="radio1" label="1" class="mart13">是</el-radio>
-                        <el-radio v-model="radio1" label="2" class="mart13">否</el-radio>
+                        <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                 </el-row>
                 <div v-show="radio1 == 1">   
