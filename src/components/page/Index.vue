@@ -67,8 +67,8 @@
             </el-table-column>
             <el-table-column label="操作" min-width="150">
                 <template slot-scope="scope">
-                    <el-button @click="" type="success" size="small">查看</el-button>
-                    <el-button type="danger" size="small">编辑</el-button>
+                    <el-button @click="handleCheck(1)" type="success" size="small">查看</el-button>
+                    <el-button @click="handleEdit(1)" type="danger" size="small">编辑</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -201,6 +201,23 @@ export default {
       handleAdd(){
         // sessionStorage.setItem('sub_title','添加课程');
         this.$router.push('/MaterialAdd');
+      },
+      //点击查看
+      handleCheck(index){
+          this.$router.push({
+              path: 'MaterialCheck',
+              query: {
+                  id: index
+              }
+          });
+      },
+      handleEdit(index){
+          this.$router.push({
+              path: 'MaterialEdit',
+              query: {
+                  id: index
+              }
+          });
       },  
       choseDealer:function(e) {
 
