@@ -40,26 +40,26 @@
               <el-col :span="6">
                 <el-input v-model="input" placeholder="公司名称"></el-input>
               </el-col>        
-                <el-button class="marginl10" type="primary"><i class="el-icon-search"></i><span>搜索</span></el-button>         
-                <el-button type="warning"><i class="el-icon-download"></i><span>导出excel</span></el-button>        
+                <el-button class="marginl10" type="primary"><i class="el-icon-search"></i><span>搜索</span></el-button>
+                <a id="downlink"></a>         
+                <el-button type="warning" @click="downloadFile(tableData)"><i class="el-icon-download"></i><span>导出excel</span></el-button>        
             </el-row>         
         </div>
     </div>
     <div class="main-form">
         <el-table :data="tableData" style="width: 100%" height="500" >
-            <el-table-column fixed prop=":index"  label="序号" min-width="80" header-align="center"></el-table-column>
-            <el-table-column prop="account_name" label="姓名" min-width="80" ></el-table-column>
-            <el-table-column prop="mobile" label="手机号码" min-width="140" ></el-table-column>
-            <el-table-column prop="company_name" label="公司名称" min-width="140" ></el-table-column>
-            <el-table-column prop="addr_area" label="地区" min-width="100"></el-table-column>
-            <el-table-column prop="dealer_type" label="同盟" min-width="100"></el-table-column>
-            <el-table-column prop="add_time" label="注册时间" min-width="100"></el-table-column>
-            <el-table-column prop="account_status" label="账户状态" min-width="100">
+            <el-table-column prop="account_name" label="姓名"  show-overflow-tooltip  align="center"></el-table-column>
+            <el-table-column prop="mobile" label="手机号码" ></el-table-column>
+            <el-table-column prop="company_name" label="公司名称" ></el-table-column>
+            <el-table-column prop="addr_area" label="地区" ></el-table-column>
+            <el-table-column prop="dealer_type" label="同盟" ></el-table-column>
+            <el-table-column prop="add_time" label="注册时间" ></el-table-column>
+            <el-table-column prop="account_status" label="账户状态" >
                 <template slot-scope="scope">
                     {{ scope.row.account_status ? '已启用' : '未启用' }}
                 </template>
             </el-table-column>
-            <el-table-column prop="auditor_status" label="审核状态" min-width="100">
+            <el-table-column prop="auditor_status" label="审核状态" >
                 <template slot-scope="scope" >
                     <span v-if = "scope.row.auditor_status == 0">待审核</span>
                     <span v-else-if = "scope.row.auditor_status == 1">审核成功</span>
@@ -70,6 +70,7 @@
                 <template slot-scope="scope">
                     <el-button @click="" type="success" size="small">查看</el-button>
                     <el-button type="danger" size="small">编辑</el-button>
+
                 </template>
             </el-table-column>
         </el-table>
@@ -78,7 +79,8 @@
 </template>
 
 <script>
-export default {  
+  var XLSX = require('xlsx') 
+export default { 
   data () {  
     return {  
       mapJson:'../static/json/map.json',  
@@ -91,6 +93,7 @@ export default {
       city:'', 
       block:'',
       input:'',
+      outFile: '',
       dealer:'',
       dealerarr:[{
           value: '1',
@@ -115,6 +118,9 @@ export default {
         }],
       tableData:[]  
     }  
+  },
+  mounted () {
+    this.outFile = document.getElementById('downlink')
   },  
   methods:{  
       // 加载china地点数据，三级  
@@ -203,6 +209,61 @@ export default {
       },
       choseAudit:function(e) {
         // console.log(e)
+      },
+      s2ab: function (s) { // 字符串转字符流
+        var buf = new ArrayBuffer(s.length)
+        var view = new Uint8Array(buf)
+        for (var i = 0; i !== s.length; ++i) {
+          view[i] = s.charCodeAt(i) & 0xFF
+        }
+        return buf
+      },
+      downloadFile: function (rs) { // 点击导出按钮
+        let data = [{}]
+        for (let k in rs[0]) {
+          data[0][k] = k
+        }
+        data = data.concat(rs)
+        this.downloadExl(data, '菜单')
+      },
+      downloadExl: function (json, downName, type) {  // 导出到excel
+        let keyMap = [] // 获取键
+        for (let k in json[0]) {
+          keyMap.push(k)
+        }
+        console.info('keyMap', keyMap, json)
+        let tmpdata = [] // 用来保存转换好的json
+        json.map((v, i) => keyMap.map((k, j) => Object.assign({}, {
+          v: v[k],
+          position: (j > 25 ? this.getCharCol(j) : String.fromCharCode(65 + j)) + (i + 1)
+        }))).reduce((prev, next) => prev.concat(next)).forEach(function (v) {
+          tmpdata[v.position] = {
+            v: v.v
+          }
+        })
+        let outputPos = Object.keys(tmpdata)  // 设置区域,比如表格从A1到D10
+        let tmpWB = {
+          SheetNames: ['mySheet'], // 保存的表标题
+          Sheets: {
+            'mySheet': Object.assign({},
+              tmpdata, // 内容
+              {
+                '!ref': outputPos[0] + ':' + outputPos[outputPos.length - 1] // 设置填充区域
+              })
+          }
+        }
+        let tmpDown = new Blob([this.s2ab(XLSX.write(tmpWB,
+          {bookType: (type === undefined ? 'xlsx' : type), bookSST: false, type: 'binary'} // 这里的数据是用来定义导出的格式类型
+        ))], {
+          type: ''
+        })  // 创建二进制对象写入转换好的字节流
+        var href = URL.createObjectURL(tmpDown)  // 创建对象超链接
+        this.outFile.download = downName + '.xlsx'  // 下载名称
+        this.outFile.href = href  // 绑定a标签
+        this.outFile.click()  // 模拟点击实现下载
+        setTimeout(function () {  // 延时释放
+          URL.revokeObjectURL(tmpDown) // 用URL.revokeObjectURL()来释放这个object URL
+        }, 100)
       } 
     },  
     created:function(){  
