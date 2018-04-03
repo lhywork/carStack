@@ -14,95 +14,120 @@
                         </li>
                     </ul>
                 </div>
-                <div class="el-formz">
-                    <div class="el-form-item">
-                        <label for="payNumber" class="el-form-item__label">标的流水号:</label>
-                        <div class="el-form-item__content">
-                        <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
-                        </div>
-                    </div>
-                    <div class="el-form-item">
-                        <label for="payNumber" class="el-form-item__label">借款人/机构:</label>
-                        <div class="el-form-item__content">
-                            <el-select v-model="originvalue" placeholder="请选择">
-                                <el-option
-                                  v-for="item in originoptions"
-                                  :key="item.value"
-                                  :label="item.label"
-                                  :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
-                    </div>
-                    <div class="el-form-item">
-                        <label for="payNumber" class="el-form-item__label">资金端:</label>
-                        <div class="el-form-item__content">
-                            <el-select v-model="moneyvalue" placeholder="请选择">
-                                <el-option
-                                  v-for="item in moneyoptions"
-                                  :key="item.value"
-                                  :label="item.label"
-                                  :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
-                    </div>
-                </div>
-                <div class="el-formz">
-                    <div class="el-form-item">
-                        <label for="payNumber" class="el-form-item__label padl10">标的状态:</label>
-                        <div class="el-form-item__content marl5">
-                            <el-select v-model="statevalue" placeholder="请选择" >
-                                <el-option
-                                  v-for="item in stateoptions"
-                                  :key="item.value"
-                                  :label="item.label"
-                                  :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
-                    </div>
-                    <div class="el-form-item">
-                        <label for="payNumber" class="el-form-item__label padl14">借款产品:</label>
-                        <div class="el-form-item__content marl3">
-                            <el-select v-model="productvalue" placeholder="请选择">
-                                <el-option
-                                  v-for="item in productoptions"
-                                  :key="item.value"
-                                  :label="item.label"
-                                  :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
+                <div class="addo_contentall">
+                    <div class="addo_content">
+                        <el-row :gutter="24">
+                            <el-col :span="8">
+                                <div class="el-form-item">
+                                    <label for="payNumber" class="el-form-item__label">标的流水号:</label>
+                                    <div class="el-form-item__content">
+                                    <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
+                                    </div>
+                                </div>
+                            </el-col>
+                            <el-col :span="8">
+                                <div class="el-form-item">
+                                    <label for="payNumber" class="el-form-item__label">借款人/机构:</label>
+                                    <div class="el-form-item__content">
+                                        <el-select v-model="originvalue" placeholder="请选择">
+                                            <el-option
+                                              v-for="item in originoptions"
+                                              :key="item.value"
+                                              :label="item.label"
+                                              :value="item.value">
+                                            </el-option>
+                                        </el-select>
+                                    </div>
+                                </div>
+                            </el-col>
+                            <el-col :span="8">
+                                <div class="el-form-item">
+                                    <label for="payNumber" class="el-form-item__label">资金端:</label>
+                                    <div class="el-form-item__content">
+                                        <el-select v-model="moneyvalue" placeholder="请选择">
+                                            <el-option
+                                              v-for="item in moneyoptions"
+                                              :key="item.value"
+                                              :label="item.label"
+                                              :value="item.value">
+                                            </el-option>
+                                        </el-select>
+                                    </div>
+                                </div>
+                            </el-col>
+                        </el-row>
                     </div>
                 </div>
-                <div class="el-formz">
-                     <div class="block">
-                        <span class="demonstration">申请时间:</span>
-                        <el-date-picker
-                          v-model="datatime1"
-                          type="date"
-                          placeholder="选择日期" class="marl14">
-                        </el-date-picker>
-                        <el-date-picker
-                          v-model="datatime2"
-                          type="date"
-                          placeholder="选择日期" class="marl14">
-                        </el-date-picker>
-                        <el-button type="primary" class="inquire">查询</el-button>
-                        <el-button type="warning">导出excel</el-button>
-                      </div>
+                <div class="addo_contentall">
+                    <div class="addo_content">
+                        <el-row :gutter="16">
+                            <el-col :span="8">
+                                <div class="el-form-item">
+                                    <label for="payNumber" class="el-form-item__label padl10">标的状态:</label>
+                                    <div class="el-form-item__content marl5">
+                                        <el-select v-model="statevalue" placeholder="请选择" >
+                                            <el-option
+                                              v-for="item in stateoptions"
+                                              :key="item.value"
+                                              :label="item.label"
+                                              :value="item.value">
+                                            </el-option>
+                                        </el-select>
+                                    </div>
+                                </div>
+                            </el-col>
+                            <el-col :span="8">
+                                <div class="el-form-item">
+                                    <label for="payNumber" class="el-form-item__label padl14">借款产品:</label>
+                                    <div class="el-form-item__content marl3">
+                                        <el-select v-model="productvalue" placeholder="请选择">
+                                            <el-option
+                                              v-for="item in productoptions"
+                                              :key="item.value"
+                                              :label="item.label"
+                                              :value="item.value">
+                                            </el-option>
+                                        </el-select>
+                                    </div>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </div>
                 </div>
-                <table class="table table-hover text-center">
+                <div class="addo_contentall">
+                    <div class="addo_content">
+                        <el-row :gutter="24">
+                            <el-col :span="14">  
+                                <span class="demonstration">申请时间:</span>
+                                <el-date-picker
+                                  v-model="datatime1"
+                                  type="date"
+                                  placeholder="选择日期" class="marl14">
+                                </el-date-picker>
+                                <el-date-picker
+                                  v-model="datatime2"
+                                  type="date"
+                                  placeholder="选择日期" class="marl14">
+                                </el-date-picker>
+                            </el-col>
+                            <el-col :span="10">  
+                                <el-button type="primary" class="inquire">查询</el-button>
+                                <el-button type="warning" @click="exportExcel()">导出excel</el-button>
+                            </el-col>
+                        </el-row>
+                    </div>
+                </div>
+                <table class="table table-hover text-center" id="table1">
                     <tbody>
                         <tr>
                             <th>标的流水号</th>
                             <th>借款产品</th>
-                            <th>借款人/机构</th>
-                            <th>申请金额</th>
-                            <th>评估定价</th>
-                            <th>审核状态</th>
+                            <th>经销商名称</th>
+                            <th>评估金额</th>
+                            <th>期限</th>
+                            <th>资金端</th>
                             <th>申请时间</th>
+                            <th>放款时间</th>
                             <th>操作</th>
                         </tr>
                     </tbody>
@@ -113,17 +138,8 @@
                             <td>1</td>
                             <td>2</td> 
                             <td>1</td>
-                            <td>未审</td>
                             <td>1</td>
-                            <td><el-button type="primary">审核</el-button></td>
-                        </tr>
-                        <tr>
                             <td>1</td>
-                            <td>2</td>                       
-                            <td>1</td>
-                            <td>2</td> 
-                            <td>1</td>
-                            <td>通过</td>
                             <td>1</td>
                             <td><el-button type="primary">查看</el-button></td>
                         </tr>
@@ -133,7 +149,30 @@
                             <td>1</td>
                             <td>2</td> 
                             <td>1</td>
-                            <td>不通过</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td><el-button type="primary">查看</el-button></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>                       
+                            <td>1</td>
+                            <td>2</td> 
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td><el-button type="primary">查看</el-button></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>                       
+                            <td>1</td>
+                            <td>2</td> 
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
                             <td>1</td>
                             <td><el-button type="primary">查看</el-button></td>
                         </tr>
@@ -145,6 +184,9 @@
 </template>
 
 <script>
+    import FileSaver from 'file-saver'
+    import XLSX from 'xlsx'
+    import Scriptloader from 'script-loader'
     export default {
         data() {
             return {
@@ -192,12 +234,43 @@
             Addobject:function(){
                 const self = this;
                 self.$router.push('/Addobject');
-            }
+            },
+            exportExcel () {
+                 /* generate workbook object from table */
+                 var wb = XLSX.utils.table_to_book(document.querySelector('#table1'))
+                 /* get binary string as output */
+                 var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+                 try {
+                     FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'sheetjs.xlsx')
+                 } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
+                 return wbout
+             },
+             xport2Excel() {
+            　　require.ensure([], () => {
+            　　　　const { export_json_to_excel } = require('../../vendor/Export2Excel');
+            　　　　const tHeader = ['序号', 'IMSI', 'MSISDN', '证件号码', '姓名'];
+            　　　　const filterVal = ['ID', 'imsi', 'msisdn', 'address', 'name'];
+            　　　　const list = this.tableData;
+            　　　　const data = this.formatJson(filterVal, list);
+            　　　　export_json_to_excel(tHeader, data, '列表excel');
+            　　})
+            },
+            formatJson(filterVal, jsonData) {
+            　　return jsonData.map(v => filterVal.map(j => v[j]))
+            },
         }
     }
 </script>
 
 <style scoped>
+    .addo_contentall{
+      width: 100%;
+      border-bottom:1px solid #ddd;
+    }
+    .addo_content{
+      width: 1000px;
+      margin: 10px 0 10px 20px;
+    }
     .el-formz{
         padding: 10px 30px ;
         border-bottom: 1px solid #ddd;
