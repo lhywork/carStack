@@ -40,14 +40,13 @@
               <el-col :span="6">
                 <el-input v-model="input" placeholder="公司名称"></el-input>
               </el-col>        
-                <el-button class="marginl10" type="primary"><i class="el-icon-search"></i><span>搜索</span></el-button>
-                <a id="downlink"></a>         
-                <el-button type="warning" @click="downloadFile(tableData)"><i class="el-icon-download"></i><span>导出excel</span></el-button>        
+                <el-button class="marginl10" type="primary"><i class="el-icon-search"></i><span>搜索</span></el-button>         
+                <el-button type="warning" @click="downloadFile()"><i class="el-icon-download"></i><span>导出excel</span></el-button>        
             </el-row>         
         </div>
     </div>
     <div class="main-form">
-        <el-table :data="tableData" style="width: 100%" height="500" >
+        <el-table :data="tableData" style="width: 100%" height="500" id="out-table">
             <el-table-column prop="account_name" label="姓名"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="mobile" label="手机号码" ></el-table-column>
             <el-table-column prop="company_name" label="公司名称" ></el-table-column>
@@ -70,7 +69,6 @@
                 <template slot-scope="scope">
                     <el-button @click="" type="success" size="small">查看</el-button>
                     <el-button type="danger" size="small">编辑</el-button>
-
                 </template>
             </el-table-column>
         </el-table>
@@ -79,7 +77,8 @@
 </template>
 
 <script>
-  var XLSX = require('xlsx') 
+import FileSaver from 'file-saver'
+import XLSX from 'xlsx' 
 export default { 
   data () {  
     return {  
@@ -93,7 +92,6 @@ export default {
       city:'', 
       block:'',
       input:'',
-      outFile: '',
       dealer:'',
       dealerarr:[{
           value: '1',
@@ -120,7 +118,7 @@ export default {
     }  
   },
   mounted () {
-    this.outFile = document.getElementById('downlink')
+   
   },  
   methods:{  
       // 加载china地点数据，三级  
@@ -210,61 +208,16 @@ export default {
       choseAudit:function(e) {
         // console.log(e)
       },
-      s2ab: function (s) { // 字符串转字符流
-        var buf = new ArrayBuffer(s.length)
-        var view = new Uint8Array(buf)
-        for (var i = 0; i !== s.length; ++i) {
-          view[i] = s.charCodeAt(i) & 0xFF
-        }
-        return buf
-      },
-      downloadFile: function (rs) { // 点击导出按钮
-        let data = [{}]
-        for (let k in rs[0]) {
-          data[0][k] = k
-        }
-        data = data.concat(rs)
-        this.downloadExl(data, '菜单')
-      },
-      downloadExl: function (json, downName, type) {  // 导出到excel
-        let keyMap = [] // 获取键
-        for (let k in json[0]) {
-          keyMap.push(k)
-        }
-        console.info('keyMap', keyMap, json)
-        let tmpdata = [] // 用来保存转换好的json
-        json.map((v, i) => keyMap.map((k, j) => Object.assign({}, {
-          v: v[k],
-          position: (j > 25 ? this.getCharCol(j) : String.fromCharCode(65 + j)) + (i + 1)
-        }))).reduce((prev, next) => prev.concat(next)).forEach(function (v) {
-          tmpdata[v.position] = {
-            v: v.v
-          }
-        })
-        let outputPos = Object.keys(tmpdata)  // 设置区域,比如表格从A1到D10
-        let tmpWB = {
-          SheetNames: ['mySheet'], // 保存的表标题
-          Sheets: {
-            'mySheet': Object.assign({},
-              tmpdata, // 内容
-              {
-                '!ref': outputPos[0] + ':' + outputPos[outputPos.length - 1] // 设置填充区域
-              })
-          }
-        }
-        let tmpDown = new Blob([this.s2ab(XLSX.write(tmpWB,
-          {bookType: (type === undefined ? 'xlsx' : type), bookSST: false, type: 'binary'} // 这里的数据是用来定义导出的格式类型
-        ))], {
-          type: ''
-        })  // 创建二进制对象写入转换好的字节流
-        var href = URL.createObjectURL(tmpDown)  // 创建对象超链接
-        this.outFile.download = downName + '.xlsx'  // 下载名称
-        this.outFile.href = href  // 绑定a标签
-        this.outFile.click()  // 模拟点击实现下载
-        setTimeout(function () {  // 延时释放
-          URL.revokeObjectURL(tmpDown) // 用URL.revokeObjectURL()来释放这个object URL
-        }, 100)
-      } 
+      downloadFile() {
+        /* generate workbook object from table */
+         var wb = XLSX.utils.table_to_book(document.querySelector('#out-table'));
+         /* get binary string as output */
+         var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+         try {
+            FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), '基础资料.xlsx')
+         } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
+         return wbout;
+      }
     },  
     created:function(){  
       this.getCityData();
