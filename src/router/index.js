@@ -7,7 +7,7 @@ import Home from '@/components/common/Home';
 
 export default new Router({
     routes: [{
-        path: '/login',
+        path: '/',
         name: '',
         component: resolve => require(['@/components/page/Login.vue'], resolve),
         hidden: true
@@ -29,6 +29,16 @@ export default new Router({
             path: '/MaterialAdd',
             name: '新增基础资料',
             component: resolve => require(['@/components/page/MaterialAdd.vue'], resolve),
+            hidden: true
+        },{
+            path: '/MaterialCheck',
+            name: '查看基础资料',
+            component: resolve => require(['@/components/page/MaterialCheck.vue'], resolve),
+            hidden: true
+        },{
+            path: '/MaterialEdit',
+            name: '编辑基础资料',
+            component: resolve => require(['@/components/page/MaterialEdit.vue'], resolve),
             hidden: true
         },{
             path: '/GrantlimitList',
