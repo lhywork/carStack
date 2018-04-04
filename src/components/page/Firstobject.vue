@@ -52,13 +52,14 @@
                       </el-col>
                       <el-col :span="10">
                         <el-button type="primary" class="inquire">查询</el-button>
-                        <el-button type="warning">导出excel</el-button>
+                        <el-button type="warning" @click="exportExcel()">导出excel</el-button>
                       </el-col>
                   </div>
               </div>
               </el-row>
           </div>
         </div>
+        
         <table class="table table-hover text-center">
             <tbody>
                 <tr>
@@ -73,41 +74,48 @@
                 </tr>
             </tbody>
             <tbody id="course-list">
-                <tr>
-                    <td>1</td>
-                    <td>2</td>                       
-                    <td>1</td>
-                    <td>2</td> 
-                    <td>1</td>
-                    <td>未审</td>
-                    <td>1</td>
-                    <td><el-button type="primary" @click="shenhe()">审核</el-button></td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>                       
-                <td>1</td>
-                <td>2</td> 
-                <td>1</td>
-                <td>通过</td>
-                <td>1</td>
-                <td><el-button type="primary">查看</el-button></td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>                       
-                <td>1</td>
-                <td>2</td> 
-                <td>1</td>
-                <td>不通过</td>
-                <td>1</td>
-                <td><el-button type="primary">查看</el-button></td>
-            </tr>
+                <tr v-for="item in tabledata" :key="item.id">
+                    <td>{{item.aa}}</td>
+                    <td>{{item.bb}}</td>                       
+                    <td>{{item.cc}}</td>
+                    <td>{{item.dd}}</td> 
+                    <td>{{item.ee}}</td>
+                    <td>{{item.ff}}</td>
+                    <td>{{item.gg}}</td>
+                    <td><el-button type="primary" @click="shenhe()">{{item.hh}}</el-button></td>
+                </tr>
             </tbody>
         </table>
+        <table class="table table-hover text-center" id="table1">
+            <tbody>
+                <tr>
+                    <th>标的流水号</th>
+                    <th>借款产品</th>
+                    <th>借款人/机构</th>
+                    <th>申请金额</th>
+                    <th>评估定价</th>
+                    <th>审核状态</th>
+                    <th>申请时间</th>
+                </tr>
+            </tbody>
+            <tbody id="course-list">
+                <tr v-for="item in tabledata" :key="item.id">
+                    <td>{{item.aa}}</td>
+                    <td>{{item.bb}}</td>                       
+                    <td>{{item.cc}}</td>
+                    <td>{{item.dd}}</td> 
+                    <td>{{item.ee}}</td>
+                    <td>{{item.ff}}</td>
+                    <td>{{item.gg}}</td>
+                </tr>
+            </tbody>
+        </table>
+
     </div>
 </template>
 <script>
+    import FileSaver from 'file-saver'
+    import XLSX from 'xlsx'
     export default {
             data() {
                 return {
@@ -145,7 +153,8 @@
                         }],
                     productvalue:'',
                     datatime1:'',
-                    datatime2:''
+                    datatime2:'',
+                    tabledata:[{aa:11,bb:22,cc:33,dd:44,ee:55,ff:66,gg:88,hh:'操作'},{aa:11,bb:22,cc:33,dd:44,ee:55,ff:66,gg:88,hh:'操作'},{aa:11,bb:22,cc:33,dd:44,ee:55,ff:66,gg:88,hh:'操作'}]
                 }
             },
             created(){
@@ -159,7 +168,21 @@
                 shenhe:function(){
                     const self = this;
                     self.$router.push('/FobjectC');
-                }
+                },
+                Addobject:function(){
+                    const self = this;
+                    self.$router.push('/Addobject');
+                },
+                exportExcel () {
+                     /* generate workbook object from table */
+                     var wb = XLSX.utils.table_to_book(document.querySelector('#table1'))
+                     /* get binary string as output */
+                     var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+                     try {
+                         FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'sheet1js.xlsx')
+                     } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
+                     return wbout
+                },
             }
         }
 </script>
@@ -270,5 +293,8 @@
     }
     .inquire{
         margin-left: 55px;
+    }
+    #table1{
+        display: none;
     }
 </style>

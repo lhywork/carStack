@@ -178,6 +178,34 @@
                         </tr>
                     </tbody>
                 </table>
+                <table class="table table-hover text-center" id="table2" style="display:none">
+                    <tbody>
+                        <tr>
+                            <th>标的流水号</th>
+                            <th>借款产品</th>
+                            <th>经销商名称</th>
+                            <th>评估金额</th>
+                            <th>期限</th>
+                            <th>资金端</th>
+                            <th>申请时间</th>
+                            <th>放款时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>                       
+                            <td>1</td>
+                            <td>2</td> 
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td><el-button type="primary">查看</el-button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -186,7 +214,6 @@
 <script>
     import FileSaver from 'file-saver'
     import XLSX from 'xlsx'
-    import Scriptloader from 'script-loader'
     export default {
         data() {
             return {
@@ -241,22 +268,9 @@
                  /* get binary string as output */
                  var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
                  try {
-                     FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'sheetjs.xlsx')
+                     FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'sheet1js.xlsx')
                  } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
                  return wbout
-             },
-             xport2Excel() {
-            　　require.ensure([], () => {
-            　　　　const { export_json_to_excel } = require('../../vendor/Export2Excel');
-            　　　　const tHeader = ['序号', 'IMSI', 'MSISDN', '证件号码', '姓名'];
-            　　　　const filterVal = ['ID', 'imsi', 'msisdn', 'address', 'name'];
-            　　　　const list = this.tableData;
-            　　　　const data = this.formatJson(filterVal, list);
-            　　　　export_json_to_excel(tHeader, data, '列表excel');
-            　　})
-            },
-            formatJson(filterVal, jsonData) {
-            　　return jsonData.map(v => filterVal.map(j => v[j]))
             },
         }
     }
