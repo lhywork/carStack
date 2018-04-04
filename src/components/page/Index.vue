@@ -46,7 +46,7 @@
         </div>
     </div>
     <div class="main-form">
-        <el-table :data="tableData" style="width: 100%" height="500" id="out-table">
+        <el-table :data="tableData" style="width: 100%" height="500">
             <el-table-column prop="account_name" label="姓名"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="mobile" label="手机号码" ></el-table-column>
             <el-table-column prop="company_name" label="公司名称" ></el-table-column>
@@ -69,6 +69,26 @@
                 <template slot-scope="scope">
                     <el-button @click="handleCheck(1)" type="success" size="small">查看</el-button>
                     <el-button @click="handleEdit(1)" type="danger" size="small">编辑</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-table :data="tableData" style="width: 100%;display:none;" height="500" id="out-table">
+            <el-table-column prop="account_name" label="姓名"  show-overflow-tooltip  align="center"></el-table-column>
+            <el-table-column prop="mobile" label="手机号码" ></el-table-column>
+            <el-table-column prop="company_name" label="公司名称" ></el-table-column>
+            <el-table-column prop="addr_area" label="地区" ></el-table-column>
+            <el-table-column prop="dealer_type" label="同盟" ></el-table-column>
+            <el-table-column prop="add_time" label="注册时间" ></el-table-column>
+            <el-table-column prop="account_status" label="账户状态" >
+                <template slot-scope="scope">
+                    {{ scope.row.account_status ? '已启用' : '未启用' }}
+                </template>
+            </el-table-column>
+            <el-table-column prop="auditor_status" label="审核状态" >
+                <template slot-scope="scope" >
+                    <span v-if = "scope.row.auditor_status == 0">待审核</span>
+                    <span v-else-if = "scope.row.auditor_status == 1">审核成功</span>
+                    <span v-else = "scope.row.auditor_status == 2">审核失败</span>
                 </template>
             </el-table-column>
         </el-table>
