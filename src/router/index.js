@@ -93,14 +93,14 @@ export default new Router({
         iconCls:'fa-user',
         component: Home,
         children: [{
-            path: '/Allobject',
+            path: '/UserManager',
             name: '用户管理',
-            component: resolve => require(['@/components/page/Allobject.vue'], resolve)
+            component: resolve => require(['@/components/page/UserManager.vue'], resolve)
         },{
-            path: '/Addobject',
+            path: '/UserNew',
             name: '新增用户',
             hidden: true,
-            component: resolve => require(['@/components/page/Addobject.vue'], resolve)
+            component: resolve => require(['@/components/page/UserNew.vue'], resolve)
         },{
             path: '/Firstobject',
             name: '角色配置',
