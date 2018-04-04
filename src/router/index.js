@@ -93,6 +93,7 @@ export default new Router({
         },{
             path: '/Secondobject',
             name: '新增角色',
+            hidden: true,
             component: resolve => require(['@/components/page/Secondobject.vue'], resolve)
         }]
     }]
