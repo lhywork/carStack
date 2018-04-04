@@ -87,5 +87,29 @@ export default new Router({
             hidden: true,
             component: resolve => require(['@/components/page/TobjectC.vue'], resolve)
         }]
+    },{
+        path: '/',
+        name: '用户权限',
+        iconCls:'fa-user',
+        component: Home,
+        children: [{
+            path: '/Allobject',
+            name: '用户管理',
+            component: resolve => require(['@/components/page/Allobject.vue'], resolve)
+        },{
+            path: '/Addobject',
+            name: '新增用户',
+            hidden: true,
+            component: resolve => require(['@/components/page/Addobject.vue'], resolve)
+        },{
+            path: '/Firstobject',
+            name: '角色配置',
+            component: resolve => require(['@/components/page/Firstobject.vue'], resolve)
+        },{
+            path: '/Secondobject',
+            name: '新增角色',
+            hidden: true,
+            component: resolve => require(['@/components/page/Secondobject.vue'], resolve)
+        }]
     }]
 });
