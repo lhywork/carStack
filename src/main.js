@@ -5,16 +5,13 @@ import App from './App'
 import router from './router'
 import api from "./api";
 import store from './store';
-
 import axios from 'axios';
 import ElementUI from 'element-ui';
 // import 'element-ui/lib/theme-chalk/index.css';   // 默认主题
 import '../static/lib/theme-chalk/index.css';       // 浅绿色主题
 import "babel-polyfill";
 
-
 Vue.config.productionTip = false;
-
 Vue.use(ElementUI);
 Vue.prototype.$axios = axios;
 Vue.prototype.$ajax = api;

@@ -4,15 +4,15 @@
             <h5><span class="el-icon-star-off"></span>{{title}}</h5>
         </div>
         <div class="panel-cont">
-            <div id="listform">
+            <el-form id="listform" :model="ruleForm" :rules="rules" ref="ruleForm">
                 <div class="addo_contentall">
                     <div class="addo_content">
-                        <el-row :gutter="8">
-                            <el-col :span="8">
+                        <el-row :gutter="10">
+                            <el-col :span="10">
                                 <div class="el-form-item">
-                                        <label for="payNumber" class="el-form-item__label">借款人/机构:</label>
-                                        <div class="el-form-item__content">
-                                            <el-select v-model="value1" placeholder="请选择">
+                                        <label for="payNumber" class="el-form-item__label marl17">角色选择:</label>
+                                        <el-form-item prop="value1" class="el-form-item__content">
+                                            <el-select placeholder="请选择" v-model="ruleForm.value1">
                                                 <el-option
                                                   v-for="item in options1"
                                                   :key="item.value"
@@ -20,7 +20,7 @@
                                                   :value="item.value">
                                                 </el-option>
                                             </el-select>
-                                        </div>
+                                        </el-form-item>
                                     </div>
                             </el-col>
                         </el-row>
@@ -31,9 +31,9 @@
                         <el-row :gutter="8">
                             <el-col :span="8">
                                 <label for="payNumber" class="el-form-item__label marl17">用户名称:</label>
-                                <div class="el-form-item__content">
-                                    <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
-                                </div>
+                                <el-form-item prop="niname" class="el-form-item__content">
+                                    <el-input  placeholder="请输入内容" class="el-form-item__content" v-model="ruleForm.niname"></el-input>
+                                </el-form-item>
                             </el-col>
                         </el-row>
                     </div>
@@ -43,22 +43,31 @@
                         <el-row :gutter="8">
                             <el-col :span="8">
                                 <label for="payNumber" class="el-form-item__label marl3">用户手机号:</label>
-                                <div class="el-form-item__content">
-                                    <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
-                                </div>
+                                <el-form-item prop="phone">
+                                    <el-input  placeholder="请输入内容" class="el-form-item__content" v-model.number="ruleForm.phone"></el-input>
+                                </el-form-item>
                             </el-col>
                         </el-row>
                     </div>
                 </div>
-                <el-button type="primary" class="suresmilt">确认提交</el-button>
-            </div>
+                <div class="addo_contentall">
+                    <div class="addo_content">
+                        <el-row :gutter="10">
+                            <el-col :span="10">
+                                <label for="payNumber" class="el-form-item__label marl17">默认密码:</label>
+                                <label for="payNumber" class="el-form-item__label marl17">666666</label>
+                            </el-col>
+                        </el-row>
+                    </div>
+                </div>
+                <el-button type="primary" class="suresmilt" @click="sure('ruleForm')">确认提交</el-button>
+            </el-form>
         </div>
     </div>
 </template>
 
 <script>
-    import FileSaver from 'file-saver'
-    import XLSX from 'xlsx'
+    import md5 from 'js-md5'
     export default {
         data() {
             return {
@@ -70,14 +79,47 @@
                   value: '02',
                   label: 'B端'
                 }],
-                value1:''
+                ruleForm:{
+                    phone:'',
+                    niname:'',
+                    value1:''
+                },
+                password:'',
+                rules:{
+                    phone: [
+                        { required: true, message: '请输入手机号', trigger: 'blur' },
+                        { pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号码' }
+                    ],
+                    niname:[
+                        { required: true, message: '请输入用户名称', trigger: 'blur' },
+                    ],
+                    value1:[
+                        { required: true, message: '请选择角色', trigger: 'blur' },
+                    ],
+                },
             }
         },
         created(){
-            
+            var self = this;
+            self.getmd5();
         },
         methods: {
-            
+            sure(formName) {
+                const self = this;
+                self.$refs[formName].validate((valid) => {
+                    console.log(self.$refs[formName])
+                    if (valid) {
+                        console.log(11)
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            getmd5(){
+                var self = this;
+                self.password = md5('123456').toUpperCase();
+            }
         }
     }
 </script>
@@ -89,7 +131,7 @@
     }
     .addo_content{
       width: 1000px;
-      margin: 10px 0 10px 20px;
+      margin: 20px 0 20px 20px;
     }
     .el-formz{
         padding: 10px 30px ;
