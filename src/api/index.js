@@ -26,6 +26,10 @@ export default {
     //获取用户（管理员）角色列表
     getRoleInfoList: params => {
         return utils.postData(`${admin}/adminRole/getRoleInfoList`, params);
-    }
+    },
+    //新增/修改用户（管理员）账号信息
+    adminRolesave:params => {
+        return utils.postData(`${admin}/adminRole/save`, params);
+    },
 };
 

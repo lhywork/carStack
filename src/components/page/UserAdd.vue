@@ -15,9 +15,8 @@
                                             <el-select placeholder="请选择" v-model="ruleForm.role">
                                                 <el-option
                                                   v-for="item in RoleList"
-                                                  :key="item.id"
-                                                  :label="item.id"
-                                                  :value="item.role">
+                                                  :label="item.role"
+                                                  :value="item.id">
                                                 </el-option>
                                             </el-select>
                                         </el-form-item>
@@ -95,7 +94,7 @@
         },
         created(){
             var self = this;
-            self.getAdminInfoList(); 
+            self.getRoleInfoList(); 
             self.getmd5();
         },
         methods: {
@@ -104,23 +103,37 @@
                 self.$refs[formName].validate((valid) => {
                     console.log(self.$refs[formName])
                     if (valid) {
-                        console.log(11)
+                        self.adminRolesave()
                     } else {
                         console.log('error submit!!');
                         return false;
                     }
                 });
             },
-            getAdminInfoList(){
+            getRoleInfoList(){
                 const that = this;
                 const params = {};
-                this.$ajax.getAdminInfoList(params).then((res)=> {
+                this.$ajax.getRoleInfoList(params).then((res)=> {
                     that.RoleList = res.lists;
+                    console.log(that.RoleList)
                 });
             },
             getmd5(){
                 var self = this;
                 self.password = md5('123456').toUpperCase();
+                console.log(self.password);
+            },
+            adminRolesave(){
+                const that = this;
+                const params = {
+                    username:this.ruleForm.phone,
+                    password:this.password,
+                    niname:this.ruleForm.niname,
+                    role_id:this.ruleForm.role
+                };
+                this.$ajax.adminRolesave2(params).then((res)=> {
+                    console.log(res);
+                });
             }
         }
     }
