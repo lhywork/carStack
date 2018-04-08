@@ -1,4 +1,5 @@
 import axios from 'axios';
+import qs from 'qs';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 // axios.defaults.timeout = 5000;
 // axios.defaults.baseURL ='';
@@ -33,13 +34,7 @@ export const getData = (url, params) => {
  */
 export const postData = (url, params) => {
   return new Promise(function (resolve, reject) {
-    axios.post(url,{
-      params:params
-    },{
-      headers:{
-        'Content-Type':'application/x-www-form-urlencoded'
-      }
-    })
+    axios.post(url,qs.stringify(params))
     .then(function (res) {
         resolve(res.data);
     })

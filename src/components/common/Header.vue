@@ -21,6 +21,15 @@
                 name: 'linxin'
             }
         },
+        created(){
+            const self = this;
+            // let userName = sessionStorage.getItem('ms_username');
+            // if(userName){
+            //      this.userName = userName;  
+            // }else{
+            //     self.$router.push('/login');
+            // }
+        },
         computed:{
             username(){
                 let username = localStorage.getItem('ms_username');

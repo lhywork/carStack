@@ -24,25 +24,15 @@ const login = {
   actions: {
   	Logins({ commit }, params){
   		return new Promise((resolve, reject) => {
-      		let data={};
-          console.log(params.username)
-          api.Login(params).then((res)=> {
-              console.log(res)
-          });
-      		// loginByUserInfo.map(function (item) { //获取所以用户信息
-      		// 	if(info.username === item.username || info.pew === item.pew){
-      		// 		commit('SET_USERNAME',item.username);  //将username和role进行存储
-      		// 		sessionStorage.setItem('USERNAME', item.username); //存入 session 
-      		// 		commit('SET_ROLE',item.role);
-      		// 		sessionStorage.setItem('ROLE', item.role);
-      		// 		return data={username:item.username,introduce:item.introduce};
-      		// 	}else{
-      		// 		return data;
-      		// 	}
-        //   });  
-  		    resolve(data);
+          api.Login(params).then((res)=> {       
+            if(res.returnCode == 1){
+              commit('SET_USERNAME',params.username);  //将username和role进行存储
+              sessionStorage.setItem('USERNAME', params.username); //存入 session 
+            }
+            resolve(res);
+          });  		   
         }).catch(error => {
-            reject(error);
+          reject(error);
         });
   	},
   	Roles({ commit }, newrouter){
