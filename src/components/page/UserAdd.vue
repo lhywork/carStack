@@ -124,15 +124,21 @@
                 console.log(self.password);
             },
             adminRolesave(){
-                const that = this;
+                var self = this;
                 const params = {
                     username:this.ruleForm.phone,
                     password:this.password,
                     niname:this.ruleForm.niname,
                     role_id:this.ruleForm.role
                 };
-                this.$ajax.adminRolesave2(params).then((res)=> {
+                this.$ajax.adminRolesave(params).then((res)=> {
                     console.log(res);
+                    if(res.returnCode == 1){
+                        self.$alert(res.returnMsg,'系统提示');
+                        self.$router.push({ path: '/UserManager' });   
+                    }else{
+                        self.$alert(res.returnMsg,'系统提示')
+                    }
                 });
             }
         }
