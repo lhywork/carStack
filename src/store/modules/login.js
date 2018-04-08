@@ -54,8 +54,7 @@ const login = {
         });
   	},
   	Logout({ commit, state }) {
-      return new Promise((resolve, reject) => {
-        
+      return new Promise((resolve, reject) => {     
           commit('SET_USERNAME','');
           commit('SET_ROLE','');
           commit('SET_NEWROUER',[]);

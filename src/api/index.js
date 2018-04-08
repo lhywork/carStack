@@ -18,6 +18,10 @@ export default {
     //用户（管理员）登录
     Login:params => {
         return utils.postData(`${admin}/adminRole/login`, params);
+    },
+    //获取用户（管理员）角色列表
+    getRoleInfoList: params => {
+        return utils.getData(`${admin}/adminRole/getRoleInfoList`, params);
     }
 };
 

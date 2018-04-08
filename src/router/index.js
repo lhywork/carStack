@@ -70,7 +70,7 @@ export default new Router({
             component: resolve => require(['@/components/page/Firstobject.vue'], resolve)
         },{
             path: '/Secondobject',
-            name: '复审标的审核',
+            name: '标的审核',
             component: resolve => require(['@/components/page/Secondobject.vue'], resolve)
         },{
             path: '/Thirdlyobject',
@@ -107,14 +107,14 @@ export default new Router({
             hidden: true,
             component: resolve => require(['@/components/page/UserNew.vue'], resolve)
         },{
-            path: '/Firstobject',
+            path: '/RoleList',
             name: '角色配置',
-            component: resolve => require(['@/components/page/Firstobject.vue'], resolve)
+            component: resolve => require(['@/components/page/RoleList.vue'], resolve)
         },{
-            path: '/Secondobject',
+            path: '/RoleAdd',
             name: '新增角色',
             hidden: true,
-            component: resolve => require(['@/components/page/Secondobject.vue'], resolve)
+            component: resolve => require(['@/components/page/RoleAdd.vue'], resolve)
         }]
     }]
 });

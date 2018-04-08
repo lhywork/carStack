@@ -211,9 +211,10 @@ export default {
             addr_province:'',
             addr_city:'',
             dealer_type:'',
-            auditor_status:''
+            auditor_status:0
         }
         this.$ajax.getBaseMaterialList(params).then((res)=> {
+            console.log(res)
             that.tableData = res.lists;
         });
       },

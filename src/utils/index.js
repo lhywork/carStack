@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 // axios.defaults.timeout = 5000;
 // axios.defaults.baseURL ='';
 /**
@@ -32,22 +32,23 @@ export const getData = (url, params) => {
   * @return {[type]}         [Promise]
  */
 export const postData = (url, params) => {
-  // params = params || {};
-  // params.user_id = user_id;
-  // params.us_token = us_token;
-  return new Promise((resolve,reject) => {
-     axios.post(url,params, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }).then(res => {
+  return new Promise(function (resolve, reject) {
+    axios.post(url,{
+      params:params
+    },{
+      headers:{
+        'Content-Type':'application/x-www-form-urlencoded'
+      }
+    })
+    .then(function (res) {
         resolve(res.data);
-      },err => {
-        console.log("post请求failed")
-        reject(err)
-      })
-   })
-}
+    })
+    .catch(function (res) {
+        console.log("post请求failed");
+        reject(res);       
+    });
+  });
+};
 
 export function formatDate(date, fmt) {
     if (/(y+)/.test(fmt)) {
