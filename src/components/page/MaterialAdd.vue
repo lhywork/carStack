@@ -6,25 +6,25 @@
             <div id="J_Form" class="form-content">
                 <el-form :inline="true" :model="form" :label-position="'right'" label-width="130px" class="demo-form-inline">
                     <el-form-item class="J-form-item" label="账号">
-                        <el-input v-model="form.user" placeholder="请输入账号"></el-input>
+                        <el-input class="form-input" v-model="form.user" placeholder="请输入账号"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="Email地址">
-                        <el-input v-model="form.user" placeholder="请输入邮箱地址"></el-input>
+                        <el-input class="form-input" v-model="form.user" placeholder="请输入邮箱地址"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="密码">
-                        <el-input v-model="form.user" placeholder="请输入6位以上密码"></el-input>
+                        <el-input class="form-input" v-model="form.user" placeholder="请输入6位以上密码"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="手机号码">
-                        <el-input v-model="form.user" placeholder="请输入手机号码"></el-input>
+                        <el-input class="form-input" v-model="form.user" placeholder="请输入手机号码"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="姓名">
-                        <el-input v-model="form.user" placeholder="请输入真实姓名"></el-input>
+                        <el-input class="form-input" v-model="form.user" placeholder="请输入真实姓名"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="固定电话">
-                        <el-input v-model="form.user" placeholder="请输入固定电话"></el-input>
+                        <el-input class="form-input" v-model="form.user" placeholder="请输入固定电话"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="身份证号">
-                        <el-input v-model="form.user" placeholder="请输入二代身份证号码"></el-input>
+                        <el-input class="form-input" v-model="form.user" placeholder="请输入二代身份证号码"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item card-laber-item" label="身份证照片">
                     </el-form-item>
@@ -81,22 +81,22 @@
             <div id="J_Form" class="form-content">
                 <el-form :inline="true" :model="form" :label-position="'right'" label-width="130px" class="demo-form-inline">
                     <el-form-item class="J-form-item" label="公司名称">
-                        <el-input v-model="form.user" placeholder="请输入公司名称"></el-input>
+                        <el-input class="form-input" v-model="form.user" placeholder="请输入公司名称"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="经营年限">
-                        <el-input v-model="form.user" placeholder="请输入经营年限"></el-input>
+                        <el-input class="form-input" v-model="form.user" placeholder="请输入经营年限"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item block-item" label="公司简介">
-                        <el-input type="textarea" v-model="form.user"></el-input>
+                        <el-input class="form-textarea" type="textarea" v-model="form.user"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item block-item" label="分栈名称">
-                        <el-input v-model="form.user" placeholder="请输入分栈名称"></el-input>
+                        <el-input class="form-input" v-model="form.user" placeholder="请输入分栈名称"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item block-item" label="分栈介绍">
-                        <el-input type="textarea" v-model="form.user"></el-input>
+                        <el-input class="form-textarea" type="textarea" v-model="form.user"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item block-item" label="公司合同显示名称">
-                        <el-input v-model="form.user" placeholder="请输入公司合同显示名称"></el-input>
+                        <el-input class="form-input" v-model="form.user" placeholder="请输入公司合同显示名称"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="车栈照片">
                         <div class="card-border">
@@ -133,18 +133,18 @@
             <div id="J_Form" class="form-content">
                 <el-form :inline="true" :model="form" :label-position="'right'" label-width="130px" class="demo-form-inline">
                     <el-form-item class="J-form-item" label="车商增信报告">
-                        <el-input v-model="form.user" placeholder="请输入公司名称"></el-input>
+                        <el-input class="form-input" v-model="form.user" placeholder="请输入公司名称"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="经营流水电子版">
-                        <el-input v-model="form.user" placeholder="请输入经营年限"></el-input>
+                        <el-input class="form-input" v-model="form.user" placeholder="请输入经营年限"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item card-laber-item" label="担保人姓名">
-                        <el-input v-model="form.user" placeholder="请输入担保人姓名"></el-input>
+                        <el-input class="form-input" v-model="form.user" placeholder="请输入担保人姓名"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item card-laber-item" label="身份证照片">
                     </el-form-item>
                     <el-form-item class="J-form-item card-laber-item" label="担保人手机号">
-                        <el-input v-model="form.user" placeholder="请输入担保人手机号"></el-input>
+                        <el-input class="form-input" v-model="form.user" placeholder="请输入担保人手机号"></el-input>
                         <el-select class="address-input" v-model="gx"  placeholder="与被担保人关系">
                             <el-option v-for="item in dbr" :key="item.value" :label="item.label" :value="item.value"></el-option>
                         </el-select>
@@ -378,7 +378,7 @@ export default {
         line-height: 70px;
         text-align: center;
     }
-    .el-input{
+    .form-input{
         width: 220px;
     }
     .select-item .el-input{
@@ -388,7 +388,7 @@ export default {
         display: block;
         width: 100%;
     }
-    .el-textarea{
+    .form-textarea{
         width: 586px;
     }
     .main-form{
