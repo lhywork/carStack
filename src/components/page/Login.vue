@@ -40,24 +40,19 @@
                 const self = this;
                 self.$refs[formName].validate((valid) => {
                     if (valid) {
-                        // console.log(self.ruleForm.username)
-                        this.$ajax.Login(self.ruleForm).then((res)=> {
-                            console.log(res)
+                        self.$store.dispatch('Logins',self.ruleForm).then(res => {
+                            if(res.returnCode == 1){
+                                self.$router.push({ path: '/index' });
+                            }else{
+                               self.$alert(res.returnMsg,'系统提示') 
+                            } 
                         });
-                        // sessionStorage.setItem('ms_username',self.ruleForm.username);
-                        // self.$router.push('/index');
                     } else {
-                        console.log('error submit!!');
                         return false;
                     }
                 });
                 
-                // this.$store.dispatch('Logins',data).then(res => { 
-                //     console.log(this.$store.state.username)
-                //     // this.$router.push({ path: '/index' });
-                // }).catch((res) => {
-                //     console.log('error submit!!');
-                // })
+                
             }
         }
     }

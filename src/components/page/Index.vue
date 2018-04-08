@@ -23,7 +23,7 @@
                 </el-select>
               </el-col>
               <el-col :span="6">
-                <el-select v-model="audit" @change="choseAudit" placeholder="选择审核状态">
+                <el-select v-model="auditor_status" @change="choseAudit" placeholder="选择审核状态">
                     <el-option v-for="item in auditarr" :key="item.value" :label="item.label" :value="item.value"></el-option>
                 </el-select>
               </el-col>
@@ -48,7 +48,7 @@
     <div class="main-form">
         <el-table :data="tableData" style="width: 100%" height="500">
             <el-table-column prop="account_name" label="姓名"  show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="mobile" label="手机号码" ></el-table-column>
+            <el-table-column prop="mobile" label="手机号码"></el-table-column>
             <el-table-column prop="company_name" label="公司名称" ></el-table-column>
             <el-table-column prop="addr_area" label="地区" ></el-table-column>
             <el-table-column prop="dealer_type" label="同盟" ></el-table-column>
@@ -123,7 +123,7 @@ export default {
           value: '3',
           label: '省栈同盟'
       }],
-      audit:'',
+      auditor_status:'',
       auditarr: [{
           value: '0',
           label: '待审核'
@@ -208,13 +208,12 @@ export default {
       getListData:function() {
         const that = this;
         const params = {
-            addr_province:'',
-            addr_city:'',
-            dealer_type:'',
-            auditor_status:0
+          addr_province:'',
+          addr_city:'',
+          dealer_type:'',
+          auditor_status:that.auditor_status
         }
         this.$ajax.getBaseMaterialList(params).then((res)=> {
-            console.log(res)
             that.tableData = res.lists;
         });
       },
@@ -244,7 +243,8 @@ export default {
 
       },
       choseAudit:function(e) {
-        // console.log(e)
+        this.auditor_status = e;
+        this.getListData();  
       },
       downloadFile() {
         /* generate workbook object from table */
@@ -266,11 +266,6 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .search-box {
-        padding: 10px 0;
-        border-bottom: solid 1px #dfe6ec;
-        line-height: 35px;
-    }
     .action-bar{
         padding: 10px 0;
     }

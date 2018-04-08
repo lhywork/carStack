@@ -3107,9 +3107,10 @@
 .el-message-box__title {
     padding-left: 0;
     margin-bottom: 0;
-    font-size: 18px;
-    line-height: 1;
-    color: #303133
+    font-size: 16px;
+    font-weight: 700;
+    height: 18px;
+    color: #333;
 }
 .el-message-box__headerbtn {
     position: absolute;

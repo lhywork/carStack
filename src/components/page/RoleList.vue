@@ -29,9 +29,7 @@ export default {
   methods:{  
       getListData:function() {
         const that = this;
-        const params = {
-
-        }
+        const params = {};
         this.$ajax.getRoleInfoList(params).then((res)=> {
             console.log(res)
             that.tableData = res.lists;
