@@ -70,12 +70,27 @@ export default new Router({
             component: resolve => require(['@/components/page/Firstobject.vue'], resolve)
         },{
             path: '/Secondobject',
-            name: '复审标的信息',
+            name: '复审标的审核',
             component: resolve => require(['@/components/page/Secondobject.vue'], resolve)
         },{
             path: '/Thirdlyobject',
-            name: '核对真实借款金额',
+            name: '真实借款金额信息',
             component: resolve => require(['@/components/page/Thirdlyobject.vue'], resolve)
+        },{
+            path: '/FobjectC',
+            name: '初审标的审核',
+            hidden: true,
+            component: resolve => require(['@/components/page/FobjectC.vue'], resolve)
+        },{
+            path: '/SobjectC',
+            name: '复审标的审核',
+            hidden: true,
+            component: resolve => require(['@/components/page/SobjectC.vue'], resolve)
+        },{
+            path: '/TobjectC',
+            name: '真实借款金额审核',
+            hidden: true,
+            component: resolve => require(['@/components/page/TobjectC.vue'], resolve)
         }]
     },{
         path: '/',
@@ -83,14 +98,14 @@ export default new Router({
         iconCls:'fa-user',
         component: Home,
         children: [{
-            path: '/Allobject',
+            path: '/UserManager',
             name: '用户管理',
-            component: resolve => require(['@/components/page/Allobject.vue'], resolve)
+            component: resolve => require(['@/components/page/UserManager.vue'], resolve)
         },{
-            path: '/Addobject',
+            path: '/UserNew',
             name: '新增用户',
             hidden: true,
-            component: resolve => require(['@/components/page/Addobject.vue'], resolve)
+            component: resolve => require(['@/components/page/UserNew.vue'], resolve)
         },{
             path: '/Firstobject',
             name: '角色配置',
