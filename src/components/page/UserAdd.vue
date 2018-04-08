@@ -134,7 +134,6 @@
                 this.$ajax.adminRolesave(params).then((res)=> {
                     console.log(res);
                     if(res.returnCode == 1){
-                        self.$alert(res.returnMsg,'系统提示');
                         self.$router.push({ path: '/UserManager' });   
                     }else{
                         self.$alert(res.returnMsg,'系统提示')
