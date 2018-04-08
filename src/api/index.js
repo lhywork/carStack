@@ -21,7 +21,7 @@ export default {
     },
     //获取用户（管理员）角色列表
     getRoleInfoList: params => {
-        return utils.getData(`${admin}/adminRole/getRoleInfoList`, params);
+        return utils.postData(`${admin}/adminRole/getRoleInfoList`, params);
     }
 };
 

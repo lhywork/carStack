@@ -6,7 +6,7 @@
     </div>
     <div class="main-form">
         <el-table :data="tableData" style="width: 100%" height="500">
-            <el-table-column prop="account_name" label="角色名称"  show-overflow-tooltip  align="center"></el-table-column>
+            <el-table-column prop="role" label="角色名称"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column label="操作"  show-overflow-tooltip  align="center">
                 <template slot-scope="scope">
                     <el-button @click="handleEdit(1)" type="danger" size="small">编辑</el-button>
