@@ -24,6 +24,7 @@
             <el-table-column prop="username" label="姓名"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="niname" label="手机号"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="role" label="角色"  show-overflow-tooltip  align="center"></el-table-column>
+            <el-table-column prop="add_time" label="更新时间" :formatter="dateFormat" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column label="操作"  show-overflow-tooltip  align="center">
                 <template slot-scope="scope">
                     <el-button type="success" size="small">查看</el-button>
@@ -50,13 +51,20 @@
                 const self = this;
                 self.$router.push('/UserAdd');
             },
+            dateFormat:function(row, column){
+                var date = row[column.property];  
+                if (date == undefined) {  
+                    return "";  
+                }  
+                return this.$ajax.formatDate(date,"yyyy-MM-dd hh:mm:ss");
+            },
             getListData:function() {
                 const that = this;
                 const params = {};
                 this.$ajax.getAdminInfoList(params).then((res)=> {
                     that.tableData = res.lists;
                 });
-            },
+            }
         },  
         created:function(){  
           this.getListData();  

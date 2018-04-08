@@ -102,11 +102,9 @@
             sure(formName) {
                 const self = this;
                 self.$refs[formName].validate((valid) => {
-                    console.log(self.$refs[formName])
                     if (valid) {
-                        console.log(11)
+
                     } else {
-                        console.log('error submit!!');
                         return false;
                     }
                 });

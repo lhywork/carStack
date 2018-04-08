@@ -46,6 +46,7 @@ export const postData = (url, params) => {
 };
 
 export function formatDate(date, fmt) {
+    date = new Date(date*1000);
     if (/(y+)/.test(fmt)) {
         fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
     }

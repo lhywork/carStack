@@ -56,20 +56,6 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .search-box {
-        padding: 10px 0;
-        border-bottom: solid 1px #dfe6ec;
-        line-height: 35px;
-    }
-    .el-row{
-        width: 1000px;
-    }
-    .el-input{
-        width: 216px;
-    }
-    .marginl10{
-        margin-left:10px;
-    }
     .main-form{
         padding: 10px 0;
     }
