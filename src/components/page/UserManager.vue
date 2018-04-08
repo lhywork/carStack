@@ -26,7 +26,7 @@
             <el-table-column prop="role" label="角色"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column label="操作"  show-overflow-tooltip  align="center">
                 <template slot-scope="scope">
-                    <el-button type="primary" size="small">查看</el-button>
+                    <el-button type="success" size="small">查看</el-button>
                     <el-button @click="handleEdit(1)" type="danger" size="small">编辑</el-button>
                 </template>
             </el-table-column>
