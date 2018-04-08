@@ -11,13 +11,13 @@
                             <el-col :span="10">
                                 <div class="el-form-item">
                                         <label for="payNumber" class="el-form-item__label marl17">角色选择:</label>
-                                        <el-form-item prop="value1" class="el-form-item__content">
-                                            <el-select placeholder="请选择" v-model="ruleForm.value1">
+                                        <el-form-item prop="role" class="el-form-item__content">
+                                            <el-select placeholder="请选择" v-model="ruleForm.role">
                                                 <el-option
-                                                  v-for="item in options1"
-                                                  :key="item.value"
-                                                  :label="item.label"
-                                                  :value="item.value">
+                                                  v-for="item in RoleList"
+                                                  :key="item.id"
+                                                  :label="item.id"
+                                                  :value="item.role">
                                                 </el-option>
                                             </el-select>
                                         </el-form-item>
@@ -72,35 +72,30 @@
         data() {
             return {
                 title: "新增用户",
-                options1:[{
-                    value: '01',
-                    label: 'A端'
-                }, {
-                  value: '02',
-                  label: 'B端'
-                }],
+                RoleList:[],
                 ruleForm:{
                     phone:'',
                     niname:'',
-                    value1:''
+                    role:''
                 },
                 password:'',
                 rules:{
-                    phone: [
-                        { required: true, message: '请输入手机号', trigger: 'blur' },
-                        { pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号码' }
+                    role:[
+                        { required: true, message: '请选择角色', trigger: 'change' },
                     ],
                     niname:[
                         { required: true, message: '请输入用户名称', trigger: 'blur' },
                     ],
-                    value1:[
-                        { required: true, message: '请选择角色', trigger: 'blur' },
-                    ],
+                    phone: [
+                        { required: true, message: '请输入手机号', trigger: 'blur' },
+                        { pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号码'}
+                    ]
                 },
             }
         },
         created(){
             var self = this;
+            self.getAdminInfoList(); 
             self.getmd5();
         },
         methods: {
@@ -114,6 +109,13 @@
                         console.log('error submit!!');
                         return false;
                     }
+                });
+            },
+            getAdminInfoList(){
+                const that = this;
+                const params = {};
+                this.$ajax.getAdminInfoList(params).then((res)=> {
+                    that.RoleList = res.lists;
                 });
             },
             getmd5(){
