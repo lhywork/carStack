@@ -4,15 +4,14 @@
         <div class="ms-login">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
                 <el-form-item prop="username">
-                    <el-input v-model="ruleForm.username" placeholder="username"></el-input>
+                    <el-input v-model="ruleForm.username" placeholder="请输入用户名"></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input type="password" placeholder="password" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
+                    <el-input type="password" placeholder="请输入密码" v-model="ruleForm.password" @keyup.enter.native="submitForm(ruleForm)"></el-input>
                 </el-form-item>
                 <div class="login-btn">
-                    <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-                </div>
-                <p style="font-size:12px;line-height:30px;color:#999;">Tips : 用户名和密码随便填。</p>
+                    <el-button type="primary" @click="submitForm(ruleForm)">登录</el-button>
+                </div>                
             </el-form>
         </div>
     </div>
@@ -37,17 +36,22 @@
             }
         },
         methods: {
-            submitForm(formName) {
+            submitForm(data) {
                 const self = this;
-                self.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        sessionStorage.setItem('ms_username',self.ruleForm.username);
-                        self.$router.push('/index');
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
+                // self.$refs[formName].validate((valid) => {
+                //     if (valid) {
+                //         sessionStorage.setItem('ms_username',self.ruleForm.username);
+                //         self.$router.push('/index');
+                //     } else {
+                //         console.log('error submit!!');
+                //         return false;
+                //     }
+                // });
+                this.$store.dispatch('Logins',data).then(res => { 
+                    this.$router.push({ path: '/index' });
+                }).catch((res) => {
+                    console.log('error submit!!');
+                })
             }
         }
     }

@@ -36,7 +36,11 @@ export const postData = (url, params) => {
   // params.user_id = user_id;
   // params.us_token = us_token;
   return new Promise((resolve,reject) => {
-     axios.post(url,params).then(res => {
+     axios.post(url,params, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(res => {
         resolve(res.data);
       },err => {
         console.log("post请求failed")

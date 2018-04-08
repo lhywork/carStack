@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import api from "./api";
+import store from './store';
 
 import axios from 'axios';
 import ElementUI from 'element-ui';
@@ -22,6 +23,7 @@ Vue.prototype.$ajax = api;
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

@@ -7,10 +7,15 @@ import Home from '@/components/common/Home';
 
 export default new Router({
     routes: [{
-        path: '/',
+        path: '/login',
         name: '',
         component: resolve => require(['@/components/page/Login.vue'], resolve),
         hidden: true
+    },{
+        path: '/',
+        name: '',
+        hidden: true,
+        redirect: '/login'
     }, {
         path: '*',
         name: '',
