@@ -27,6 +27,11 @@ body{color:#2c3e50;min-width:1200px;background:#fff;}
     box-sizing: border-box;
     overflow-y: scroll;
 }
+.search-box {
+    padding: 10px 0;
+    border-bottom: solid 1px #dfe6ec;
+    line-height: 35px;
+}
 .main-content{
     overflow: hidden;
     max-width: 100%;
