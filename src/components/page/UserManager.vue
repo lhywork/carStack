@@ -2,7 +2,7 @@
   <div class="main-content">
     <h2 class="main-title"><i class="fa fa-tags"></i>用户管理</h2>
     <div class="search-box">
-        <el-button type="primary" @click="UserNew()"><i class="fa fa-plus-square-o"></i>新增</el-button>
+        <el-button type="primary" @click="handleAdd()"><i class="fa fa-plus-square-o"></i>新增</el-button>
     </div>
     <div class="addo_contentall">
         <div class="addo_content">
@@ -46,9 +46,9 @@
             
         },
         methods: {
-            UserNew:function(){
+            handleAdd:function(){
                 const self = this;
-                self.$router.push('/UserNew');
+                self.$router.push('/UserAdd');
             },
             getListData:function() {
                 const that = this;

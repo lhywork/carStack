@@ -102,10 +102,10 @@ export default new Router({
             name: '用户管理',
             component: resolve => require(['@/components/page/UserManager.vue'], resolve)
         },{
-            path: '/UserNew',
+            path: '/UserAdd',
             name: '新增用户',
             hidden: true,
-            component: resolve => require(['@/components/page/UserNew.vue'], resolve)
+            component: resolve => require(['@/components/page/UserAdd.vue'], resolve)
         },{
             path: '/RoleList',
             name: '角色配置',
