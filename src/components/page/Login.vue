@@ -51,8 +51,10 @@
                             if(res.returnCode == 1){
                                 self.$router.push({ path: '/index' });
                             }else{
-                               self.$alert(res.returnMsg,'系统提示') 
+                               self.$alert(res.returnMsg,'系统提示'); 
                             } 
+                        }).catch(res => {
+                            self.$alert('网络繁忙，请稍后再试！','系统提示'); 
                         });
                     } else {
                         return false;

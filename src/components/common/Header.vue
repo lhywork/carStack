@@ -30,7 +30,7 @@
                 sysUserName: ''
             }
         },
-        mounted() {
+        created() {
             var user = this.$store.state.login;
             if (user.username) {
                 this.sysUserName = user.username || '';
