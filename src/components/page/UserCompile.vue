@@ -32,7 +32,7 @@
                             <el-col :span="8">
                                 <label for="payNumber" class="el-form-item__label marl17">用户名称:</label>
                                 <el-form-item prop="niname" class="el-form-item__content">
-                                    <el-input  placeholder="请输入内容" class="el-form-item__content" v-model="ruleForm.niname"></el-input>
+                                    <el-input  placeholder="请输入内容" class="el-form-item__content" v-model="ruleForm.niname" :disabled="true"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -96,7 +96,7 @@
         created(){
             var self = this;
             self.getRoleInfoList(); 
-            self.getmd5();
+            self.getAdminInfoByUserid();
         },
         methods: {
             sure(formName) {
@@ -116,24 +116,34 @@
                 const params = {};
                 this.$ajax.getRoleInfoList(params).then((res)=> {
                     that.RoleList = res.lists;
-                    console.log(that.RoleList)
                 });
             },
             getmd5(){
                 var self = this;
                 self.password = md5('666666').toUpperCase();
-                console.log(self.password);
+            },
+            getAdminInfoByUserid(){
+                var self = this;
+                const params = {
+                    userid:self.$route.params.id
+                };
+                this.$ajax.getAdminInfoByUserid(params).then((res)=> {
+                    this.ruleForm.phone = res.lists[0].niname;
+                    this.ruleForm.niname = res.lists[0].username;
+                    this.ruleForm.role = res.lists[0].role;
+                });
             },
             adminRolesave(){
                 var self = this;
+                self.getmd5();
                 const params = {
-                    username:this.ruleForm.phone,
+                    username:this.ruleForm.niname,
                     password:this.password,
-                    niname:this.ruleForm.niname,
-                    role_id:this.ruleForm.role
+                    niname:this.ruleForm.phone,
+                    role_id:this.ruleForm.role,
+                    id:self.$route.params.id
                 };
                 this.$ajax.adminRolesave(params).then((res)=> {
-                    console.log(res);
                     if(res.returnCode == 1){
                         self.$router.push({ path: '/UserManager' });   
                     }else{

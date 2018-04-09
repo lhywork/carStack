@@ -31,5 +31,13 @@ export default {
     adminRolesave:params => {
         return utils.postData(`${admin}/adminRole/save`, params);
     },
+    //获取用户（管理员）账号信息
+    getAdminInfoByUserid:params => {
+        return utils.postData(`${admin}/adminRole/getAdminInfoByUserid`, params);
+    },
+    //删除用户（管理员）账号
+    adminRoledelete:params => {
+        return utils.postData(`${admin}/adminRole/delete`, params);
+    },
 };
 

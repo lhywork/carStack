@@ -96,7 +96,6 @@
         created(){
             var self = this;
             self.getRoleInfoList(); 
-            self.getmd5();
         },
         methods: {
             sure(formName) {
@@ -126,11 +125,13 @@
             },
             adminRolesave(){
                 var self = this;
+                self.getmd5();
                 const params = {
                     username:this.ruleForm.niname,
                     password:this.password,
                     niname:this.ruleForm.phone,
-                    role_id:this.ruleForm.role
+                    role_id:this.ruleForm.role,
+                    id:''
                 };
                 this.$ajax.adminRolesave(params).then((res)=> {
                     console.log(res);
