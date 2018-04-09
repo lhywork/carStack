@@ -52,7 +52,7 @@
             <el-table-column prop="company_name" label="公司名称" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="addr_area" label="地区" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="dealer_type" label="同盟" show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="add_time" label="注册时间" show-overflow-tooltip  align="center"></el-table-column>
+            <el-table-column prop="add_time" label="注册时间" :formatter="dateFormat" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="account_status" label="账户状态" show-overflow-tooltip  align="center">
                 <template slot-scope="scope">
                     {{ scope.row.account_status ? '已启用' : '未启用' }}
@@ -76,7 +76,7 @@
             <el-table-column prop="company_name" label="公司名称" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="addr_area" label="地区" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="dealer_type" label="同盟" show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="add_time" label="注册时间" show-overflow-tooltip  align="center"></el-table-column>
+            <el-table-column prop="add_time" label="注册时间" :formatter="dateFormat" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="account_status" label="账户状态" show-overflow-tooltip  align="center">
                 <template slot-scope="scope">
                     {{ scope.row.account_status ? '已启用' : '未启用' }}
@@ -224,6 +224,13 @@ export default {
             that.tableData = res.lists;
         });
       },
+        dateFormat:function(row, column){
+            var date = row[column.property];  
+            if (date == undefined) {  
+                return "";  
+            }  
+            return this.$ajax.formatDate(new Date(date*1000),"yyyy-MM-dd hh:mm:ss");
+        },
       //点击添加
       handleAdd(){
         // sessionStorage.setItem('sub_title','添加课程');

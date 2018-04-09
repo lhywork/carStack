@@ -56,7 +56,7 @@
                 if (date == undefined) {  
                     return "";  
                 }  
-                return this.$ajax.formatDate(date,"yyyy-MM-dd hh:mm:ss");
+                return this.$ajax.formatDate(new Date(date*1000),"yyyy-MM-dd hh:mm:ss");
             },
             getListData:function() {
                 const that = this;

@@ -18,6 +18,7 @@
 </template>
 
 <script>
+    import md5 from 'js-md5'
     export default {
         data: function(){
             return {
@@ -38,6 +39,7 @@
         methods: {
             submitForm(formName) {
                 const self = this;
+                self.ruleForm.password = md5('123456').toUpperCase();
                 self.$refs[formName].validate((valid) => {
                     if (valid) {
                         self.$store.dispatch('Logins',self.ruleForm).then(res => {
