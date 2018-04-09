@@ -32,13 +32,13 @@
         <div class="barli">
             <el-row :gutter="20">
               <el-col :span="6">
-                <el-input v-model="input" placeholder="请输入手机号"></el-input>
+                <el-input class="barli-input" v-model="mobile" placeholder="请输入手机号"></el-input>
               </el-col>
               <el-col :span="6">
-                <el-input v-model="input" placeholder="输入姓名/手机号"></el-input>
+                <el-input class="barli-input" v-model="account_name" placeholder="输入姓名"></el-input>
               </el-col>
               <el-col :span="6">
-                <el-input v-model="input" placeholder="公司名称"></el-input>
+                <el-input class="barli-input" v-model="company_name" placeholder="公司名称"></el-input>
               </el-col>        
                 <el-button class="marginl10" type="primary"><i class="el-icon-search"></i><span>搜索</span></el-button>         
                 <el-button type="warning" @click="downloadFile()"><i class="el-icon-download"></i><span>导出excel</span></el-button>        
@@ -46,7 +46,7 @@
         </div>
     </div>
     <div class="main-form">
-        <el-table :data="tableData" style="width: 100%" height="500">
+        <el-table :data="tableData" style="width: 100%">
             <el-table-column prop="account_name" label="姓名"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="mobile" label="手机号码" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="company_name" label="公司名称" show-overflow-tooltip  align="center"></el-table-column>
@@ -70,7 +70,7 @@
                 </template>
             </el-table-column>
         </el-table>
-        <el-table :data="tableData" style="width: 100%;display:none;" height="500" id="out-table">
+        <el-table :data="tableData" style="width: 100%;display:none;" id="ExcelTable">
             <el-table-column prop="account_name" label="姓名"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="mobile" label="手机号码" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="company_name" label="公司名称" show-overflow-tooltip  align="center"></el-table-column>
@@ -89,6 +89,8 @@
             </el-table-column>
         </el-table>
     </div>
+    <el-pagination :page-size="epage" :page-sizes="[5, 10, 15, 20]" background layout="prev, sizes, pager, next" :total="total" @current-change="handleCurrentChange" @size-change="pageSizeChange">
+    </el-pagination>
   </div>
 </template>
 
@@ -109,6 +111,9 @@ export default {
       block:'',
       input:'',
       dealer:'',
+      mobile:'',
+      account_name:'',
+      company_name:'',
       dealerarr:[{
           value: '1',
           label: '普通合伙人'
@@ -130,6 +135,9 @@ export default {
           value: '2',
           label: '审核失败'
         }],
+      page:1,
+      epage:5,
+      total:1,
       tableData:[]  
     }  
   },
@@ -218,10 +226,13 @@ export default {
           addr_province:'',
           addr_city:'',
           dealer_type:'',
-          auditor_status:that.auditor_status
+          auditor_status:that.auditor_status,
+          page:that.page,
+          epage:that.epage
         }
         this.$ajax.getBaseMaterialList(params).then((res)=> {
             that.tableData = res.lists;
+            that.total = res.total;
         });
       },
         dateFormat:function(row, column){
@@ -249,9 +260,17 @@ export default {
           this.$router.push({
               path: 'MaterialEdit',
               query: {
-                  id: index
+                id: index
               }
           });
+      },
+      handleCurrentChange(e){
+        this.page = e;
+        this.getListData();
+      },
+      pageSizeChange(e){
+        this.epage = e;
+        this.getListData();
       },  
       choseDealer:function(e) {
 
@@ -262,7 +281,7 @@ export default {
       },
       downloadFile() {
         /* generate workbook object from table */
-         var wb = XLSX.utils.table_to_book(document.querySelector('#out-table'));
+         var wb = XLSX.utils.table_to_book(document.querySelector('#ExcelTable'));
          var times = this.$ajax.formatDate(new Date(),"yyyyMMddhhmm");
          /* get binary string as output */
          var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
@@ -290,7 +309,7 @@ export default {
     .el-row{
         width: 1000px;
     }
-    .el-input{
+    .barli-input{
         width: 216px;
     }
     .marginl10{
@@ -298,5 +317,8 @@ export default {
     }
     .main-form{
         padding: 10px 0;
+    }
+    .el-pagination{
+      text-align: right;
     }
 </style>

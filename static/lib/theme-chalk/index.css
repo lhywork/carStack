@@ -361,6 +361,7 @@
 }
 .el-pagination__sizes {
     margin: 0 10px 0 0;
+    float: left;
     font-weight: 400;
     color: #606266
 }
