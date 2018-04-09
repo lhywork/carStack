@@ -1,5 +1,6 @@
 // import { loginByUserInfo } from '../../api/login'
 import api from "../../api";
+
 const login = {
   state: {
   	username:sessionStorage.getItem('USERNAME'),
@@ -23,7 +24,7 @@ const login = {
   },
   actions: {
   	Logins({ commit }, params){
-  		return new Promise((resolve, reject) => {
+  		return new Promise((resolve, reject) => {         
           api.Login(params).then((res)=> {       
             if(res.returnCode == 1){
               commit('SET_USERNAME',params.username);  //将username和role进行存储
@@ -48,7 +49,6 @@ const login = {
           commit('SET_USERNAME','');
           commit('SET_ROLE','');
           commit('SET_NEWROUER',[]);
-          location.reload();
           sessionStorage.removeItem('USERNAME');
           sessionStorage.removeItem('ROLE');
           resolve();

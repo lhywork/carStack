@@ -13,24 +13,24 @@
               <el-col :span="6">
                 <el-input v-model="input" placeholder="输入姓名/手机号"></el-input>
               </el-col>                    
-                <el-button @click="handleScore()" class="marginl10" type="primary"><i class="el-icon-search"></i><span>搜索</span></el-button>             
+                <el-button class="marginl10" type="primary"><i class="el-icon-search"></i><span>搜索</span></el-button>             
             </el-row>         
         </div>
     </div>
     <div class="main-form">
         <el-table :data="tableData" style="width: 100%" height="500" >
-            <el-table-column prop="company_name" label="公司名称" show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="mobile" label="手机号码" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="addr_area" label="省份" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="dealer_type" label="是否同盟" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="grant_type" label="额度类型" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="risk_score" label="风控评分" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="grant_account" label="授权金额" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="use_account" label="已用额度" show-overflow-tooltip></el-table-column>
-            <el-table-column label="操作" min-width="240">
+            <el-table-column prop="company_name" label="公司名称" show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column prop="mobile" label="手机号码" show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column prop="addr_area" label="省份" show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column prop="dealer_type" label="是否同盟" show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column prop="grant_type" label="额度类型" show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column prop="risk_score" label="风控评分" show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column prop="grant_account" label="授权金额" show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column prop="use_account" label="已用额度" show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column label="操作" min-width="240" show-overflow-tooltip align="center">
                 <template slot-scope="scope">       
-                    <el-button @click="" type="primary" size="small">立即评分</el-button>
-                    <el-button @click="" type="success" size="small">查看</el-button>
+                    <el-button @click="handleScore()" type="primary" size="small">立即评分</el-button>
+                    <el-button @click="handleScore()" type="success" size="small">查看</el-button>
                     <el-button type="danger" size="small">编辑</el-button>
                 </template>
             </el-table-column>
@@ -217,11 +217,6 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .search-box {
-        padding: 10px 0;
-        border-bottom: solid 1px #dfe6ec;
-        line-height: 35px;
-    }
     .action-bar{
         padding: 10px 0;
     }
