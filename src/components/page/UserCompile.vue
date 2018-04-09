@@ -127,9 +127,9 @@
             adminRolesave(){
                 var self = this;
                 const params = {
-                    username:this.ruleForm.niname,
+                    username:this.ruleForm.phone,
                     password:this.password,
-                    niname:this.ruleForm.phone,
+                    niname:this.ruleForm.niname,
                     role_id:this.ruleForm.role
                 };
                 this.$ajax.adminRolesave(params).then((res)=> {

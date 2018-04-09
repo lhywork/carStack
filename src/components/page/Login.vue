@@ -4,10 +4,12 @@
         <div class="ms-login">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
                 <el-form-item prop="username">
-                    <el-input v-model="ruleForm.username" placeholder="请输入用户名"></el-input>
+                    <el-input type="text" v-model="ruleForm.username" placeholder="请输入用户名"></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input type="password" placeholder="请输入密码" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
+                    <div class="el-input">
+                        <input autocomplete="off" class="el-input__inner" type="password" v-model="ruleForm.password" placeholder="请输入密码" @keyup.enter.native="submitForm('ruleForm')">
+                    </div>
                 </el-form-item>
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
@@ -18,7 +20,7 @@
 </template>
 
 <script>
-    import md5 from 'js-md5'
+    import md5 from 'js-md5';   
     export default {
         data: function(){
             return {
@@ -38,11 +40,14 @@
         },
         methods: {
             submitForm(formName) {
-                const self = this;
-                self.ruleForm.password = md5('123456').toUpperCase();
+                const self = this;              
                 self.$refs[formName].validate((valid) => {
                     if (valid) {
-                        self.$store.dispatch('Logins',self.ruleForm).then(res => {
+                        const params = {
+                            username:self.ruleForm.username,
+                            password:md5(self.ruleForm.password).toUpperCase()
+                        };
+                        self.$store.dispatch('Logins',params).then(res => {
                             if(res.returnCode == 1){
                                 self.$router.push({ path: '/index' });
                             }else{
