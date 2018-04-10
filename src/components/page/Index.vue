@@ -14,7 +14,7 @@
               </el-col>
               <el-col :span="6">
                 <el-select v-model="shi" @change="choseCity" placeholder="选择市">
-                    <el-option v-for="item in shi1" :key="item.id" :label="item.value" :value="item.id"></el-option>
+                    <el-option v-for="item in shiArr" :key="item.value" :label="item.value" :value="item.id"></el-option>
                 </el-select>
               </el-col>
               <el-col :span="6">
@@ -83,15 +83,14 @@ export default {
   data () {  
     return {  
       mapJson:'../static/json/map.json',  
-      province:'',  
+      province:[],
+      city:[], 
+      block:[],  
       sheng: '',  
       shi: '',  
-      shi1: [],  
+      shiArr: [],  
       qu: '',  
-      qu1: [],  
-      city:'', 
-      block:'',
-      input:'',
+      quArr: [],  
       mobile:'',
       account_name:'',
       company_name:'',
@@ -142,12 +141,9 @@ export default {
       // 加载china地点数据，三级  
       getCityData(){  
         var that = this;  
-        this.$axios.get(this.mapJson).then(function(response){  
+        this.$axios.get(this.mapJson).then(function(response){
           if (response.status==200) {  
-            var data = response.data  
-            that.province = []  
-            that.city = []  
-            that.block = []  
+            var data = response.data   
             // 省市区数据分类  
             for (var item in data) {  
               if (item.match(/0000$/)) {//省  
@@ -173,7 +169,7 @@ export default {
                   that.city[item1].children.push(that.block[item2])  
                 }  
               }  
-            }  
+            } 
           }  
           else{  
             console.log(response.status)  
@@ -183,12 +179,13 @@ export default {
       // 选省  
       choseProvince(e) {  
         for (var index2 in this.province) {  
-          if (e === this.province[index2].id) {  
-            this.shi1 = this.province[index2].children  
+          if (e === this.province[index2].id) {
+            this.sheng = this.province[index2].value  
+            this.shiArr = this.province[index2].children  
             this.shi = this.province[index2].children[0].value  
-            this.qu1 =this.province[index2].children[0].children  
+            this.quArr =this.province[index2].children[0].children  
             this.qu = this.province[index2].children[0].children[0].value  
-            this.E = this.qu1[0].id  
+            this.E = this.quArr[0].id  
           }  
         }  
       },  
@@ -196,9 +193,9 @@ export default {
       choseCity(e) {  
         for (var index3 in this.city) {  
           if (e === this.city[index3].id) {  
-            this.qu1 = this.city[index3].children  
+            this.quArr = this.city[index3].children  
             this.qu = this.city[index3].children[0].value  
-            this.E = this.qu1[0].id  
+            this.E = this.quArr[0].id  
             // console.log(this.E)  
           }  
         }  
