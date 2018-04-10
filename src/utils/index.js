@@ -45,7 +45,17 @@ export const postData = (url, params) => {
   });
 };
 
-export function formatDate(date, fmt) {
+export function formatDate(time, fmt) {
+    if (arguments.length === 0) {
+      return null
+    }
+    let date
+    if (typeof time === 'object') {
+      date = time
+    } else {
+      if (('' + time).length === 10) time = parseInt(time) * 1000
+      date = new Date(time)
+    }
     if (/(y+)/.test(fmt)) {
         fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
     }

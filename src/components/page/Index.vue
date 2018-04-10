@@ -2,7 +2,7 @@
   <div class="main-content">
     <h2 class="main-title"><i class="fa fa-tags"></i>基础资料管理</h2>
     <div class="search-box">
-        <el-button type="primary" @click="handleAdd()"><i class="fa fa-plus-square-o"></i>新增</el-button>
+        <el-button type="primary" @click="handleAdd()" icon="fa fa-plus-square-o">新增</el-button>
     </div>
     <div class="action-bar">
         <div class="barli">
@@ -18,7 +18,7 @@
                 </el-select>
               </el-col>
               <el-col :span="6">
-                <el-select v-model="dealer" @change="choseDealer" placeholder="选择经销商类型">
+                <el-select v-model="dealer_type" @change="choseDealer" placeholder="选择经销商类型">
                     <el-option v-for="item in dealerarr" :key="item.id" :label="item.label" :value="item.value"></el-option>
                 </el-select>
               </el-col>
@@ -40,13 +40,13 @@
               <el-col :span="6">
                 <el-input class="barli-input" v-model="company_name" placeholder="公司名称"></el-input>
               </el-col>        
-                <el-button class="marginl10" type="primary"><i class="el-icon-search"></i><span>搜索</span></el-button>         
-                <el-button type="warning" @click="downloadFile()"><i class="el-icon-download"></i><span>导出excel</span></el-button>        
+                <el-button type="primary" icon="el-icon-search">搜索</el-button>         
+                <el-button type="warning" icon="el-icon-download" @click="handleDownload()" :loading="downloadLoading">导出excel</el-button>        
             </el-row>         
         </div>
     </div>
     <div class="main-form">
-        <el-table :data="tableData" style="width: 100%">
+        <el-table :data="tableData" style="width: 100%;min-height:335px;">
             <el-table-column prop="account_name" label="姓名"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="mobile" label="手机号码" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="company_name" label="公司名称" show-overflow-tooltip  align="center"></el-table-column>
@@ -67,24 +67,6 @@
                 <template slot-scope="scope">
                     <el-button @click="handleCheck(1)" type="success" size="small">查看</el-button>
                     <el-button @click="handleEdit(1)" type="danger" size="small">编辑</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-        <el-table :data="tableData" style="width: 100%;display:none;" id="ExcelTable">
-            <el-table-column prop="account_name" label="姓名"  show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="mobile" label="手机号码" show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="company_name" label="公司名称" show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="addr_area" label="地区" show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="dealer_type" label="同盟" show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="add_time" label="注册时间" :formatter="dateFormat" show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="account_status" label="账户状态" show-overflow-tooltip  align="center">
-                <template slot-scope="scope">
-                    {{ scope.row.account_status ? '已启用' : '未启用' }}
-                </template>
-            </el-table-column>
-            <el-table-column prop="auditor_status" label="审核状态" show-overflow-tooltip  align="center">
-                <template slot-scope="scope" >
-                    {{scope.row.auditor_status | filterFun }}
                 </template>
             </el-table-column>
         </el-table>
@@ -110,10 +92,10 @@ export default {
       city:'', 
       block:'',
       input:'',
-      dealer:'',
       mobile:'',
       account_name:'',
       company_name:'',
+      dealer_type:'',
       dealerarr:[{
           value: '1',
           label: '普通合伙人'
@@ -135,6 +117,7 @@ export default {
           value: '2',
           label: '审核失败'
         }],
+      downloadLoading:false,
       page:1,
       epage:5,
       total:1,
@@ -157,7 +140,7 @@ export default {
   },  
   methods:{  
       // 加载china地点数据，三级  
-      getCityData:function(){  
+      getCityData(){  
         var that = this;  
         this.$axios.get(this.mapJson).then(function(response){  
           if (response.status==200) {  
@@ -198,7 +181,7 @@ export default {
         }).catch(function(error){console.log(typeof+ error)})  
       },  
       // 选省  
-      choseProvince:function(e) {  
+      choseProvince(e) {  
         for (var index2 in this.province) {  
           if (e === this.province[index2].id) {  
             this.shi1 = this.province[index2].children  
@@ -210,7 +193,7 @@ export default {
         }  
       },  
       // 选市  
-      choseCity:function(e) {  
+      choseCity(e) {  
         for (var index3 in this.city) {  
           if (e === this.city[index3].id) {  
             this.qu1 = this.city[index3].children  
@@ -220,12 +203,12 @@ export default {
           }  
         }  
       },
-      getListData:function() {
+      getListData() {
         const that = this;
         const params = {
-          addr_province:'',
-          addr_city:'',
-          dealer_type:'',
+          addr_province:that.sheng,
+          addr_city:that.shi,
+          dealer_type:that.dealer_type,
           auditor_status:that.auditor_status,
           page:that.page,
           epage:that.epage
@@ -235,13 +218,22 @@ export default {
             that.total = res.total;
         });
       },
-        dateFormat:function(row, column){
-            var date = row[column.property];  
-            if (date == undefined) {  
-                return "";  
-            }  
-            return this.$ajax.formatDate(new Date(date*1000),"yyyy-MM-dd hh:mm:ss");
-        },
+      dateFormat(row, column){
+          var timestamp = row[column.property];  
+          if (timestamp == undefined) {  
+              return "";  
+          }  
+          return this.$ajax.formatDate(timestamp,"yyyy-MM-dd hh:mm:ss");
+      },
+      auditorFormat(value){
+          if(value == 0){
+            return "待审核";
+          }else if(value == 1){
+            return "审核成功";
+          }else{
+            return "审核失败";
+          }
+      },
       //点击添加
       handleAdd(){
         // sessionStorage.setItem('sub_title','添加课程');
@@ -273,22 +265,43 @@ export default {
         this.getListData();
       },  
       choseDealer:function(e) {
-
+        this.dealer_type = e;
+        this.getListData();
       },
       choseAudit:function(e) {
         this.auditor_status = e;
         this.getListData();  
       },
-      downloadFile() {
-        /* generate workbook object from table */
-         var wb = XLSX.utils.table_to_book(document.querySelector('#ExcelTable'));
-         var times = this.$ajax.formatDate(new Date(),"yyyyMMddhhmm");
-         /* get binary string as output */
-         var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
-         try {
-            FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), times+'_基础资料.xlsx')
-         } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
-         return wbout;
+      handleDownload() {
+        this.downloadLoading = true
+        import('@/vendor/Export2Excel').then(excel => {
+          const times = this.$ajax.formatDate(new Date(),"yyyyMMddhhmm");
+          const filename = times+'_基础资料'
+          const tHeader = ['姓名', '手机号码', '公司名称', '地区', '同盟', '操作时间', '账户状态','审核状态']
+          const filterVal = ['account_name', 'mobile', 'company_name', 'addr_area', 'dealer_type','add_time','account_status','auditor_status']
+          const tableData = this.tableData
+          const data = this.formatJson(filterVal, tableData)
+          excel.export_json_to_excel({
+            header: tHeader,
+            data,
+            filename: filename,
+            autoWidth: true
+          })
+          this.downloadLoading = false
+        })
+      },
+      formatJson(filterVal, jsonData) {
+        return jsonData.map(v => filterVal.map(j => {
+          if (j === 'add_time') {
+            return this.$ajax.formatDate(v[j],"yyyy-MM-dd hh:mm:ss")
+          } else if(j === 'account_status'){
+            return v[j] ? '已启用' : '未启用'
+          } else if(j === 'auditor_status'){
+            return this.auditorFormat(v[j])
+          }else {
+            return v[j]
+          }
+        }))
       }
     },  
     created:function(){  
@@ -311,9 +324,6 @@ export default {
     }
     .barli-input{
         width: 216px;
-    }
-    .marginl10{
-        margin-left:10px;
     }
     .main-form{
         padding: 10px 0;

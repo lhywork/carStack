@@ -1,24 +1,21 @@
 <template>
   <div class="main-content">
     <h2 class="main-title"><i class="fa fa-tags"></i>授权额度管理</h2>
-<!--     <div class="search-box">
-        <el-button type="primary" @click="handleAdd()"><i class="fa fa-plus-square-o"></i>新增</el-button>
-    </div> -->
     <div class="action-bar">
         <div class="barli">
             <el-row :gutter="20">
               <el-col :span="6">
-                <el-input v-model="input" placeholder="公司名称"></el-input>
+                <el-input v-model.trim="company_name" placeholder="公司名称"></el-input>
               </el-col>
               <el-col :span="6">
-                <el-input v-model="input" placeholder="输入姓名/手机号"></el-input>
+                <el-input v-model.trim="mobile" placeholder="输入姓名/手机号"></el-input>
               </el-col>                    
-                <el-button class="marginl10" type="primary"><i class="el-icon-search"></i><span>搜索</span></el-button>             
-            </el-row>         
+                <el-button @click="handSearch()" class="marginl10" type="primary" icon="el-icon-search">搜索</el-button>
+              </el-row>         
         </div>
     </div>
     <div class="main-form">
-        <el-table :data="tableData" style="width: 100%" height="500" >
+        <el-table :data="tableData" style="width: 100%;min-height:335px;"  >
             <el-table-column prop="company_name" label="公司名称" show-overflow-tooltip align="center"></el-table-column>
             <el-table-column prop="mobile" label="手机号码" show-overflow-tooltip align="center"></el-table-column>
             <el-table-column prop="addr_area" label="省份" show-overflow-tooltip align="center"></el-table-column>
@@ -77,6 +74,8 @@
           </div>
         </el-dialog>
     </div>
+    <el-pagination v-if="total" :page-size="epage" :page-sizes="[5, 10, 15, 20]" background layout="prev, sizes, pager, next" :total="total" @current-change="handleCurrentChange" @size-change="pageSizeChange">
+    </el-pagination>
   </div>
 </template>
 
@@ -93,31 +92,13 @@ export default {
       qu1: [],  
       city:'', 
       block:'',
-      input:'',
-      dealer:'',
-      dealerarr:[{
-          value: '1',
-          label: '普通合伙人'
-        }, {
-          value: '2',
-          label: '城市分栈'
-        }, {
-          value: '3',
-          label: '省栈同盟'
-      }],
-      audit:'',
-      auditarr: [{
-          value: '0',
-          label: '待审核'
-        }, {
-          value: '1',
-          label: '审核成功'
-        }, {
-          value: '2',
-          label: '审核失败'
-        }],
       AnnualFlowAmount:'2',
       dialogFormVisible: false,//编辑界面是否显示
+      company_name:'',
+      mobile:'',
+      page:1,
+      epage:5,
+      total:1,
       tableData:[]  
     }  
   },  
@@ -189,25 +170,31 @@ export default {
       getListData:function() {
         const that = this;
         const params = {
-            addr_province:'',
-            addr_city:'',
-            dealer_type:'',
-            auditor_status:''
+            company_name:that.company_name,
+            mobile:that.mobile,
+            page:that.page,
+            epage:that.epage
         }
         this.$ajax.getGrantMaterialList(params).then((res)=> {
             that.tableData = res.lists;
+            that.total = res.total;
         });
       },
       //点击评分
       handleScore(){
         this.dialogFormVisible = true;
-      },  
-      choseDealer:function(e) {
-
       },
-      choseAudit:function(e) {
-        // console.log(e)
-      } 
+      handleCurrentChange(e){
+        this.page = e;
+        this.getListData();
+      },
+      pageSizeChange(e){
+        this.epage = e;
+        this.getListData();
+      },  
+      handSearch:function() {
+        this.getListData();
+      }
     },  
     created:function(){  
       this.getCityData();
@@ -241,5 +228,8 @@ export default {
     }
     .el-radio+.el-radio {
         margin-left: 20px;
+    }
+    .el-pagination{
+      text-align: right;
     }
 </style>
