@@ -66,11 +66,11 @@ export default new Router({
             component: resolve => require(['@/components/page/Addobject.vue'], resolve)
         },{
             path: '/Firstobject',
-            name: '初审标的信息',
+            name: '标的初审',
             component: resolve => require(['@/components/page/Firstobject.vue'], resolve)
         },{
             path: '/Secondobject',
-            name: '标的审核',
+            name: '标的复审',
             component: resolve => require(['@/components/page/Secondobject.vue'], resolve)
         },{
             path: '/Thirdlyobject',

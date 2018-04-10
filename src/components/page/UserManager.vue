@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="main-form">
-        <el-table :data="tableData" style="width: 100%" height="500">
+        <el-table :data="tableData" style="width: 100%">
             <el-table-column prop="username" label="姓名"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="niname" label="手机号"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="role" label="角色"  show-overflow-tooltip  align="center"></el-table-column>
@@ -34,7 +34,7 @@
     </div>
     <el-row :gutter="24">
         <el-col :span="24">
-            <el-pagination background layout="prev, pager, next" v-model="total" :total=total class="page1" :page-size="epage" :current-page="page" @current-change="handleCurrentChange"></el-pagination>
+            <el-pagination background layout="prev, pager, next" v-model="total" :total="total" class="page1" :page-size="epage" :current-page="page" @current-change="handleCurrentChange"></el-pagination>
         </el-col>
     </el-row>
   </div>
@@ -46,7 +46,7 @@
                 title: "用户管理",
                 tableData:[],
                 page:1,
-                epage:8,
+                epage:5,
                 total:1,
                 username:'',
                 niname:''
