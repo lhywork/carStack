@@ -41,6 +41,31 @@ const asyncRoute = [
         }]
     },{
         path: '/',
+        name: '产品管理',
+        iconCls:'fa-inbox',
+        component: Home,
+        children: [{
+            path: '/LoanList',
+            name: '借款产品管理',
+            component: resolve => require(['@/components/page/LoanList.vue'], resolve)
+        },{
+            path: '/LoanAdd',
+            name: '新增借款产品',
+            hidden: true,
+            component: resolve => require(['@/components/page/LoanAdd.vue'], resolve)
+        },{
+            path: '/LoanCheck',
+            name: '查看借款产品',
+            hidden: true,
+            component: resolve => require(['@/components/page/LoanCheck.vue'], resolve)
+        },{
+            path: '/LoanEdit',
+            name: '编辑借款产品',
+            hidden: true,
+            component: resolve => require(['@/components/page/LoanEdit.vue'], resolve)
+        }]
+    },{
+        path: '/',
         name: '标的管理',
         iconCls:'fa-inbox',
         component: Home,
@@ -80,31 +105,6 @@ const asyncRoute = [
             name: '真实借款金额审核',
             hidden: true,
             component: resolve => require(['@/components/page/TobjectC.vue'], resolve)
-        }]
-    },{
-        path: '/',
-        name: '产品管理',
-        iconCls:'fa-inbox',
-        component: Home,
-        children: [{
-            path: '/LoanList',
-            name: '借款产品管理',
-            component: resolve => require(['@/components/page/Allobject.vue'], resolve)
-        },{
-            path: '/LoanAdd',
-            name: '新增借款产品',
-            hidden: true,
-            component: resolve => require(['@/components/page/Addobject.vue'], resolve)
-        },{
-            path: '/LoanCheck',
-            name: '查看借款产品',
-            hidden: true,
-            component: resolve => require(['@/components/page/Firstobject.vue'], resolve)
-        },{
-            path: '/LoanEdit',
-            name: '编辑借款产品',
-            hidden: true,
-            component: resolve => require(['@/components/page/Secondobject.vue'], resolve)
         }]
     },{
         path: '/',

@@ -240,7 +240,10 @@ export default {
           }  
         }  
     },  
-  methods:{  
+    methods:{
+      getData(){
+        console.log(this.$route.query.id)
+      },  
       // 加载china地点数据，三级  
       getCityData(){  
         var that = this;  
@@ -358,6 +361,11 @@ export default {
     created:function(){  
       this.getCityData();
       this.getBaseMaterial(); 
+    },
+    watch:{
+      '$route'(to,from){
+        this.getData();
+      }
     }  
 }  
 </script>
