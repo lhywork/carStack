@@ -156,7 +156,7 @@ function routerMatch(permission, router){
                         // console.log(item.path)
                        if((j.path == item.path) && item.isAuth){
                         // s.meta.permission = item.permission
-                            asyncLayout[0].children.push(j)
+                            asyncLayout.push(j)
                             return
                         } 
                     })                   
@@ -192,8 +192,8 @@ router.beforeEach((to, from, next) => {
                 store.dispatch('getPermission').then(res => {
                     // 匹配并生成需要添加的路由对象
                     routerMatch(res.data, asyncRoute).then(res => {
-                        // console.log(res)
-                        router.addRoutes(res)
+                        console.log(asyncRoute)
+                        router.addRoutes(asyncRoute)
                         router.addRoutes(redirectRoute)
                         next(to.path)
                     })

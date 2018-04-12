@@ -1,128 +1,154 @@
 <template>
-  <div class="main-content">
-    <h2 class="main-title"><i class="fa fa-tags"></i>用户管理</h2>
-    <div class="search-box">
-        <el-button type="primary" @click="handleAdd()"><i class="fa fa-plus-square-o"></i>新增</el-button>
-    </div>
-    <div class="addo_contentall">
-        <div class="addo_content">
-            <el-row :gutter="24">
-                <el-col :span="8">
-                    <el-input  placeholder="用户姓名" class="el-form-item__content" v-model="username"></el-input>
-                </el-col>
-                <el-col :span="8">
-                    <el-input  placeholder="手机号" class="el-form-item__content" v-model="niname"></el-input>
-                </el-col>
-                <el-col :span="8">
-                    <el-button type="primary" @click="handleQuery()">查询</el-button>
-                </el-col>
-            </el-row>
+    <div class="main-content">
+        <h2 class="main-title"><i class="fa fa-tags"></i>新增借款产品</h2>
+        <div class="main-form">
+            <el-form class="loan-form" ref="form" :model="form" label-width="120px">
+                <el-form-item label="借款产品名称">
+                    <el-input v-model="form.name" placeholder="请输入借款产品名称"></el-input>
+                </el-form-item>
+                <el-form-item label="提前还款">
+                    <el-radio-group v-model="form.if_forward">
+                      <el-radio label="true">能</el-radio>
+                      <el-radio label="false">不能</el-radio>
+                    </el-radio-group>
+                </el-form-item>
+            </el-form>
+            <el-table :data="form.tableData" style="width: 100%">
+                <el-table-column
+                    label="期限（月）"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-input v-model="scope.row.term_day"></el-input>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="日利率"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-input v-model="scope.row.apr_day"></el-input>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="基础年化利率"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-input v-model="scope.row.apr_year"></el-input>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="杂费项1"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-input v-model="scope.row.incidental1"></el-input>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="杂费项2"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-input v-model="scope.row.incidental2"></el-input>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="杂费项3"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-input v-model="scope.row.incidental3"></el-input>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="杂费项4"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-input v-model="scope.row.incidental4"></el-input>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="操作"
+                    align="center">
+                    <template slot-scope="scope">
+                       <el-button @click="handleDel(scope.$index)" type="danger" size="small">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <div class="add-data" @click="handleAdd"><i class="el-icon-plus"></i>添加子产品</div>
+            <el-button @click="SubmitBtn()" class="form-submit" type="success">确认提交</el-button>
         </div>
     </div>
-    <div class="main-form">
-        <el-table :data="tableData" style="width: 100%">
-            <el-table-column prop="username" label="姓名"  show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="niname" label="手机号"  show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="role" label="角色"  show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column label="操作"  show-overflow-tooltip  align="center">
-                <template slot-scope="scope">
-                    <el-button type="success" size="small" @click="handleEdit(scope.row.id)">编辑</el-button>
-                    <el-button type="danger" size="small" @click="handleDelete(scope.row.id)">删除</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-    </div>
-    <el-row :gutter="24">
-        <el-col :span="24">
-            <el-pagination background layout="prev, pager, next" v-model="total" :total="total" class="page1" :page-size="epage" :current-page="page" @current-change="handleCurrentChange"></el-pagination>
-        </el-col>
-    </el-row>
-  </div>
 </template>
 <script>
     export default {
         data() {
             return {
-                title: "用户管理",
-                tableData:[],
-                page:1,
-                epage:5,
-                total:1,
-                username:'',
-                niname:''
+                form:{
+                    name:'',
+                    if_forward:"true",
+                    tableData:[{
+                        term_day:'',
+                        apr_day:'',
+                        incidental1:'',
+                        incidental2:'',
+                        incidental3:'',
+                        incidental4:''
+                    }]
+                },            
             }
         },
         methods: {
-            handleAdd:function(){
-                const self = this;
-                self.$router.push('/UserAdd');
+            handleDel(index){
+                if (index !== 0) {
+                   this.form.tableData.splice(index, 1)
+                }else{
+                    this.$alert("不能删除,至少保留一栏","系统后台提示")
+                }
             },
-            getListData:function() {
-                const self = this;
-                const params = {
-                    username:self.username,
-                    niname:self.niname,
-                    page:self.page,
-                    epage:self.epage
-                };
-                self.$ajax.getAdminInfoList(params).then((res)=> {
-                    self.tableData = res.lists;
-                    self.total = parseInt(res.total);
-                    console.log(self.total)
+            handleAdd(){
+                this.form.tableData.push({
+                    term_day:'',
+                    apr_day:'',
+                    incidental1:'',
+                    incidental2:'',
+                    incidental3:'',
+                    incidental4:''
                 });
             },
-            handleEdit:function(e){
-                // console.log(e)
-                const self = this;
-                self.$router.push({
-                    name:'编辑用户',
-                    params:{id:e},
-                })
-            },
-            handleDelete:function(e){
-                const self = this;
-                self.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-                    type: 'warning'
-                }).then(() => {
-                    const params = {
-                        userid:e
-                    };
-                    self.$ajax.adminRoledelete(params).then((res)=> {
-                        if(res.returnCode == 1){
-                             self.getListData(); 
-                        }else{
-                            self.$alert(res.returnMsg,'系统提示')
-                        }
-                    });
-                }).catch(() => {         
-                });
-            },
-            handleCurrentChange:function(val){
-                var self = this;
-                self.page=val
-                self.getListData();
-            },
-            handleQuery:function(){
-                var self = this;
-                self.getListData();
+            SubmitBtn(){
+
             }
         },  
         created:function(){  
-          this.getListData();  
+          
         }
     }
 </script>
 
 <style scoped>
-    .addo_content{
-        width: 1000px;
-        margin: 10px 0 10px 0;
+    .main-form{  
+        margin: 10px 0 ;
     }
-    .el-pagination{
-        display: block;
-        margin: 0 auto;
+    .loan-form{
+        width: 460px;
     }
-    .page1{
+    .barli{
+        height: 40px;
+        line-height: 40px;
+    }
+    .add-data{
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        border: 1px dashed #c0ccda;
         text-align: center;
+        margin: 10px 0;
+        cursor: pointer;
+    }
+    .add-data:hover, .add-data:focus {
+        border-color: #409EFF;
+    }
+    .add-data i{
+        margin-right: 8px;
+    }
+    .form-submit{
+        float: right;      
     }
 </style>

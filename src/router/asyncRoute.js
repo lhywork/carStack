@@ -1,17 +1,17 @@
 import Home from '@/components/common/Home';
 
 const asyncLayout = [
-    {
-        path: '/',
-        redirect: '/index',
-        component: resolve => require(['@/components/common/Home.vue'], resolve),
-        children: []
-    }
+    // {
+    //     path: '/',
+    //     redirect: '/index',
+    //     component: resolve => require(['@/components/common/Home.vue'], resolve),
+    //     children: []
+    // }
 ]
 
 const asyncRoute = [
     {
-        path: '',
+        path: '/',
         name: '资产端管理',
         iconCls:'fa-money',
         component: Home,
