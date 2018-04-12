@@ -1,12 +1,12 @@
 import * as utils from '../utils';
 
-const base = 'http://192.168.1.222:8087';
-const admin = 'http://192.168.1.190:8087';
-
+export const base = 'http://192.168.1.222:8087';
+export const admin = 'http://192.168.1.190:8087';
 export default {
     formatDate: (date,fmt) => {
         return utils.formatDate(date,fmt);
     },
+    getBaseUrl:base,
     //获取资产端用户基础资料列表
     getBaseMaterialList : params => {
         return utils.getData(`${base}/asset/getBaseMaterialList`, params);
@@ -39,5 +39,9 @@ export default {
     adminRoledelete:params => {
         return utils.postData(`${admin}/adminRole/delete`, params);
     },
+    investmentPro:params => {
+        return utils.postData(`${admin}/targetInfo/save`, params);
+    },
 };
+
 

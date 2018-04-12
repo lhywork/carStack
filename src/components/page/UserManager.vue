@@ -76,7 +76,7 @@
                 const self = this;
                 self.$router.push({
                     name:'编辑用户',
-                    params:{id:e},
+                    query: {id:e}
                 })
             },
             handleDelete:function(e){
