@@ -31,22 +31,21 @@ export default {
         const that = this;
         const params = {};
         this.$ajax.getRoleInfoList(params).then((res)=> {
-            console.log(res)
+            // console.log(res)
             that.tableData = res.lists;
         });
       },
       //点击添加
       handleAdd(){
-        // sessionStorage.setItem('sub_title','添加课程');
         this.$router.push('/RoleAdd');
       },
       handleEdit(index){
-          this.$router.push({
-              path: 'MaterialEdit',
-              query: {
-                  id: index
-              }
-          });
+        this.$router.push({
+            path: 'MaterialEdit',
+            query: {
+                id: index
+            }
+        });
       }
     },  
     created:function(){  

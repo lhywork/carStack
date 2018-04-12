@@ -28,15 +28,15 @@ const login = {
   	Logins({ commit }, params){
   		return new Promise((resolve, reject) => {         
         api.Login(params).then((res)=> {       
-            if(res.returnCode == 1){
-              commit('SET_USERNAME',params.username);  //将username和role进行存储
-              commit('SET_USERID',res.userid); 
-            }
-            resolve(res);
-          });  		   
-        }).catch(error => {
+          if(res.returnCode == 1){
+            commit('SET_USERNAME',params.username);  //将username和role进行存储
+            commit('SET_USERID',res.userid); 
+          }
+          resolve(res);
+        }).catch(error => {       
           reject(error);
         });
+      });
   	},
   	Roles({ commit }, newrouter){
         return new Promise((resolve, reject) => {

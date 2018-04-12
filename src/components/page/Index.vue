@@ -52,7 +52,7 @@
             <el-table-column prop="company_name" label="公司名称" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="addr_area" label="地区" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="dealer_type" label="同盟" show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="add_time" label="注册时间" :formatter="dateFormat" show-overflow-tooltip  align="center"></el-table-column>
+            <el-table-column prop="add_time" label="操作时间" :formatter="dateFormat" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="account_status" label="账户状态" show-overflow-tooltip  align="center">
                 <template slot-scope="scope">
                     {{ scope.row.account_status ? '已启用' : '未启用' }}
@@ -65,13 +65,13 @@
             </el-table-column>
             <el-table-column label="操作" min-width="150" show-overflow-tooltip  align="center">
                 <template slot-scope="scope">
-                    <el-button @click="handleCheck(1)" type="success" size="small">查看</el-button>
-                    <el-button @click="handleEdit(1)" type="danger" size="small">编辑</el-button>
+                    <el-button @click="handleCheck(scope.row.account_no)" type="success" size="small">查看</el-button>
+                    <el-button @click="handleEdit(scope.row.account_no)" type="danger" size="small">编辑</el-button>
                 </template>
             </el-table-column>
         </el-table>
     </div>
-    <el-pagination :page-size="epage" :page-sizes="[5, 10, 15, 20]" background layout="prev, sizes, pager, next" :total="total" @current-change="handleCurrentChange" @size-change="pageSizeChange">
+    <el-pagination v-if="total" :page-size="epage" :page-sizes="[5, 10, 15, 20]" background layout="prev, sizes, pager, next" :total="total" @current-change="handleCurrentChange" @size-change="pageSizeChange">
     </el-pagination>
   </div>
 </template>
@@ -237,19 +237,19 @@ export default {
         this.$router.push('/MaterialAdd');
       },
       //点击查看
-      handleCheck(index){
+      handleCheck(id){
           this.$router.push({
               path: 'MaterialCheck',
               query: {
-                  id: index
+                id: id
               }
           });
       },
-      handleEdit(index){
+      handleEdit(id){
           this.$router.push({
-              path: 'MaterialEdit',
+              name: '编辑基础资料',
               query: {
-                id: index
+                id: id
               }
           });
       },

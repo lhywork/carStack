@@ -5,61 +5,63 @@
         <div class="main-form">
             <div id="J_Form" class="form-content">
                 <el-form :inline="true" :model="form" :label-position="'right'" label-width="130px" class="demo-form-inline">
-                    <el-form-item class="J-form-item" label="账号">
-                        <el-input class="form-input" v-model="form.user" placeholder="请输入账号"></el-input>
+                    <el-form-item class="J-form-item" label="姓名">
+                        <el-input class="form-input" v-model="form.account_name" placeholder="请输入真实姓名"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="Email地址">
-                        <el-input class="form-input" v-model="form.user" placeholder="请输入邮箱地址"></el-input>
-                    </el-form-item>
-                    <el-form-item class="J-form-item" label="密码">
-                        <el-input class="form-input" v-model="form.user" placeholder="请输入6位以上密码"></el-input>
+                        <el-input class="form-input" v-model="form.email" placeholder="请输入邮箱地址"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="手机号码">
-                        <el-input class="form-input" v-model="form.user" placeholder="请输入手机号码"></el-input>
-                    </el-form-item>
-                    <el-form-item class="J-form-item" label="姓名">
-                        <el-input class="form-input" v-model="form.user" placeholder="请输入真实姓名"></el-input>
-                    </el-form-item>
+                        <el-input class="form-input" v-model="form.mobile" placeholder="请输入手机号码"></el-input>
+                    </el-form-item>                   
                     <el-form-item class="J-form-item" label="固定电话">
-                        <el-input class="form-input" v-model="form.user" placeholder="请输入固定电话"></el-input>
+                        <el-input class="form-input" v-model="form.phone" placeholder="请输入固定电话"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="身份证号">
-                        <el-input class="form-input" v-model="form.user" placeholder="请输入二代身份证号码"></el-input>
+                        <el-input class="form-input" v-model="form.id_no" placeholder="请输入二代身份证号码"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item card-laber-item" label="身份证照片">
                     </el-form-item>
                     <el-form-item class="J-form-item card-laber-item" label="公司地址">
-                        <el-select class="select-item" v-model="sheng" @change="choseProvince" placeholder="选择省份">
+                        <el-select class="select-item" v-model="form.addr_province" @change="choseProvince" placeholder="选择省份">
                             <el-option v-for="item in province" :key="item.id" :label="item.value" :value="item.id"></el-option>
                         </el-select>
-                        <el-select class="select-item" v-model="shi" @change="choseCity" placeholder="选择市">
-                            <el-option v-for="item in shi1" :key="item.id" :label="item.value" :value="item.id"></el-option>
+                        <el-select class="select-item" v-model="form.addr_city" @change="choseCity" placeholder="选择市">
+                            <el-option v-for="item in shiArr" :key="item.id" :label="item.value" :value="item.id"></el-option>
                         </el-select>
-                        <el-input class="address-input" v-model="form.user" placeholder="请输入详细地址"></el-input>
+                        <el-input class="address-input" v-model="form.addr_area" placeholder="请输入详细地址"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item card-item" label="">
                         <template>
                             <div class="card-box">
                                 <div class="card-left">
-                                    <el-upload class="card-border" action="http://192.168.1.222:8087/file/uploadPic"
-                                      :show-file-list="false"
-                                      :on-success="handleAvatarSuccess"
-                                      :before-upload="beforeAvatarUpload" :accept="'image/gif,image/jpeg,image/jpg,image/png'">
-                                      <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                                      <i v-else class="plus-icon el-icon-plus"></i>
+                                    <el-upload class="card-border" name="uploadfile"
+                                        accept="image/gif,image/jpeg,image/jpg,image/png"
+                                        list-type="picture-card"
+                                        :action="uploadUrl"                                        
+                                        :data="uploadData"
+                                        :before-upload="beforeUpload"
+                                        :on-preview="handlePreview">
+                                        <i class="plus-icon el-icon-plus"></i>
                                     </el-upload>
+                                    <el-dialog :visible.sync="dialogVisible">
+                                        <img width="100%" :src="dialogImageUrl" alt="">
+                                    </el-dialog>
                                     <p>（身份证正面）</p>   
                                 </div>
                                 <div class="card-right">
-                                    <div class="card-border">
-                                        <el-upload class="card-border" action="http://192.168.1.222:8087/file/uploadPic"
-                                          :show-file-list="false"
-                                          :on-success="handleAvatarSuccess"
-                                          :before-upload="beforeAvatarUpload" :accept="'image/gif,image/jpeg,image/jpg,image/png'">
-                                          <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                                          <i v-else class="plus-icon el-icon-plus"></i>
-                                        </el-upload>
-                                    </div>
+                                    <el-upload class="card-border" name="uploadfile"
+                                        accept="image/gif,image/jpeg,image/jpg,image/png"
+                                        list-type="picture-card"
+                                        :action="uploadUrl"                                      
+                                        :data="uploadData"
+                                        :before-upload="beforeUpload"
+                                        :on-preview="handlePreview">
+                                        <i class="plus-icon el-icon-plus"></i>
+                                    </el-upload>
+                                    <el-dialog :visible.sync="dialogVisible">
+                                        <img width="100%" :src="dialogImageUrl" alt="">
+                                    </el-dialog>
                                     <p>（身份证反面）</p> 
                                 </div>
                             </div>
@@ -81,22 +83,22 @@
             <div id="J_Form" class="form-content">
                 <el-form :inline="true" :model="form" :label-position="'right'" label-width="130px" class="demo-form-inline">
                     <el-form-item class="J-form-item" label="公司名称">
-                        <el-input class="form-input" v-model="form.user" placeholder="请输入公司名称"></el-input>
+                        <el-input class="form-input" v-model="form.company_name" placeholder="请输入公司名称"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="经营年限">
-                        <el-input class="form-input" v-model="form.user" placeholder="请输入经营年限"></el-input>
+                        <el-input class="form-input" v-model="form.run_life" placeholder="请输入经营年限"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item block-item" label="公司简介">
-                        <el-input class="form-textarea" type="textarea" v-model="form.user"></el-input>
+                        <el-input class="form-textarea" type="textarea" v-model="form.company_des"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item block-item" label="分栈名称">
-                        <el-input class="form-input" v-model="form.user" placeholder="请输入分栈名称"></el-input>
+                        <el-input class="form-input" v-model="form.stack_name" placeholder="请输入分栈名称"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item block-item" label="分栈介绍">
-                        <el-input class="form-textarea" type="textarea" v-model="form.user"></el-input>
+                        <el-input class="form-textarea" type="textarea" v-model="form.stack_des"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item block-item" label="公司合同显示名称">
-                        <el-input class="form-input" v-model="form.user" placeholder="请输入公司合同显示名称"></el-input>
+                        <el-input class="form-input" v-model="form.company_use_name" placeholder="请输入公司合同显示名称"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="车栈照片">
                         <div class="card-border">
@@ -153,13 +155,10 @@
                         <template>
                             <div class="card-box">
                                 <div class="card-left">
-                                    <!-- <div class="card-border">
-                                        <i class="plus-icon el-icon-plus"></i>
-                                    </div> -->
-                                    <el-upload class="card-border" action="http://192.168.1.222:8087/file/uploadPic"
+                                    <el-upload class="card-border" action="uploadUrl"
                                       :show-file-list="false"
-                                      :on-success="handleAvatarSuccess"
-                                      :before-upload="beforeAvatarUpload">
+                                      :on-success="handleSuccess"
+                                      :before-upload="beforeUpload">
                                       <img v-if="imageUrl" :src="imageUrl" class="avatar">
                                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                                     </el-upload>
@@ -184,7 +183,7 @@
             </div>
         </div>
     </div>
-    <el-button class="form-submit" type="success">确认提交</el-button>
+    <el-button @click="SubmitBtn()" class="form-submit" type="success">确认提交</el-button>
   </div>
 </template>
 <script>
@@ -192,13 +191,12 @@ export default {
     data () {  
         return {  
           mapJson:'../static/json/map.json',  
-          province:'',  
-          sheng: '',  
-          shi: '',  
-          shi1: [],  
+          province:[],
+          city:[], 
+          block:[],    
+          shiArr: [],  
           qu: '',  
-          qu1: [],  
-          city:'',
+          quArr: [],
           gx:'',
           imageUrl: '',
           isStack:'true',
@@ -213,21 +211,41 @@ export default {
               label: '夫妻'
           }], 
           form: {
-              user: '',
-              region: ''
-          } 
+              email: 'lhywork@aliyu.com',
+              account_name:'鑫荣1号',
+              mobile:"13335711774",
+              id_no:'362202199307164455',
+              phone:'400-8878288',
+              addr_province:'江西省',
+              addr_city:'南昌市',
+              addr_area:'某某某',
+              id_no_front:'http://192.168.1.222:8087/images/22/11_11_92F5C584FA680BBF742A2DADFCC07D0D.png',
+              id_no_back:'http://192.168.1.222:8087/images/22/11_11_92F5C584FA680BBF742A2DADFCC07D0D.png',
+              company_name:'微拍贷',
+              run_life:'3年',
+              company_des:'微拍贷隶属于上海佩辉金融信息服务有限公司。上海佩辉金融信息服务有限公司（简称“佩辉金服”）于2015年2月4日在上海金融街成立，并逐步在全国形成全国性的服务网络，分别在上海杭州设有办公地点。',
+              stack_name:'',
+              stack_des:'',
+              company_use_name:''
+          },
+          dialogImageUrl: '',
+          dialogVisible: false,
+          uploadUrl:'http://192.168.1.222:8087/file/uploadPic',
+          uploadData:{
+            tablename:'11',
+            cloumnname:'11',
+            linkno:'22',
+            moreFlag:true
+          }  
         }  
     },  
   methods:{  
       // 加载china地点数据，三级  
-      getCityData:function(){  
+      getCityData(){  
         var that = this;  
-        this.$axios.get(this.mapJson).then(function(response){  
+        this.$axios.get(this.mapJson).then(function(response){
           if (response.status==200) {  
-            var data = response.data  
-            that.province = []  
-            that.city = []  
-            that.block = []  
+            var data = response.data   
             // 省市区数据分类  
             for (var item in data) {  
               if (item.match(/0000$/)) {//省  
@@ -253,7 +271,7 @@ export default {
                   that.city[item1].children.push(that.block[item2])  
                 }  
               }  
-            }  
+            } 
           }  
           else{  
             console.log(response.status)  
@@ -261,65 +279,73 @@ export default {
         }).catch(function(error){console.log(typeof+ error)})  
       },  
       // 选省  
-      choseProvince:function(e) {  
+      choseProvince(e) {  
         for (var index2 in this.province) {  
-          if (e === this.province[index2].id) {  
-            this.shi1 = this.province[index2].children  
-            this.shi = this.province[index2].children[0].value  
-            this.qu1 =this.province[index2].children[0].children  
+          if (e === this.province[index2].id) {
+            this.form.addr_province = this.province[index2].value  
+            this.form.addr_city= this.province[index2].children[0].value  
+            this.shiArr = this.province[index2].children  
+            this.quArr =this.province[index2].children[0].children  
             this.qu = this.province[index2].children[0].children[0].value  
-            this.E = this.qu1[0].id  
+            this.E = this.quArr[0].id  
           }  
         }  
       },  
       // 选市  
-      choseCity:function(e) {  
+      choseCity(e) {  
         for (var index3 in this.city) {  
           if (e === this.city[index3].id) {  
-            this.qu1 = this.city[index3].children  
+            this.quArr = this.city[index3].children  
             this.qu = this.city[index3].children[0].value  
-            this.E = this.qu1[0].id  
+            this.E = this.quArr[0].id  
             // console.log(this.E)  
           }  
         }  
+      }, 
+      handlePreview(file) {
+        this.dialogImageUrl = file.url;
+        this.dialogVisible = true;
+        console.log(file.url)
       },
-      getListData:function() {
-        const that = this;
-        const params = {
-            addr_province:'',
-            addr_city:'',
-            dealer_type:'',
-            auditor_status:''
-        }
-        this.$ajax.getBaseMaterialList(params).then((res)=> {
-            that.tableData = res.lists;
-        });
-      },  
-      choseDealer:function(e) {
-
-      },
-      choseAudit:function(e) {
-        // console.log(e)
-      },
-      handleAvatarSuccess(res, file) {
+      handleSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
       },
-      beforeAvatarUpload(file) {
-        // const isJPG = file.type === 'image/jpeg';
+      SubmitBtn(){
+        const that = this;
+        const params = this.form;
+        that.$ajax.BaseMaterialSave(params).then((res)=> {
+          if(res.returnCode == 1){
+              that.$alert('新增成功！', '系统后台提示', {
+                confirmButtonText: '确定',
+                callback: action => {
+                  that.$router.push({ path: '/index' });
+                }
+              });
+          }else{
+              this.msgAlert(res.returnMsg);
+          }        
+        })
+      },
+      beforeUpload(file) {
+        const isJPG = /\.(gif|jpg|jpeg|png)$/.test(file.name);
         const isLt2M = file.size / 1024 / 1024 < 2;
-
-        // if (!isJPG) {
-        //   this.$message.error('上传头像图片只能是 JPG 格式!');
-        // }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
+        if(!isJPG){
+          this.msgAlert('上传图片只能是jpg/png/gif格式!');
         }
-        return isLt2M;
-      } 
+        else if (!isLt2M) {
+          this.msgAlert('上传图片大小不能超过 2MB!');
+        }else{
+            
+        }
+        return isJPG && isLt2M;
+      },
+      //系统消息提示
+      msgAlert(title){
+          this.$alert(title,'系统后台提示');
+      }, 
     },  
     created:function(){  
-      this.getCityData();
-      this.getListData();  
+      this.getCityData();  
     }  
 }  
 </script>
@@ -334,29 +360,30 @@ export default {
     .card-laber-item{
         width: 354px;
     }
-    .el-form--inline .card-item .el-form-item__content{
+    .card-item .el-form-item__content{
         display:block;
     }
+    .card-item{
+        margin-bottom: -50px;
+    }
     .card-box{
-        width: 300px;
-        height: 100px;
+        width: 310px;
+        height: 170px;
         overflow: hidden;
-        margin-left:50px;
+        margin-left:42px;
         color: #999; 
     }
     .card-left{
         width: 150px;
-        height: 100px;
+        height: 148px;
         text-align: center;     
         float: left;
     }
     .card-border{
-        width: 125px;
+        width: 148px;
         margin: 0 auto;
-        height: 70px;
+        height: 88px;
         line-height: 80px;
-        border-radius: 4px; 
-        border: 1px dashed #dcdfe6;
         text-align: center;
         cursor: pointer;
     }
@@ -365,7 +392,7 @@ export default {
     }
     .card-right{
         width: 150px;
-        height: 100px;
+        height: 148px;
         text-align: center;
         float: right;
     }

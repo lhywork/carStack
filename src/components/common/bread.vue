@@ -28,12 +28,12 @@ export default {
     },
     methods:{
         setSize() {
-            const win_size = {
-                width:(this.$store.state.menu.sidebar.opened)? this.$$lib_$(window).width()-180:this.$$lib_$(window).width()-35,
-                height:this.$$lib_$(window).height()-73
-            }
-            //将content部分的宽高，存入store中，
-            this.$store.dispatch('set_win_content',win_size);
+            // const win_size = {
+            //     width:(this.$store.state.menu.sidebar.opened)? this.$$lib_$(window).width()-180:this.$$lib_$(window).width()-35,
+            //     height:this.$$lib_$(window).height()-73
+            // }
+            // //将content部分的宽高，存入store中，
+            // this.$store.dispatch('set_win_content',win_size);
         },
         handleLefeMenu(){
             // this.$store.dispatch('setLeftCollapse');  // 折叠菜单
@@ -43,6 +43,7 @@ export default {
             // this.changeBarDirection = !this.changeBarDirection;
         },
         getBreadcrumb() {
+                console.log(this.$route.matched.filter(item => item.name))
             // 前三个，只拿数组[0]的值；
             // let matched = this.$route.matched.filter(item => item.name);
             // const first = matched[0];
@@ -52,12 +53,12 @@ export default {
             //     matched = [matched[0]];
             // }
             // this.levelList = matched;
-      }
+        }
     },
     watch: {
-      $route() {
+       $route() {
            this.getBreadcrumb();
-      }
+       }
     }
 }
 </script>

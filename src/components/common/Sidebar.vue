@@ -1,7 +1,7 @@
 <template>
     <div class="sidebar">
         <el-menu :default-active="$route.path" class="el-menu-vertical-demo" background-color="#324157" text-color="#fff" nique-opened router>
-            <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
+            <template v-for="(item,index) in navList" v-if="!item.hidden">
                 <el-submenu :index="index+''" v-if="!item.leaf">
                     <template slot="title"><i class="fa" :class="item.iconCls"></i>{{item.name}}</template>
                     <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
@@ -13,12 +13,18 @@
 </template>
 
 <script>
+    // import { mapState } from 'vuex'
     export default {
         data() {
             return {
+                navList:[]
             }
         },
-        computed:{
+        created() {
+            this.navList = this.$store.state.auth.permissionList.data;
+            // console.log(this.$store.state.auth.permissionList.data)
+        },
+        computed:{          
             onRoutes(){
                 return this.$route.path.replace('/','');
             } 
