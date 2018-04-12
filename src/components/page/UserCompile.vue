@@ -141,8 +141,9 @@
                     password:this.password,
                     niname:this.ruleForm.phone,
                     role_id:this.ruleForm.role,
-                    id:self.$route.params.id
+                    id:self.$route.query.id
                 };
+                console.log(self.$route.query.id);
                 this.$ajax.adminRolesave(params).then((res)=> {
                     if(res.returnCode == 1){
                         self.$router.push({ path: '/UserManager' });   
