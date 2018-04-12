@@ -52,6 +52,10 @@ export default {
     investmentPro:params => {
         return utils.postData(`${admin}/targetInfo/save`, params);
     },
+    //借款产品信息列表
+    getBorrowProList:params =>{
+        return utils.postData(`${admin}/borrowPro/getBorrowProList`, params);
+    }
 };
 
 
