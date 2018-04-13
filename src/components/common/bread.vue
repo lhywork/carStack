@@ -43,7 +43,8 @@ export default {
             // this.changeBarDirection = !this.changeBarDirection;
         },
         getBreadcrumb() {
-                console.log(this.$route.matched.filter(item => item.name))
+            console.log(this.$route)
+            // console.log(this.$route.matched.filter(item => item.name))
             // 前三个，只拿数组[0]的值；
             // let matched = this.$route.matched.filter(item => item.name);
             // const first = matched[0];
