@@ -1,17 +1,14 @@
 <template>
   <div class="main-content">
-    <h2 class="main-title"><i class="fa fa-tags"></i>用户管理</h2>
+    <h2 class="main-title"><i class="fa fa-tags"></i>借款产品管理</h2>
     <div class="search-box">
-        <el-button type="primary" @click="handleAdd()"><i class="fa fa-plus-square-o"></i>新增</el-button>
+        <el-button type="primary"><i class="fa fa-plus-square-o"></i>新增</el-button>
     </div>
     <div class="addo_contentall">
         <div class="addo_content">
             <el-row :gutter="24">
                 <el-col :span="8">
-                    <el-input  placeholder="用户姓名" class="el-form-item__content" v-model="username"></el-input>
-                </el-col>
-                <el-col :span="8">
-                    <el-input  placeholder="手机号" class="el-form-item__content" v-model="niname"></el-input>
+                    <el-input  placeholder="输入借款产品名称" class="el-form-item__content"></el-input>
                 </el-col>
                 <el-col :span="8">
                     <el-button type="primary" @click="handleQuery()">查询</el-button>
@@ -20,21 +17,35 @@
         </div>
     </div>
     <div class="main-form">
-        <el-table :data="tableData" style="width: 100%">
-            <el-table-column prop="username" label="姓名"  show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="niname" label="手机号"  show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="role" label="角色"  show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column label="操作"  show-overflow-tooltip  align="center">
+        <el-table  v-bind:data="tableData" style="width: 100%">
+            <el-table-column prop="name" label="借款产品名称"  show-overflow-tooltip  align="center"></el-table-column>
+            <el-table-column prop="if_forward" label="提前还款"  show-overflow-tooltip  align="center">
                 <template slot-scope="scope">
-                    <el-button type="success" size="small" @click="handleEdit(scope.row.id)">编辑</el-button>
-                    <el-button type="danger" size="small" @click="handleDelete(scope.row.id)">删除</el-button>
+                    {{ scope.row.if_forward ? '能' : '不能' }}
+                </template>
+            </el-table-column>
+            <el-table-column prop="status" label="状态"  show-overflow-tooltip  align="center">
+                <template slot-scope="scope">
+                    {{ scope.row.status=="1" ? '已上架' : '未上架' }}
+                </template>
+            </el-table-column>
+            <el-table-column prop="add_time" label="创建时间"  show-overflow-tooltip  align="center"></el-table-column>
+            <el-table-column prop="" label="操作" show-overflow-tooltip  align="center">
+                <template slot-scope="scope">
+                        <el-button type='primary' size='small' >查看</el-button>
+                        <el-button type='success' size='small'  v-if="scope.row.status === '0'">编辑</el-button>
+                        <el-button type='danger' size='small'  v-if="scope.row.status === '1'">下架</el-button>
+                        <el-button type='danger' size='small'  v-else-if="scope.row.status === '0'">上架</el-button> 
+                         
+                        
                 </template>
             </el-table-column>
         </el-table>
     </div>
     <el-row :gutter="24">
         <el-col :span="24">
-            <el-pagination background layout="prev, pager, next" v-model="total" :total="total" class="page1" :page-size="epage" :current-page="page" @current-change="handleCurrentChange"></el-pagination>
+            <el-pagination background layout="prev, pager, next" v-bind:total="total" class="page" :page-size="epage" :current-page="page" @current-change="handleCurrentChange"></el-pagination>
+            </el-pagination>
         </el-col>
     </el-row>
   </div>
@@ -45,70 +56,35 @@
             return {
                 title: "用户管理",
                 tableData:[],
+                name:'',
                 page:1,
-                epage:5,
+                epage:1,
                 total:1,
-                username:'',
-                niname:''
             }
         },
         methods: {
-            handleAdd:function(){
-                const self = this;
-                self.$router.push('/UserAdd');
-            },
-            getListData:function() {
+            getBorrowProList:function(){
                 const self = this;
                 const params = {
-                    username:self.username,
-                    niname:self.niname,
+                    name:self.name,
                     page:self.page,
                     epage:self.epage
-                };
-                self.$ajax.getAdminInfoList(params).then((res)=> {
-                    self.tableData = res.lists;
-                    self.total = parseInt(res.total);
-                    console.log(self.total)
+                }
+                this.$ajax.getBorrowProList(params).then((res)=> {
+                    this.total = res.total;
+                    this.tableData = res.lists;
+                    console.log(this.tableData)  
                 });
             },
-            handleEdit:function(e){
-                // console.log(e)
-                const self = this;
-                self.$router.push({
-                    name:'编辑用户',
-                    params:{id:e},
-                })
-            },
-            handleDelete:function(e){
-                const self = this;
-                self.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-                    type: 'warning'
-                }).then(() => {
-                    const params = {
-                        userid:e
-                    };
-                    self.$ajax.adminRoledelete(params).then((res)=> {
-                        if(res.returnCode == 1){
-                             self.getListData(); 
-                        }else{
-                            self.$alert(res.returnMsg,'系统提示')
-                        }
-                    });
-                }).catch(() => {         
-                });
-            },
-            handleCurrentChange:function(val){
+            handleCurrentChange:function(e){
                 var self = this;
-                self.page=val
-                self.getListData();
-            },
-            handleQuery:function(){
-                var self = this;
-                self.getListData();
+                this.page = e;
+                self.getBorrowProList();
             }
         },  
         created:function(){  
-          this.getListData();  
+            const self = this;
+            self.getBorrowProList();
         }
     }
 </script>
