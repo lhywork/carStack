@@ -2,7 +2,7 @@
   <div class="main-content">
     <h2 class="main-title"><i class="fa fa-tags"></i>借款产品管理</h2>
     <div class="search-box">
-        <el-button type="primary"><i class="fa fa-plus-square-o"></i>新增</el-button>
+        <el-button type="primary" @click="handleAdd()"><i class="fa fa-plus-square-o"></i>新增</el-button>
     </div>
     <div class="addo_contentall">
         <div class="addo_content">
@@ -80,6 +80,9 @@
                 var self = this;
                 this.page = e;
                 self.getBorrowProList();
+            },
+            handleAdd(){
+                this.$router.push('/LoanAdd');
             }
         },  
         created:function(){  

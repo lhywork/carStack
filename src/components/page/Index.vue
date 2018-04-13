@@ -233,7 +233,6 @@ export default {
       },
       //点击添加
       handleAdd(){
-        // sessionStorage.setItem('sub_title','添加课程');
         this.$router.push('/MaterialAdd');
       },
       //点击查看
