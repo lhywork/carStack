@@ -1,12 +1,7 @@
 import Home from '@/components/common/Home';
 
 const asyncLayout = [
-    // {
-    //     path: '/',
-    //     redirect: '/index',
-    //     component: resolve => require(['@/components/common/Home.vue'], resolve),
-    //     children: []
-    // }
+    
 ]
 
 const asyncRoute = [
@@ -16,9 +11,9 @@ const asyncRoute = [
         iconCls:'fa-money',
         component: Home,
         children: [{
-            path: '/index',
+            path: '/MaterialList',
             name: '基础资料管理',
-            component: resolve => require(['@/components/page/Index.vue'], resolve)
+            component: resolve => require(['@/components/page/MaterialList.vue'], resolve)
         },{
             path: '/MaterialAdd',
             name: '新增基础资料',
@@ -136,100 +131,13 @@ const asyncRoute = [
             component: resolve => require(['@/components/page/UserCompile.vue'], resolve)
         }]
     }
-    // {
-    //     path: '/MaterialAdd',
-    //     meta:{
-    //         permission:[]
-    //     },
-    //     component: resolve => require(['@/components/page/MaterialAdd.vue'], resolve)
-    // },
-    // {
-    //     path: '/MaterialCheck',
-    //     meta:{
-    //         permission:[]
-    //     },
-    //     component: resolve => require(['@/components/page/MaterialCheck.vue'], resolve)
-    // },
-    // {
-    //     path: '/MaterialEdit',
-    //     meta:{
-    //         permission:[]
-    //     },
-    //     component: resolve => require(['@/components/page/MaterialEdit.vue'], resolve)
-    // },
-    // {
-    //     path: '/GrantlimitList',
-    //     meta:{
-    //         permission:[]
-    //     },
-    //     component: resolve => require(['@/components/page/GrantlimitList.vue'], resolve)
-    // },
-    // {
-    //     path: '/Allobject',
-    //     meta:{
-    //         permission:[]
-    //     },
-    //     component: resolve => require(['@/components/page/Allobject.vue'], resolve)
-    // },
-    // {
-    //     path: '/Addobject',
-    //     meta:{
-    //         permission:[]
-    //     },
-    //     component: resolve => require(['@/components/page/Addobject.vue'], resolve)
-    // },
-    // {
-    //     path: '/Firstobject',
-    //     meta:{
-    //         permission:[]
-    //     },
-    //     component: resolve => require(['@/components/page/Firstobject.vue'], resolve)
-    // },
-    // {
-    //     path: '/Secondobject',
-    //     meta:{
-    //         permission:[]
-    //     },
-    //     component: resolve => require(['@/components/page/Secondobject.vue'], resolve)
-    // },
-    // {
-    //     path: '/Thirdlyobject',
-    //     meta:{
-    //         permission:[]
-    //     },
-    //     component: resolve => require(['@/components/page/Thirdlyobject.vue'], resolve)
-    // },
-    // {
-    //     path: '/UserManager',
-    //     meta:{
-    //         permission:[]
-    //     },
-    //     component: resolve => require(['@/components/page/UserManager.vue'], resolve)
-    // },
-    // {
-    //     path: '/UserAdd',
-    //     meta:{
-    //         permission:[]
-    //     },
-    //     component: resolve => require(['@/components/page/UserAdd.vue'], resolve)
-    // },
-    // {
-    //     path: '/RoleList',
-    //     meta:{
-    //         permission:[]
-    //     },
-    //     component: resolve => require(['@/components/page/RoleList.vue'], resolve)
-    // },
-    // {
-    //     path: '/RoleAdd',
-    //     meta:{
-    //         permission:[]
-    //     },
-    //     component: resolve => require(['@/components/page/RoleAdd.vue'], resolve)
-    // }
 ]
 
 const redirectRoute = [
+    {
+        path: '/index',
+        redirect: '/MaterialList'
+    },
     {
         path: '*',
         redirect: '/error/401'

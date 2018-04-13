@@ -1,113 +1,106 @@
 {   
     "data":[{
         "name":"资产端管理",
-        "iconCls":"fa-money",
+        "isAuth":true,
         "children": [{
             "name": "基础资料管理",
-            "path": "/index",
-            "hidden":false,
+            "path": "/MaterialList",
             "isAuth":true
         },{
             "name":"新增基础资料",
             "path": "/MaterialAdd",
-            "hidden":true,
             "isAuth":true
         }, {
             "name":"编辑基础资料",
             "path": "/MaterialEdit",
-            "hidden":true,
             "isAuth":true
         },{
             "name":"查看基础资料",
             "path": "/MaterialCheck",
-            "hidden":true,
             "isAuth":true
         },{
             "name": "授权额度管理",
             "path": "/GrantlimitList",
-            "hidden":false,
             "isAuth":true
         }]
     },{
         "name": "产品管理",
-        "iconCls":"fa-th-large",
+        "isAuth":true,
         "children": [{
             "name": "借款产品管理",
             "path": "/LoanList",
-            "hidden":false,
             "isAuth":true
         },{
             "name": "新增借款产品",
             "path": "/LoanAdd",          
-            "hidden":true,
             "isAuth":true
         },{    
             "name": "查看借款产品",
             "path": "/LoanCheck",
-            "hidden": true,
             "isAuth":true
         },{
             "name": "编辑借款产品",
             "path": "/LoanEdit",     
-            "hidden": true,
             "isAuth":true
         }]
     },{
         "name":"标的管理",
-        "iconCls":"fa-inbox",
+        "isAuth":true,
         "children": [{
-            "name": "所有标的",
             "path": "/Allobject",
-            "hidden":false,
+            "name": "所有标的",
             "isAuth":true
         },{
-            "name":"新增标的信息",
             "path": "/Addobject",
-            "hidden":true,
+            "name": "新增标的信息",
             "isAuth":true
-        }, {
-            "name":"标的初审",
+        },{
             "path": "/Firstobject",
-            "hidden":false,
+            "name": "标的初审",
             "isAuth":true
         },{
-            "name":"标的复审",
             "path": "/Secondobject",
-            "hidden":false,
+            "name": "标的复审",
             "isAuth":true
         },{
+            "path": "/Thirdlyobject",
             "name": "真实借款金额信息",
+            "isAuth":true
+        },{
+            "path": "/FobjectC",
+            "name": "初审标的审核",
+            "isAuth":true
+        },{
+            "path": "/SobjectC",
+            "name": "复审标的审核",
+            "isAuth":true
+        },{
             "path": "/TobjectC",
-            "hidden":false,
+            "name": "真实借款金额审核",
             "isAuth":true
         }]
     },{
         "name":"用户权限",
-        "iconCls":"fa-user",
+        "isAuth":true,
         "children": [{
             "name": "用户管理",
             "path": "/UserManager",
-            "hidden":false,
             "isAuth":true
         },{
             "name":"新增用户",
             "path": "/UserAdd",
-            "hidden":true,
             "isAuth":true
         }, {
             "name":"编辑用户",
             "path": "/UserCompile",
-            "hidden":true,
             "isAuth":true
         },{
             "name":"角色配置",
             "path": "/RoleList",
-            "hidden":false,
             "isAuth":true
         },{
             "name": "新增角色",
             "path": "/RoleAdd",
-            "hidden":true,
             "isAuth":true
         }]
     }]

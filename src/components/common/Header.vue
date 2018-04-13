@@ -47,6 +47,7 @@
                 }).then(() => {
                     self.$store.dispatch('Logout').then(() => {
                         self.$router.push({ path: '/login' });
+                        location.reload();
                     }).catch(err => {
                         self.$message.error(err);
                     });                  

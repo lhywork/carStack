@@ -7,8 +7,6 @@ import staticRoute from './staticRoute'
 import { asyncLayout, asyncRoute, redirectRoute} from './asyncRoute'
 import whiteList from './whiteList'
 
-
-
 /**
  * 根据返回的菜单列表确认异步路由
  * @param {array} permission 权限列表（菜单列表）
@@ -17,33 +15,43 @@ import whiteList from './whiteList'
 function routerMatch(permission, router){
     return new Promise((resolve) => {
         // 创建需要校验的参数数组
-        function addPermision(permission){
+        function addPermision(permission){           
             permission.forEach((item) => {
-                // console.log(item)
                 if(item.children && item.children.length){
                     // 递归
                     addPermision(item.children)
                 }
                 router.forEach((s) => {
-                    // console.log(s.children,'1',item,'2')
+                    if((s.name == item.name)){
+                        s.isAuth = item.isAuth;
+                    }
                     s.children.forEach((j) =>{
-                        // console.log(item.path)
-                       if((j.path == item.path) && item.isAuth){
-                        // s.meta.permission = item.permission
-                            asyncLayout.push(j)
+                       if((j.name == item.name)){
+                            // s.meta.permission = item.permission
+                            j.isAuth = item.isAuth;
                             return
                         } 
                     })                   
-                })
+                })           
             })
-        }
-        // asyncLayout[0].children = []
-        // console.log(asyncLayout)
+        }      
         addPermision(permission)
-        resolve(asyncLayout)
+        const asyncAccRouter = filterAsyncRouter(router);
+        resolve(asyncAccRouter)
     })
 }
-
+function filterAsyncRouter(asyncRouterMap){
+    const accessedRouters = asyncRouterMap.filter(item => {
+        if (item.isAuth) {          
+            if (item.children && item.children.length) {
+                item.children = filterAsyncRouter(item.children)
+            }
+            return true
+        }
+        return false
+    })
+    return accessedRouters
+}
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -58,7 +66,7 @@ router.beforeEach((to, from, next) => {
         // 如果当前处于登录状态，并且跳转地址为login，则自动跳回系统首页
         // 这种情况出现在手动修改地址栏地址时
         if (to.path === '/login') {
-            router.replace('/index')
+            router.replace('/')
         } else {
             // 页面跳转前先判断是否存在权限列表，如果存在则直接跳转，如果没有则请求一次
             if (store.state.auth.permissionList.length === 0) {
@@ -66,10 +74,10 @@ router.beforeEach((to, from, next) => {
                 store.dispatch('getPermission').then(res => {
                     // 匹配并生成需要添加的路由对象
                     routerMatch(res.data, asyncRoute).then(res => {
-                        console.log(to)
-                        router.addRoutes(asyncRoute)
+                        store.commit("setPermissionList",res)
+                        router.addRoutes(res)
                         router.addRoutes(redirectRoute)
-                        next(to.path)
+                        next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
                     })
                 })
             } else {
@@ -79,7 +87,7 @@ router.beforeEach((to, from, next) => {
     } else {
         // 如果是免登陆的页面则直接进入，否则跳转到登录页面
         if (whiteList.indexOf(to.path) >= 0) {
-            console.log('该页面无需登录即可访问')
+            // console.log('该页面无需登录即可访问')
             next()
         } else {
             router.replace('/login')
@@ -93,8 +101,8 @@ router.beforeEach((to, from, next) => {
     }
 })
 
-router.afterEach(() => {
-  
+router.afterEach((to, from, next) => {
+  // console.log(to)
 })
 
 export default router

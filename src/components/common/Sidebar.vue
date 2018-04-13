@@ -21,8 +21,8 @@
             }
         },
         created() {
-            this.navList = this.$store.state.auth.permissionList.data;
-            // console.log(this.$store.state.auth.permissionList.data)
+            this.navList = this.$store.state.auth.permissionList;
+            // console.log(this.$store.state.auth.permissionList)
         },
         computed:{          
             onRoutes(){

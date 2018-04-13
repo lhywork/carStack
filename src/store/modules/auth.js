@@ -24,7 +24,7 @@ const auth = {
                 }
               })            
             })
-            commit('setPermissionList',res); 
+            commit('setPermissionList',res.data); 
             resolve(res);
           });          
         }).catch(error => {
