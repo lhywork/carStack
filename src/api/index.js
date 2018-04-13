@@ -55,7 +55,16 @@ export default {
     //借款产品信息列表
     getBorrowProList:params =>{
         return utils.postData(`${admin}/borrowPro/getBorrowProList`, params);
+    },
+    //上架或下架借款产品
+    updateStatus:params =>{
+        return utils.postData(`${admin}/borrowPro/updateStatus`, params);
+    },
+    //新增/修改借款产品基础资料
+    borrowProSave:params =>{
+        return utils.postData(`${admin}/borrowPro/save`, params);
     }
+    
 };
 
 

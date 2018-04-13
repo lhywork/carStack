@@ -8,7 +8,7 @@
         <div class="addo_content">
             <el-row :gutter="24">
                 <el-col :span="8">
-                    <el-input  placeholder="输入借款产品名称" class="el-form-item__content"></el-input>
+                    <el-input  placeholder="输入借款产品名称" class="el-form-item__content" v-model="name"></el-input>
                 </el-col>
                 <el-col :span="8">
                     <el-button type="primary" @click="handleQuery()">查询</el-button>
@@ -26,25 +26,26 @@
             </el-table-column>
             <el-table-column prop="status" label="状态"  show-overflow-tooltip  align="center">
                 <template slot-scope="scope">
-                    {{ scope.row.status=="1" ? '已上架' : '未上架' }}
+                    <label for="payNumber" v-if="scope.row.status == '0'">未上架</label>
+                    <label for="payNumber" v-else-if="scope.row.status == '1'">已上架</label>
+                    <label for="payNumber" v-else="scope.row.status == '2'">已下架</label>
                 </template>
             </el-table-column>
-            <el-table-column prop="add_time" label="创建时间"  show-overflow-tooltip  align="center"></el-table-column>
+            <el-table-column prop="add_time" label="创建时间"  show-overflow-tooltip  align="center" v-bind:formatter="Addtime"></el-table-column>
             <el-table-column prop="" label="操作" show-overflow-tooltip  align="center">
                 <template slot-scope="scope">
                         <el-button type='primary' size='small' >查看</el-button>
                         <el-button type='success' size='small'  v-if="scope.row.status === '0'">编辑</el-button>
-                        <el-button type='danger' size='small'  v-if="scope.row.status === '1'">下架</el-button>
-                        <el-button type='danger' size='small'  v-else-if="scope.row.status === '0'">上架</el-button> 
-                         
-                        
+                        <el-button type='success' size='small'  v-if="scope.row.status === '2'">编辑</el-button>
+                        <el-button type='danger' size='small'  v-if="scope.row.status === '1'" @click="SoldOut(scope.row.id,scope.row.status)">下架</el-button>
+                        <el-button type='danger' size='small'  v-else @click="SoldUp(scope.row.id,scope.row.status)">上架</el-button>     
                 </template>
             </el-table-column>
         </el-table>
     </div>
     <el-row :gutter="24">
         <el-col :span="24">
-            <el-pagination background layout="prev, pager, next" v-bind:total="total" class="page" :page-size="epage" :current-page="page" @current-change="handleCurrentChange"></el-pagination>
+            <el-pagination background layout="prev, pager, next,sizes" v-bind:total="total" class="page" v-bind:page-size="epage" v-bind:current-page="page" @current-change="handleCurrentChange" v-bind:page-sizes="pagesizes" @size-change="handleSizeChange"></el-pagination>
             </el-pagination>
         </el-col>
     </el-row>
@@ -58,8 +59,10 @@
                 tableData:[],
                 name:'',
                 page:1,
-                epage:1,
+                epage:5,
                 total:1,
+                pagesizes:[5, 10, 15, 20],
+                status1:''
             }
         },
         methods: {
@@ -70,23 +73,77 @@
                     page:self.page,
                     epage:self.epage
                 }
-                this.$ajax.getBorrowProList(params).then((res)=> {
-                    this.total = res.total;
-                    this.tableData = res.lists;
-                    console.log(this.tableData)  
+                self.$ajax.getBorrowProList(params).then((res)=> {
+                    self.total = res.total;
+                    self.tableData = res.lists;  
                 });
             },
             handleCurrentChange:function(e){
-                var self = this;
+                const self = this;
                 this.page = e;
                 self.getBorrowProList();
             },
             handleAdd(){
                 this.$router.push('/LoanAdd');
-            }
-        },  
-        created:function(){  
-            const self = this;
+            },
+            handleSizeChange(e){
+                const self = this;
+                this.epage = e;
+                self.getBorrowProList();
+            },
+            handleQuery(){
+                const self = this;
+                self.getBorrowProList();
+            },
+            Addtime(row,column){
+                const self = this;
+                const date = row[column.property]; 
+                if (date == undefined) {  
+                     return "";  
+                }  
+                return self.$ajax.formatDate(date,"yyyy-MM-dd hh:mm:ss"); 
+            },
+            SoldOut(id,status){
+                const self = this;
+                if(status == 1){
+                    self.status1 = 2
+                }else{
+                    self.status1 = 1
+                }
+                const params = {
+                    id:id,
+                    status:self.status1,
+                }
+                self.$ajax.updateStatus(params).then((res)=> {
+                    if(res.returnCode == 1){
+                        self.getBorrowProList();  
+                    }else{
+                        self.$alert(res.returnMsg,'系统提示')
+                    }
+                });
+            },
+            SoldUp(id,status){
+                const self = this;
+                if(status == 1){
+                    self.status1 = 2
+                }else{
+                    self.status1 = 1
+                }
+                const params = {
+                    id:id,
+                    status:self.status1,
+                }
+                self.$ajax.updateStatus(params).then((res)=> {
+                    if(res.returnCode == 1){
+                        self.getBorrowProList();  
+                    }else{
+                        self.$alert(res.returnMsg,'系统提示')
+                    }
+                });
+            } 
+        }, 
+        created:function(){ 
+            const self = this; 
             self.getBorrowProList();
         }
     }
@@ -103,5 +160,8 @@
     }
     .page1{
         text-align: center;
+    }
+    .page{
+        text-align: right;
     }
 </style>

@@ -2,14 +2,14 @@
     <div class="main-content">
         <h2 class="main-title"><i class="fa fa-tags"></i>新增借款产品</h2>
         <div class="main-form">
-            <el-form class="loan-form" ref="form" :model="form" label-width="120px">
-                <el-form-item label="借款产品名称">
+            <el-form class="loan-form" :model="form" :rules="rules" ref="form" label-width="120px">
+                <el-form-item label="借款产品名称" prop="name">
                     <el-input v-model="form.name" placeholder="请输入借款产品名称"></el-input>
                 </el-form-item>
                 <el-form-item label="提前还款">
                     <el-radio-group v-model="form.if_forward">
-                      <el-radio label="true">能</el-radio>
-                      <el-radio label="false">不能</el-radio>
+                      <el-radio label="1">能</el-radio>
+                      <el-radio label="0">不能</el-radio>
                     </el-radio-group>
                 </el-form-item>
             </el-form>
@@ -72,7 +72,7 @@
                 </el-table-column>
             </el-table>
             <div class="add-data" @click="handleAdd"><i class="el-icon-plus"></i>添加子产品</div>
-            <el-button @click="SubmitBtn()" class="form-submit" type="success">确认提交</el-button>
+            <el-button @click="SubmitBtn('form')" class="form-submit" type="success">确认提交</el-button>
         </div>
     </div>
 </template>
@@ -82,7 +82,7 @@
             return {
                 form:{
                     name:'',
-                    if_forward:"true",
+                    if_forward:"1",
                     tableData:[{
                         term_day:'',
                         apr_day:'',
@@ -90,19 +90,27 @@
                         incidental2:'',
                         incidental3:'',
                         incidental4:''
-                    }]
+                    }],
+                    
+                },
+                rules:{
+                    name:[
+                        { required: true, message: '请输入借款产品名称', trigger: 'blur' },
+                    ],
                 },            
             }
         },
         methods: {
             handleDel(index){
-                if (index !== 0) {
+                var self = this;
+                if (self.form.tableData.length !== '1' && parseInt(self.form.tableData.length)> 1) {
                    this.form.tableData.splice(index, 1)
                 }else{
                     this.$alert("不能删除,至少保留一栏","系统后台提示")
                 }
             },
             handleAdd(){
+                var self = this;
                 this.form.tableData.push({
                     term_day:'',
                     apr_day:'',
@@ -112,9 +120,19 @@
                     incidental4:''
                 });
             },
-            SubmitBtn(){
-
-            }
+            SubmitBtn(formName){
+                const self = this;
+                self.$refs[formName].validate((valid) => {
+                    console.log(self.$refs[formName])
+                    if (valid) {
+                        console.log(11133)
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            
         },  
         created:function(){  
           
