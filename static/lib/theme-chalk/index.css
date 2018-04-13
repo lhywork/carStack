@@ -863,7 +863,7 @@
 }
 .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
     border-bottom: 2px solid #409EFF;
-    color: #303133
+    color: #409EFF
 }
 .el-menu--horizontal>.el-submenu .el-submenu__title {
     height: 60px;
@@ -880,21 +880,21 @@
 .el-menu--horizontal .el-menu .el-menu-item, .el-menu--horizontal .el-menu .el-submenu__title {
     background-color: #fff;
     float: none;
-    height: 36px;
-    line-height: 36px;
-    padding: 0 10px;
+    height: 44px;
+    line-height: 44px;
+    padding: 0 20px;
     color: #909399
 }
 .el-menu--horizontal .el-menu .el-menu-item.is-active, .el-menu--horizontal .el-menu .el-submenu__title.is-active {
-    color: #303133
+    color: #409EFF
 }
 .el-menu--horizontal .el-menu-item:not(.is-disabled):focus, .el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
     outline: 0;
-    color: #303133
+    color: #409EFF
 }
 .el-menu--horizontal>.el-menu-item.is-active {
     border-bottom: 2px solid #409EFF;
-    color: #303133
+    color: #409EFF
 }
 .el-menu--collapse {
     width: 64px

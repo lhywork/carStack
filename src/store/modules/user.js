@@ -1,12 +1,11 @@
 // import { loginByUserInfo } from '../../api/login'
 import api from "../../api";
 
-const login = {
+const user = {
   state: {
   	username:sessionStorage.getItem('USERNAME'),
     userid:sessionStorage.getItem('USERID'),
-  	role:'',
-  	newrouter:[],
+  	navbarPosition:sessionStorage.getItem('THEME') || 'left'
   },
   mutations: {
   	SET_USERNAME:(state, username) => {
@@ -17,12 +16,12 @@ const login = {
       sessionStorage.setItem('USERID', userid);
       state.userid = userid;
     },
-  	SET_ROLE:(state, role) => {
-  		state.role = role;
-  	},
-  	SET_NEWROUER:(state, newrouter) =>{
-  		state.newrouter = newrouter;
-  	},
+    SET_LAYOUT(state, theme){
+      if(theme){
+        sessionStorage.setItem('THEME', theme);
+        state.navbarPosition = theme
+      }
+    }
   },
   actions: {
   	Logins({ commit }, params){
@@ -38,20 +37,10 @@ const login = {
         });
       });
   	},
-  	Roles({ commit }, newrouter){
-        return new Promise((resolve, reject) => {
-      		commit('SET_NEWROUER',newrouter); //存储最新路由
-      		resolve(newrouter);
-        }).catch(error => {
-          reject(error);
-        });
-  	},
   	Logout({ commit, state }) {
       return new Promise((resolve, reject) => {     
           commit('SET_USERNAME','');
           commit('SET_USERID','');
-          commit('SET_ROLE','');
-          commit('SET_NEWROUER',[]);
           sessionStorage.removeItem('USERNAME');
           sessionStorage.removeItem('USERID');
           resolve();
@@ -62,4 +51,4 @@ const login = {
 
   }
 }
-export default login;
+export default user;

@@ -1,6 +1,6 @@
 <template>
-    <div class="sidebar">
-        <el-menu :default-active="$route.path" class="el-menu-vertical-demo" background-color="#324157" text-color="#fff" nique-opened router>
+    <div class="sidebar" :class="layout">
+        <el-menu :default-active="$route.path" :mode="navMode" class="el-menu-vertical-demo" background-color="#324157" text-color="#fff" nique-opened router>
             <template v-for="(item,index) in navList" v-if="!item.hidden">
                 <el-submenu :index="index+''" v-if="!item.leaf">
                     <template slot="title"><i class="fa" :class="item.iconCls"></i>{{item.name}}</template>
@@ -13,27 +13,35 @@
 </template>
 
 <script>
-    // import { mapState } from 'vuex'
+    import { mapState } from 'vuex'
     export default {
         data() {
             return {
-                navList:[]
+
             }
         },
-        created() {
-            this.navList = this.$store.state.auth.permissionList;
-            // console.log(this.$store.state.auth.permissionList)
-        },
-        computed:{          
+        props: ['layout'],
+        computed:{
+            ...mapState({
+                navList: state => state.auth.permissionList
+            }),          
             onRoutes(){
                 return this.$route.path.replace('/','');
+            },
+            navMode(){
+                if(this.layout == "left"){
+                    return "vertical"
+                }
+                if(this.layout == "top"){
+                    return "horizontal"
+                }
             } 
         }
     }
 </script>
 
 <style scoped>
-    .sidebar{
+    .sidebar.left{
         display: block;
         position: absolute;
         width: 180px;
@@ -42,6 +50,10 @@
         bottom:0;
         background: #2E363F;
         font-size: 14px;
+    }
+    .sidebar.top {
+        float: left;
+        margin-left: 20px;
     }
     .el-menu {
         border: none;

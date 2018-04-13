@@ -1,37 +1,30 @@
 <template>
-    <el-col :span="24" class="header">
-        <el-col :span="10" class="logo" :class="collapsed?'logo-collapse-width':'logo-width'">
-            {{collapsed?'':sysName}}
-        </el-col>
-        <el-col :span="10">
-            <!-- <div class="tools" @click.prevent="collapse">
-                <i class="fa fa-align-justify"></i>
-            </div> -->
-        </el-col>
-        <el-col :span="4" class="userinfo">
+    <div class="header">
+        <div class="logo">{{sysName}}</div>
+        <slot name="topnav"></slot>
+        <div class="userinfo">
             <el-dropdown trigger="click">
                 <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item>我的消息</el-dropdown-item>
-                    <el-dropdown-item>设置</el-dropdown-item>
+                    <el-dropdown-item divided @click.native="changeTheme">切换布局</el-dropdown-item>
                     <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
-        </el-col>
-    </el-col>
+        </div>
+    </div>
 </template>
 <script>
     export default {
         data() {
             return {
-                collapsed:false,
                 sysName:'车栈金融后台管理',
                 sysUserAvatar:'../../../static/img/img.jpg',
                 sysUserName: ''
             }
         },
         created() {
-            var user = this.$store.state.login;
+            var user = this.$store.state.user;
             if (user.username) {
                 this.sysUserName = user.username || '';
                 this.sysUserAvatar = user.avatar || this.sysUserAvatar;
@@ -52,6 +45,10 @@
                         self.$message.error(err);
                     });                  
                 });
+            },
+            changeTheme(){
+                var navbarPosition = this.$store.state.user.navbarPosition == 'left' ? 'top' : 'left';
+                this.$store.commit("SET_LAYOUT", navbarPosition)
             }
         }
     }

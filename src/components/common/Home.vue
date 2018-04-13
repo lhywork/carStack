@@ -1,21 +1,41 @@
 <template>
     <div class="wrapper">
-        <v-head></v-head>
-        <v-sidebar></v-sidebar>
-        <div class="content">
-            <bread></bread>
-            <transition name="fade" mode="out-in">><router-view></router-view></transition>
+        <template v-if="layout =='left'">
+            <v-header></v-header>
+            <v-sidebar :layout="layout"></v-sidebar>
+        </template>
+        <template v-if="layout == 'top'">
+            <v-header>
+                <template slot="topnav">
+                    <v-sidebar :layout="layout"></v-sidebar>
+                </template>
+            </v-header>
+        </template>
+        <div class="content" :class="layout">
+            <v-bread></v-bread>
+            <transition name="fade" mode="out-in"><router-view></router-view></transition>
         </div>
     </div>
 </template>
 
 <script>
-    import vHead from './Header.vue';
+    import vHeader from './Header.vue';
     import vSidebar from './Sidebar.vue';
-    import Bread from './bread.vue';
+    import vBread from './bread.vue';
     export default {
+        data(){
+            return {
+            }
+        },
+        computed: {
+            layout(){
+                return this.$store.state.user.navbarPosition
+            }
+        },
         components:{
-            vHead, vSidebar,Bread
+            vHeader, 
+            vSidebar,
+            vBread
         }
     }
 </script>
