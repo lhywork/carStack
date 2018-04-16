@@ -26,6 +26,22 @@ export const getData = (url, params) => {
     })
   })
 }
+export const postRowData = (url, params) => {
+    return new Promise((resolve,reject) => {
+      axios({
+        method: 'post',
+        url:url,
+        data: JSON.stringify(params),
+        headers: { 'Content-Type':'application/json'},
+      }).then(res => {
+        resolve(res)
+      })
+      .catch(err => {
+        console.log("get请求failed")
+        reject(err)
+      })
+  })
+}
 /**
   * POST请求
   * @param  {[type]} url     url地址

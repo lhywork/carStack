@@ -125,9 +125,10 @@
             getAdminInfoByUserid(){
                 var self = this;
                 const params = {
-                    userid:self.$route.params.id
+                    userid:self.$route.query.id
                 };
                 this.$ajax.getAdminInfoByUserid(params).then((res)=> {
+                    console.log(res,111222333)
                     this.ruleForm.phone = res.lists[0].niname;
                     this.ruleForm.niname = res.lists[0].username;
                     this.ruleForm.role = res.lists[0].role;

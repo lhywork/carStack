@@ -2,77 +2,24 @@
     <div class="main-content">
         <h2 class="main-title"><i class="fa fa-tags"></i>查看借款产品</h2>
         <div class="main-form">
-            <el-form class="loan-form" ref="form" :model="form" label-width="120px">
-                <el-form-item label="借款产品名称">
-                    <el-input v-model="form.name" placeholder="请输入借款产品名称"></el-input>
+            <el-form class="loan-form" :model="form" label-width="120px">
+                <el-form-item label="借款产品名称:">
+                    <label for="payNumber" class="el-form-item__label">{{form.name}}</label>
                 </el-form-item>
-                <el-form-item label="提前还款">
-                    <el-radio-group v-model="form.if_forward">
-                      <el-radio label="true">能</el-radio>
-                      <el-radio label="false">不能</el-radio>
-                    </el-radio-group>
+                <el-form-item label="提前还款:">
+                    <label for="payNumber" v-if="form.if_forward == '0'">不能</label>
+                    <label for="payNumber" v-if="form.if_forward == '1'">能</label>
                 </el-form-item>
             </el-form>
             <el-table :data="form.tableData" style="width: 100%">
-                <el-table-column
-                    label="期限（月）"
-                    align="center">
-                    <template slot-scope="scope">
-                        <el-input v-model="scope.row.term_day"></el-input>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    label="日利率"
-                    align="center">
-                    <template slot-scope="scope">
-                        <el-input v-model="scope.row.apr_day"></el-input>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    label="基础年化利率"
-                    align="center">
-                    <template slot-scope="scope">
-                        <el-input v-model="scope.row.apr_year"></el-input>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    label="杂费项1"
-                    align="center">
-                    <template slot-scope="scope">
-                        <el-input v-model="scope.row.incidental1"></el-input>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    label="杂费项2"
-                    align="center">
-                    <template slot-scope="scope">
-                        <el-input v-model="scope.row.incidental2"></el-input>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    label="杂费项3"
-                    align="center">
-                    <template slot-scope="scope">
-                        <el-input v-model="scope.row.incidental3"></el-input>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    label="杂费项4"
-                    align="center">
-                    <template slot-scope="scope">
-                        <el-input v-model="scope.row.incidental4"></el-input>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    label="操作"
-                    align="center">
-                    <template slot-scope="scope">
-                       <el-button @click="handleDel(scope.$index)" type="danger" size="small">删除</el-button>
-                    </template>
-                </el-table-column>
+                <el-table-column prop="term_day" label="期限(月)"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="apr_day" label="日利率"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="apr_year" label="基础年化利率"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="incidental1" label="杂费项1"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="incidental2" label="杂费项2"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="incidental3" label="杂费项3"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="incidental4" label="杂费项4"  show-overflow-tooltip  align="center"></el-table-column>
             </el-table>
-            <div class="add-data" @click="handleAdd"><i class="el-icon-plus"></i>添加子产品</div>
-            <el-button @click="SubmitBtn()" class="form-submit" type="success">确认提交</el-button>
         </div>
     </div>
 </template>
@@ -82,42 +29,31 @@
             return {
                 form:{
                     name:'',
-                    if_forward:"true",
-                    tableData:[{
-                        term_day:'',
-                        apr_day:'',
-                        incidental1:'',
-                        incidental2:'',
-                        incidental3:'',
-                        incidental4:''
-                    }]
+                    if_forward:'',
+                    tableData:[],
                 },            
             }
         },
         methods: {
-            handleDel(index){
-                if (index !== 0) {
-                   this.form.tableData.splice(index, 1)
-                }else{
-                    this.$alert("不能删除,至少保留一栏","系统后台提示")
+            Ready(){
+                const self = this;
+                const params = {
+                    id:self.$route.query.id
                 }
-            },
-            handleAdd(){
-                this.form.tableData.push({
-                    term_day:'',
-                    apr_day:'',
-                    incidental1:'',
-                    incidental2:'',
-                    incidental3:'',
-                    incidental4:''
-                });
-            },
-            SubmitBtn(){
+                self.$ajax.getBorrowProById(params).then((res)=> {
+                    self.form.name = res.lists[0].name;
+                    self.form.if_forward = res.lists[0].if_forward;
+                    self.form.tableData = res.lists
+                    console.log(self.form)
+                    // self.form.if_forward = res.lists["0"].if_forward;
 
+                });
+                
             }
         },  
         created:function(){  
-          
+            var self = this;
+            self.Ready();
         }
     }
 </script>
@@ -150,5 +86,11 @@
     }
     .form-submit{
         float: right;      
+    }
+    .cell{
+        text-align: center;
+    }
+    .payNumber{
+        text-align: center;
     }
 </style>

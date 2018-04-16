@@ -141,7 +141,7 @@
                         self.$alert(res.returnMsg,'系统提示')
                     }
                 });
-            }
+            },
         }
     }
 </script>
