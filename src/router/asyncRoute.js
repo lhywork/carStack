@@ -37,7 +37,7 @@ const asyncRoute = [
     },{
         path: '/',
         name: '产品管理',
-        iconCls:'fa-inbox',
+        iconCls:'fa-th-large',
         component: Home,
         children: [{
             path: '/LoanList',
@@ -140,7 +140,7 @@ const redirectRoute = [
     },
     {
         path: '*',
-        redirect: '/error/401'
+        redirect: '/error/403'
     }
 ]
 

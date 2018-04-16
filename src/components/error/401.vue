@@ -1,17 +1,14 @@
 <template>
-  <div class="errPage-container">
+  <div class="main-content errPage-container">
     <el-button @click="back" icon='arrow-left' class="pan-back-btn">返回</el-button>
     <el-row>
       <el-col :span="12">
         <h1 class="text-jumbo text-ginormous">Oops!</h1>
         <div class="bullshit__headline">特朗普说这个页面你不能进......</div>
-        <h2>你没有权限去该页面</h2>
-        <h6>如有不满请联系你领导</h6>
+        <h2 class="text-h2">你没有权限访问该页面</h2>
         <ul class="list-unstyled">
-            <li>或者你可以去:</li>
-            <li class="link-type">
-                <router-link to="/">回首页</router-link>
-            </li>
+            <li>如有不满请联系你领导</li>
+            <li>或者你可以<router-link to="/index">回首页</router-link></li>
         </ul>
       </el-col>
       <el-col :span="12">
@@ -33,7 +30,7 @@ export default {
   methods: {
     back() {
       if (this.$route.query.noGoBack) {
-        this.$router.push({ path: '/' })
+        this.$router.push({ path: '/index' })
       } else {
         this.$router.go(-1)
       }
@@ -47,14 +44,13 @@ export default {
         line-height: 1.15;
     }
     .errPage-container {
-        width: 800px;
-        margin: 100px auto;  
+        padding: 100px 50px;  
     }
     .pan-back-btn {
        background: #008489;
        color: #fff;
     }
-    h2{
+    .text-h2{
         font-size: 1.5em;
         font-weight: bold;
         margin: 0.67em 0;
@@ -68,9 +64,10 @@ export default {
        margin: 0 auto;
     }
     .text-jumbo {
-       font-size: 60px;
-       font-weight: 700;
-       color: #484848;
+        font-size: 60px;
+        font-weight: 700;
+        color: #484848;
+        margin: 20px 0;
     }
     .list-unstyled {
        font-size: 14px;   
