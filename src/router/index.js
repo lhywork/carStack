@@ -35,8 +35,9 @@ function routerMatch(permission, router){
                 })           
             })
         }      
-        addPermision(permission)
+        addPermision(permission)        
         const asyncAccRouter = filterAsyncRouter(router);
+        console.log(router)
         resolve(asyncAccRouter)
     })
 }

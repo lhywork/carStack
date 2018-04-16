@@ -62,9 +62,12 @@ export default {
     },
     //新增/修改借款产品基础资料
     borrowProSave:params =>{
-        return utils.postData(`${admin}/borrowPro/save`, params);
-    }
-    
+        return utils.postRowData(`${admin}/borrowPro/save2`, params);
+    },
+    //借款产品信息列表
+    getBorrowProById:params =>{
+        return utils.postData(`${admin}/borrowPro/getBorrowProById`, params);
+    },
 };
 
 

@@ -91,7 +91,7 @@
                         incidental3:'',
                         incidental4:''
                     }],
-                    
+                    arr5:[],
                 },
                 rules:{
                     name:[
@@ -125,17 +125,30 @@
                 self.$refs[formName].validate((valid) => {
                     console.log(self.$refs[formName])
                     if (valid) {
-                        console.log(11133)
+                        const self = this;
+                        const params = [];
+                        self.form.tableData.forEach((item,index) => {
+                            item.name = self.form.name;
+                            item.if_forward = self.form.if_forward;
+                            params.push(item)
+                        })
+                        this.$ajax.borrowProSave(params).then((res)=> {
+                            if(res.data.returnCode == 1){
+                                console.log("22222")
+                                self.$router.push({ path: '/LoanList' });   
+                            }else{
+                                self.$alert(res.returnMsg,'系统提示')
+                            }
+                        });
                     } else {
                         console.log('error submit!!');
                         return false;
                     }
                 });
             },
-            
         },  
         created:function(){  
-          
+            const self = this;
         }
     }
 </script>

@@ -75,8 +75,8 @@
                 // console.log(e)
                 const self = this;
                 self.$router.push({
-                    name:'编辑用户',
-                    query: {id:e}
+                    path:'UserCompile',
+                    query: {id: e}
                 })
             },
             handleDelete:function(e){

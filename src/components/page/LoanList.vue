@@ -34,10 +34,10 @@
             <el-table-column prop="add_time" label="创建时间"  show-overflow-tooltip  align="center" v-bind:formatter="Addtime"></el-table-column>
             <el-table-column prop="" label="操作" show-overflow-tooltip  align="center">
                 <template slot-scope="scope">
-                        <el-button type='primary' size='small' >查看</el-button>
-                        <el-button type='success' size='small'  v-if="scope.row.status === '0'">编辑</el-button>
-                        <el-button type='success' size='small'  v-if="scope.row.status === '2'">编辑</el-button>
-                        <el-button type='danger' size='small'  v-if="scope.row.status === '1'" @click="SoldOut(scope.row.id,scope.row.status)">下架</el-button>
+                        <el-button type='primary' size='small' @click="LoanCheck(scope.row.id)">查看</el-button>
+                        <el-button type='success' size='small' @click="LoanEdit(scope.row.id)" v-if="scope.row.status === '0'">编辑</el-button>
+                        <el-button type='success' size='small' @click="LoanEdit(scope.row.id)" v-if="scope.row.status === '2'">编辑</el-button>
+                        <el-button type='danger'  size='small' v-if="scope.row.status === '1'" @click="SoldOut(scope.row.id,scope.row.status)">下架</el-button>
                         <el-button type='danger' size='small'  v-else @click="SoldUp(scope.row.id,scope.row.status)">上架</el-button>     
                 </template>
             </el-table-column>
@@ -140,6 +140,20 @@
                         self.$alert(res.returnMsg,'系统提示')
                     }
                 });
+            },
+            LoanCheck(e){
+                const self = this;
+                self.$router.push({
+                    path:'LoanCheck',
+                    query: {id: e}
+                })
+            },
+            LoanEdit(e){
+                const self = this;
+                self.$router.push({
+                    path:'LoanEdit',
+                    query: {id: e}
+                })
             } 
         }, 
         created:function(){ 

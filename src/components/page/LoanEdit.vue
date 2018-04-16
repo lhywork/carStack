@@ -8,8 +8,8 @@
                 </el-form-item>
                 <el-form-item label="提前还款">
                     <el-radio-group v-model="form.if_forward">
-                      <el-radio label="true">能</el-radio>
-                      <el-radio label="false">不能</el-radio>
+                      <el-radio label="1">能</el-radio>
+                      <el-radio label="0">不能</el-radio>
                     </el-radio-group>
                 </el-form-item>
             </el-form>
@@ -71,7 +71,7 @@
                     </template>
                 </el-table-column>
             </el-table>
-            <div class="add-data" @click="handleAdd"><i class="el-icon-plus"></i>添加子产品</div>
+<!--             <div class="add-data" @click="handleAdd"><i class="el-icon-plus"></i>添加子产品</div> -->
             <el-button @click="SubmitBtn()" class="form-submit" type="success">确认提交</el-button>
         </div>
     </div>
@@ -82,16 +82,9 @@
             return {
                 form:{
                     name:'',
-                    if_forward:"true",
-                    tableData:[{
-                        term_day:'',
-                        apr_day:'',
-                        incidental1:'',
-                        incidental2:'',
-                        incidental3:'',
-                        incidental4:''
-                    }]
-                },            
+                    tableData:[],
+                    if_forward:"",
+                },           
             }
         },
         methods: {
@@ -112,12 +105,21 @@
                     incidental4:''
                 });
             },
-            SubmitBtn(){
-
+            Ready(){
+                const self = this;
+                const params = {
+                    id:self.$route.query.id
+                }
+                self.$ajax.getBorrowProById(params).then((res)=> {
+                    self.form.name = res.lists[0].name;
+                    self.form.if_forward = res.lists[0].if_forward.toString();
+                    self.form.tableData = res.lists
+                });  
             }
         },  
         created:function(){  
-          
+            const self = this;
+            self.Ready();
         }
     }
 </script>
