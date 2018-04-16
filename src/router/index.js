@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { Message } from 'element-ui'
-// import Auth from '@/util/auth'
+import {isLogin} from '../utils';
 import store from '../store'
 import staticRoute from './staticRoute'
 import { asyncLayout, asyncRoute, redirectRoute} from './asyncRoute'
@@ -62,7 +62,7 @@ const router = new VueRouter({
 // 路由跳转前验证
 router.beforeEach((to, from, next) => {    
     // 判断用户是否处于登录状态
-    if (store.state.user.username) {
+    if (isLogin()) {
         // 如果当前处于登录状态，并且跳转地址为login，则自动跳回系统首页
         // 这种情况出现在手动修改地址栏地址时
         if (to.path === '/login') {

@@ -15,6 +15,7 @@
     </div>
 </template>
 <script>
+    import {isLogin} from '../../utils';
     export default {
         data() {
             return {
@@ -25,7 +26,7 @@
         },
         created() {
             var user = this.$store.state.user;
-            if (user.username) {
+            if (isLogin()) {
                 this.sysUserName = user.username || '';
                 this.sysUserAvatar = user.avatar || this.sysUserAvatar;
             }else{

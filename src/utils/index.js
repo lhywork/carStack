@@ -78,3 +78,9 @@ export function formatDate(time, fmt) {
 function padLeftZero(str) {
     return ('00' + str).substr(str.length);
 }
+export function isLogin(){
+  if(sessionStorage.getItem('USERNAME') && sessionStorage.getItem('USERID')){
+    return true;
+  }
+  return false;
+}

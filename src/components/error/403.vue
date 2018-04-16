@@ -5,7 +5,7 @@
       <el-col :span="12">
         <h1 class="text-jumbo text-ginormous">Oops!</h1>
         <div class="bullshit__headline">特朗普说这个页面你不能进......</div>
-        <h2 class="text-h2">你没有权限访问该页面</h2>
+        <h2 class="text-h2">网页403错误,没有权限访问该页面！</h2>
         <ul class="list-unstyled">
             <li>如有不满请联系你领导</li>
             <li>或者你可以<router-link to="/index">回首页</router-link></li>
@@ -53,6 +53,7 @@ export default {
     .text-h2{
         font-size: 1.5em;     
         margin: 0.67em 0;
+        color:red;
     }
     .bullshit__headline{
         font-size: 20px;
