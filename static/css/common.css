@@ -51,6 +51,7 @@ body{color:#2c3e50;min-width:1200px;background:#fff;}
     height: 40px;
     line-height: 40px;
     border-bottom: solid 1px #ddd;
+    margin-bottom: 10px;
 }
 .el-table {
     position: relative;

@@ -10,9 +10,6 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
   * @return {[type]}         [Promise]
  */
 export const getData = (url, params) => {
-  // params = params || {};
-  // params.user_id = user_id;
-  // params.us_token = us_token;
   return new Promise((resolve,reject) => {
     axios.get(url,{
       params:params

@@ -102,6 +102,10 @@
             "name": "新增角色",
             "path": "/RoleAdd",
             "isAuth":true
+        },{
+            "name": "编辑角色",
+            "path": "/RoleEdit",
+            "isAuth":true
         }]
     }]
 }

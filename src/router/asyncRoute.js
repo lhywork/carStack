@@ -116,6 +116,11 @@ const asyncRoute = [
             hidden: true,
             component: resolve => require(['@/components/page/UserAdd.vue'], resolve)
         },{
+            path: '/UserCompile',
+            name: '编辑用户',
+            hidden: true,
+            component: resolve => require(['@/components/page/UserCompile.vue'], resolve)
+        },{
             path: '/RoleList',
             name: '角色配置',
             component: resolve => require(['@/components/page/RoleList.vue'], resolve)
@@ -125,10 +130,10 @@ const asyncRoute = [
             hidden: true,
             component: resolve => require(['@/components/page/RoleAdd.vue'], resolve)
         },{
-            path: '/UserCompile',
-            name: '编辑用户',
+            path: '/RoleEdit',
+            name: '编辑角色',
             hidden: true,
-            component: resolve => require(['@/components/page/UserCompile.vue'], resolve)
+            component: resolve => require(['@/components/page/RoleEdit.vue'], resolve)
         }]
     }
 ]

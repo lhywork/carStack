@@ -23,7 +23,7 @@
         <el-table :data="tableData" style="width: 100%">
             <el-table-column prop="username" label="姓名"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="niname" label="手机号"  show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="role" label="角色"  show-overflow-tooltip  align="center"></el-table-column>
+            <el-table-column prop="r_role" label="角色"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column label="操作"  show-overflow-tooltip  align="center">
                 <template slot-scope="scope">
                     <el-button type="success" size="small" @click="handleEdit(scope.row.id)">编辑</el-button>
@@ -32,11 +32,8 @@
             </el-table-column>
         </el-table>
     </div>
-    <el-row :gutter="24">
-        <el-col :span="24">
-            <el-pagination background layout="prev, pager, next" v-model="total" :total="total" class="page1" :page-size="epage" :current-page="page" @current-change="handleCurrentChange"></el-pagination>
-        </el-col>
-    </el-row>
+    <el-pagination v-if="total" :page-size="epage" :page-sizes="[5, 10, 15, 20]" background layout="prev, sizes, pager, next" :total="total" @current-change="handleCurrentChange" @size-change="pageSizeChange">
+    </el-pagination>
   </div>
 </template>
 <script>
@@ -68,7 +65,6 @@
                 self.$ajax.getAdminInfoList(params).then((res)=> {
                     self.tableData = res.lists;
                     self.total = parseInt(res.total);
-                    console.log(self.total)
                 });
             },
             handleEdit:function(e){
@@ -97,10 +93,13 @@
                 }).catch(() => {         
                 });
             },
-            handleCurrentChange:function(val){
-                var self = this;
-                self.page=val
-                self.getListData();
+            handleCurrentChange(e){
+                this.page = e;
+                this.getListData();
+            },
+            pageSizeChange(e){
+                this.epage = e;
+                this.getListData();
             },
             handleQuery:function(){
                 var self = this;
@@ -122,7 +121,7 @@
         display: block;
         margin: 0 auto;
     }
-    .page1{
-        text-align: center;
+    .el-pagination{
+      text-align: right;
     }
 </style>

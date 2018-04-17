@@ -1,6 +1,6 @@
 <template>
   <div class="main-content">
-    <h2 class="main-title"><i class="fa fa-tags"></i>新增角色</h2>
+    <h2 class="main-title"><i class="fa fa-tags"></i>编辑角色</h2>
     <el-form class="role-form" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
         <el-form-item label="角色名称:" prop="role">
             <el-input class="role-input"  placeholder="请输入角色名称" v-model="ruleForm.role"></el-input>
@@ -45,8 +45,21 @@ export default {
                 ]
             }
         }  
+    },
+    created(){
+        this.getResourceByRoleId(); 
     },  
     methods:{
+        getResourceByRoleId(){
+            var self = this;
+            const params = {
+                roleid:self.$route.query.id
+            };
+            self.$ajax.getResourceByRoleId(params).then((res)=> {
+                self.ruleForm.role = res.lists[0].r_role;
+                self.ruleForm.tableData = JSON.parse(res.lists[0].r_resource);
+            });
+        },
         handleCheckAll(e,index){
             console.log()
             this.ruleForm.tableData[index].children.forEach((item)=>{
@@ -69,7 +82,8 @@ export default {
             const params = {
                 r_role: self.ruleForm.role,
                 r_desc: self.ruleForm.role,
-                r_resource:JSON.stringify(self.ruleForm.tableData)
+                r_resource:JSON.stringify(self.ruleForm.tableData),
+                id:self.$route.query.id
             };
             self.$ajax.saveRole(params).then((res)=> {
                 if(res.returnCode == 1){

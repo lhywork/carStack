@@ -41,6 +41,9 @@ export default {
     adminRolesave:params => {
         return utils.postData(`${admin}/adminRole/save`, params);
     },
+    getResourceByRoleId:params => {
+        return utils.postData(`${admin}/adminRole/getResourceByRoleId`, params);
+    },
     //获取用户（管理员）账号信息
     getAdminInfoByUserid:params => {
         return utils.postData(`${admin}/adminRole/getAdminInfoByUserid`, params);
@@ -49,6 +52,10 @@ export default {
     adminRoledelete:params => {
         return utils.postData(`${admin}/adminRole/delete`, params);
     },
+    //新增/修改角色信息
+    saveRole:params=>{
+        return utils.postData(`${admin}/adminRole/saveRole`, params);
+    }, 
     investmentPro:params => {
         return utils.postData(`${admin}/targetInfo/save`, params);
     },
@@ -67,7 +74,7 @@ export default {
     //借款产品信息列表
     getBorrowProById:params =>{
         return utils.postData(`${admin}/borrowPro/getBorrowProById`, params);
-    },
+    } 
 };
 
 
