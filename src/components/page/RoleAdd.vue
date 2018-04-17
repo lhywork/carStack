@@ -14,17 +14,15 @@
                         <template slot-scope="scope">
                             <el-form label-position="left" inline class="demo-table-expand">
                                 <el-form-item >
-                                <!-- <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange"> -->
                                     <el-checkbox v-for="(item, index) in scope.row.children" :key="index" style="margin:0 10px" v-model="item.isAuth" v-if="item.isAuth !== undefined">{{item.name}}</el-checkbox>
-                                <!-- </el-checkbox-group> -->
                                 </el-form-item>
                             </el-form>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="name" label="导航名称" show-overflow-tooltip align="center"></el-table-column>
+                    <el-table-column prop="name" label="导航名称" show-overflow-tooltip></el-table-column>
                     <el-table-column prop="isAuth" label="权限分配" show-overflow-tooltip align="center">
                         <template slot-scope="scope">
-                            <el-checkbox v-model="scope.row.isAuth" @change="handleCheckAll">显示</el-checkbox>
+                            <el-checkbox v-model="scope.row.isAuth" @change="handleCheckAll(scope.row.isAuth,scope.$index)">显示</el-checkbox>
                         </template>                      
                     </el-table-column>
                 </el-table>
@@ -64,90 +62,92 @@ export default {
                 }]
             },{
                 "name": "产品管理",
-                "isAuth":true,
+                "isAuth":false,
                 "children": [{
                     "name": "借款产品管理",
                     "path": "/LoanList",
-                    "isAuth":true
+                    "isAuth":false
                 },{
                     "name": "新增借款产品",
                     "path": "/LoanAdd",          
-                    "isAuth":true
+                    "isAuth":false
                 },{    
                     "name": "查看借款产品",
                     "path": "/LoanCheck",
-                    "isAuth":true
+                    "isAuth":false
                 },{
                     "name": "编辑借款产品",
                     "path": "/LoanEdit",     
-                    "isAuth":true
+                    "isAuth":false
                 }]
             },{
                 "name":"标的管理",
-                "isAuth":true,
+                "isAuth":false,
                 "children": [{
                     "path": "/Allobject",
                     "name": "所有标的",
-                    "isAuth":true
+                    "isAuth":false
                 },{
                     "path": "/Addobject",
                     "name": "新增标的信息",
-                    "isAuth":true
+                    "isAuth":false
                 },{
                     "path": "/Firstobject",
                     "name": "标的初审",
-                    "isAuth":true
+                    "isAuth":false
                 },{
                     "path": "/Secondobject",
                     "name": "标的复审",
-                    "isAuth":true
+                    "isAuth":false
                 },{
                     "path": "/Thirdlyobject",
                     "name": "真实借款金额信息",
-                    "isAuth":true
+                    "isAuth":false
                 },{
                     "path": "/FobjectC",
                     "name": "初审标的审核",
-                    "isAuth":true
+                    "isAuth":false
                 },{
                     "path": "/SobjectC",
                     "name": "复审标的审核",
-                    "isAuth":true
+                    "isAuth":false
                 },{
                     "path": "/TobjectC",
                     "name": "真实借款金额审核",
-                    "isAuth":true
+                    "isAuth":false
                 }]
             },{
                 "name":"用户权限",
-                "isAuth":true,
+                "isAuth":false,
                 "children": [{
                     "name": "用户管理",
                     "path": "/UserManager",
-                    "isAuth":true
+                    "isAuth":false
                 },{
                     "name":"新增用户",
                     "path": "/UserAdd",
-                    "isAuth":true
+                    "isAuth":false
                 }, {
                     "name":"编辑用户",
                     "path": "/UserCompile",
-                    "isAuth":true
+                    "isAuth":false
                 },{
                     "name":"角色配置",
                     "path": "/RoleList",
-                    "isAuth":true
+                    "isAuth":false
                 },{
                     "name": "新增角色",
                     "path": "/RoleAdd",
-                    "isAuth":true
+                    "isAuth":false
                 }]
             }]
         }  
     },  
     methods:{
-        handleCheckAll(e){
-            console.log(e)
+        handleCheckAll(e,index){
+            this.tableData[index].children.forEach((item)=>{
+                item.isAuth = e;
+            });
         }  
     }  
 }  
