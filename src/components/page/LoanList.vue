@@ -32,7 +32,7 @@
                 </template>
             </el-table-column>
             <el-table-column prop="add_time" label="创建时间"  show-overflow-tooltip  align="center" v-bind:formatter="Addtime"></el-table-column>
-            <el-table-column prop="" label="操作" show-overflow-tooltip  align="center">
+            <el-table-column prop="" label="操作" show-overflow-tooltip  header-align="center">
                 <template slot-scope="scope">
                         <el-button type='primary' size='small' @click="LoanCheck(scope.row.id)">查看</el-button>
                         <el-button type='success' size='small' @click="LoanEdit(scope.row.id)" v-if="scope.row.status === '0'">编辑</el-button>

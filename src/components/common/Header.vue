@@ -6,7 +6,7 @@
             <el-dropdown trigger="click">
                 <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>我的消息</el-dropdown-item>
+                    <el-dropdown-item>个人信息</el-dropdown-item>
                     <el-dropdown-item divided @click.native="changeTheme">切换布局</el-dropdown-item>
                     <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
                 </el-dropdown-menu>

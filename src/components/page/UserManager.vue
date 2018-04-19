@@ -8,10 +8,10 @@
         <div class="addo_content">
             <el-row :gutter="24">
                 <el-col :span="8">
-                    <el-input  placeholder="用户姓名" class="el-form-item__content" v-model="username"></el-input>
+                    <el-input  placeholder="用户名称" class="el-form-item__content" v-model="username"></el-input>
                 </el-col>
                 <el-col :span="8">
-                    <el-input  placeholder="手机号" class="el-form-item__content" v-model="niname"></el-input>
+                    <el-input  placeholder="手机号码" class="el-form-item__content" v-model="niname"></el-input>
                 </el-col>
                 <el-col :span="8">
                     <el-button type="primary" @click="handleQuery()">查询</el-button>
@@ -21,8 +21,8 @@
     </div>
     <div class="main-form">
         <el-table :data="tableData" style="width: 100%">
-            <el-table-column prop="username" label="姓名"  show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="niname" label="手机号"  show-overflow-tooltip  align="center"></el-table-column>
+            <el-table-column prop="username" label="用户名称"  show-overflow-tooltip  align="center"></el-table-column>
+            <el-table-column prop="niname" label="手机号码"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="r_role" label="角色"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column label="操作"  show-overflow-tooltip  align="center">
                 <template slot-scope="scope">
