@@ -77,6 +77,7 @@
                 const params = {};
                 this.$ajax.getRoleInfoList(params).then((res)=> {
                     that.RoleList = res.lists;
+                    console.log(res.lists)
                 });
             },
             getAdminInfoByUserid(){
@@ -86,6 +87,7 @@
                 };
                 this.$ajax.getAdminInfoByUserid(params).then((res)=> {
                     this.ruleForm = res.lists[0];
+
                 });
             },
             adminRolesave(){
