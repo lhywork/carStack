@@ -12,7 +12,6 @@ export default {
 
 <style>
 @import "../static/css/common.css";
-@import '../static/less/pintuer.less';
 html, body, #app, .wrapper {
     width: 100%;
     height: 100%;

@@ -23,7 +23,13 @@ export const getData = (url, params) => {
     })
   })
 }
-export const postRowData = (url, params) => {
+/**
+  * POST请求
+  * @param  {[type]} url     url地址
+  * @param  {[type]} params  data参数
+  * @return {[type]}         [Promise]
+ */
+export const postJSON = (url, params) => {
     return new Promise((resolve,reject) => {
       axios({
         method: 'post',
@@ -34,7 +40,7 @@ export const postRowData = (url, params) => {
         resolve(res)
       })
       .catch(err => {
-        console.log("get请求failed")
+        console.log("post请求failed")
         reject(err)
       })
   })
@@ -85,12 +91,12 @@ export function formatDate(time, fmt) {
             fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : padLeftZero(str));
         }
     }
+    function padLeftZero(str) {
+        return ('00' + str).substr(str.length);
+    }
     return fmt;
 };
 
-function padLeftZero(str) {
-    return ('00' + str).substr(str.length);
-}
 export function isLogin(){
   if(sessionStorage.getItem('USERNAME') && sessionStorage.getItem('USERID')){
     return true;

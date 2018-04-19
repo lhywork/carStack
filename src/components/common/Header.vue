@@ -40,7 +40,7 @@
                     type: 'warning'
                 }).then(() => {
                     self.$store.dispatch('Logout').then(() => {
-                        self.$router.push({ path: '/login' });
+                        // self.$router.push({ path: '/login' });
                         location.reload();
                     }).catch(err => {
                         self.$message.error(err);
