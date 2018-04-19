@@ -78,6 +78,7 @@
                 const params = {};
                 this.$ajax.getRoleInfoList(params).then((res)=> {
                     that.RoleList = res.lists;
+                    console.log(res.lists)
                 });
             },
             getAdminInfoByUserid(){

@@ -2,7 +2,7 @@
     <div class="panel">
         <div class="panel-head">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-                <h5><span class="el-icon-star-off"></span>{{title}}</h5>
+                <h5><span class="el-icon-star-off"></span>新增标的信息（必填)</h5>
                 <div class="addo_content">
                     <el-row :gutter="10">
                         <el-col :span="10">
@@ -86,7 +86,7 @@
                         <el-col :span="10">
                             <label for="payNumber" class="el-form-item__label marl13">信息有效期:</label>
                             <el-form-item prop="info_term" class="el-form-item__content">
-                                <el-date-picker v-model="ruleForm.info_term" type="date" placeholder="选择日期">
+                                <el-date-picker v-model="ruleForm.info_term" type="date" placeholder="选择日期" value-format="yyyy-MM-dd">
                                 </el-date-picker>
                             </el-form-item>
                         </el-col>
@@ -141,7 +141,7 @@
                         <el-col :span="10">
                             <label for="payNumber" class="el-form-item__label marl13">保险有效期:</label>
                             <el-form-item prop="insurance_term" class="el-form-item__content">
-                                <el-date-picker v-model="ruleForm.insurance_term" type="date" placeholder="选择日期">
+                                <el-date-picker v-model="ruleForm.insurance_term" type="date" placeholder="选择日期" value-format="yyyy-MM-dd">
                                 </el-date-picker>
                             </el-form-item>
                         </el-col>
@@ -163,7 +163,7 @@
                         <el-col :span="10">
                             <label for="payNumber" class="el-form-item__label marl13">年检有效期:</label>
                             <el-form-item prop="inspect_term" class="el-form-item__content">
-                                <el-date-picker v-model="ruleForm.inspect_term" type="date" placeholder="选择日期" class="marl14">
+                                <el-date-picker v-model="ruleForm.inspect_term" type="date" placeholder="选择日期" value-format="yyyy-MM-dd">
                                 </el-date-picker>
                             </el-form-item>
                         </el-col>
@@ -172,7 +172,7 @@
                         <el-col :span="10">
                             <label for="payNumber" class="el-form-item__label">车辆出厂年月:</label>
                             <el-form-item prop="car_time" class="el-form-item__content">
-                                <el-date-picker v-model="ruleForm.car_time" type="date" placeholder="选择日期">
+                                <el-date-picker v-model="ruleForm.car_time" type="date" placeholder="选择日期" value-format="yyyy-MM-dd">
                                 </el-date-picker>
                             </el-form-item>
                         </el-col>
@@ -218,11 +218,11 @@
                             <label for="payNumber" class="el-form-item__label marl28">是否上牌:</label>
                             <el-form-item prop="if_card" class="el-form-item__content" >
                                 <el-radio v-model="ruleForm.if_card" label="1" class="mart13">是</el-radio>
-                                <el-radio v-model="ruleForm.if_card" label="2" class="mart13">否</el-radio>
+                                <el-radio v-model="ruleForm.if_card" label="0" class="mart13">否</el-radio>
                             </el-form-item>
                         </el-col>
                     </el-row>
-                    <div v-show="radio1 == 1">   
+                    <div v-show="ruleForm.if_card == 1">   
                         <el-row :gutter="20">
                             <el-col :span="10">
                                 <label for="payNumber" class="el-form-item__label">首次上牌时间:</label>
@@ -241,7 +241,7 @@
                             <el-col :span="10">
                                 <label for="payNumber" class="el-form-item__label marl27">牌照类型:</label>
                                 <div class="el-form-item__content">
-                                    <el-select v-model="value15" placeholder="请选择">
+                                    <el-select v-model="ruleForm.card_type" placeholder="请选择">
                                         <el-option
                                             v-for="item in options15"
                                             :key="item.value"
@@ -252,15 +252,15 @@
                                 </div>
                             </el-col>
                             <el-col :span="10">
-                                <label for="payNumber" class="el-form-item__label marl27">拍照号码:</label>
-                                <el-input  placeholder="请输入内容" class="el-form-item__content" v-model="ruleForm.remark"></el-input>
+                                <label for="payNumber" class="el-form-item__label marl27">牌照号码:</label>
+                                <el-input  placeholder="请输入内容" class="el-form-item__content" v-model="ruleForm.card_no"></el-input>
                             </el-col>
                         </el-row>
                         <el-row :gutter="10">
                             <el-col :span="10">
                                 <label for="payNumber" class="el-form-item__label">是否含拍照出售:</label>
-                                <el-radio v-model="radio2" label="1" class="mart13">是</el-radio>
-                                <el-radio v-model="radio2" label="2" class="mart13">否</el-radio>
+                                <el-radio v-model="ruleForm.if_card_sell" label="1" class="mart13">是</el-radio>
+                                <el-radio v-model="ruleForm.if_card_sell" label="0" class="mart13">否</el-radio>
                             </el-col>
                         </el-row>
                     </div> 
@@ -269,7 +269,7 @@
                         <el-col :span="10">
                             <label for="payNumber" class="el-form-item__label">是否随带/赠送交强险:</label>
                             <div class="el-form-item__content">
-                                <el-select v-model="value09" placeholder="请选择">
+                                <el-select v-model="ruleForm.insurance_give" placeholder="请选择">
                                     <el-option
                                         v-for="item in options09"
                                         :key="item.value"
@@ -282,9 +282,9 @@
                         <el-col :span="10" class="marl14">
                             <label for="payNumber" class="el-form-item__label ">交强险到期年月:</label>
                             <el-date-picker
-                                v-model="datatime5"
+                                v-model="ruleForm.insurance_expiration"
                                 type="date"
-                                placeholder="选择日期">
+                                placeholder="选择日期" value-format="yyyy-MM-dd">
                             </el-date-picker>
                         </el-col>
                     </el-row>
@@ -292,7 +292,7 @@
                         <el-col :span="10">
                             <label for="payNumber" class="el-form-item__label marl17">是否随送商业保险:</label>
                             <div class="el-form-item__content">
-                                <el-select v-model="value10" placeholder="请选择">
+                                <el-select v-model="ruleForm.if_send_insurance" placeholder="请选择">
                                     <el-option
                                         v-for="item in options10"
                                         :key="item.value"
@@ -303,34 +303,29 @@
                             </div>
                         </el-col>
                         <el-col :span="10">
-                            <label for="payNumber" class="el-form-item__label ">商业保险到期年月:</label>
+                            <label for="payNumber" class="el-form-item__label">商业保险到期年月:</label>
                             <el-date-picker
-                                v-model="datatime6"
+                                v-model="ruleForm.commercial_insurance_expiration"
                                 type="date"
-                                placeholder="选择日期">
+                                placeholder="选择日期" value-format="yyyy-MM-dd">
                             </el-date-picker>
                         </el-col>
                     </el-row>
                     <el-row :gutter="12">
                         <el-col :span="12">
                             <label for="payNumber" class="el-form-item__label">车辆使用税截至年月:</label>
-                            <div class="el-form-item__content">
-                                <el-select v-model="value11" placeholder="请选择">
-                                    <el-option
-                                        v-for="item in options11"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </div>
+                            <el-date-picker
+                                v-model="ruleForm.tax_expiration"
+                                type="date"
+                                placeholder="选择日期" value-format="yyyy-MM-dd">
+                            </el-date-picker>
                         </el-col>
                     </el-row>
                     <el-row :gutter="24">
                         <el-col :span="8">
                             <label for="payNumber" class="el-form-item__label marl28">购置税:</label>
                             <div class="el-form-item__content">
-                                <el-select v-model="value12" placeholder="请选择">
+                                <el-select v-model="ruleForm.tax_purchase" placeholder="请选择">
                                     <el-option
                                         v-for="item in options12"
                                         :key="item.value"
@@ -343,7 +338,7 @@
                         <el-col :span="8">
                             <label for="payNumber" class="el-form-item__label marl28">车辆登记证:</label>
                             <div class="el-form-item__content">
-                                <el-select v-model="value13" placeholder="请选择">
+                                <el-select v-model="ruleForm.car_registration" placeholder="请选择">
                                     <el-option
                                         v-for="item in options13"
                                         :key="item.value"
@@ -356,7 +351,7 @@
                         <el-col :span="8">
                             <label for="payNumber" class="el-form-item__label marl28">车辆行驶证:</label>
                             <div class="el-form-item__content">
-                                <el-select v-model="value14" placeholder="请选择">
+                                <el-select v-model="ruleForm.driving_license" placeholder="请选择">
                                     <el-option
                                         v-for="item in options14"
                                         :key="item.value"
@@ -375,10 +370,10 @@
                             <label for="payNumber" class="el-form-item__label ">外观:</label>
                         </el-col>
                         <el-col :span="18" class="mart11">
-                            <el-checkbox v-model="checked1">大包围</el-checkbox>
-                            <el-checkbox v-model="checked2">尾翼</el-checkbox>
-                            <el-checkbox v-model="checked3">运动轮廓</el-checkbox>
-                            <el-checkbox v-model="checked4">铝合金</el-checkbox>
+                            <el-checkbox v-model="checked1" true-label="1" false-label="0" label="0">大包围</el-checkbox>
+                            <el-checkbox v-model="checked2" true-label="1" false-label="0" label="0">尾翼</el-checkbox>
+                            <el-checkbox v-model="checked3" true-label="1" false-label="0" label="0">运动轮廓</el-checkbox>
+                            <el-checkbox v-model="checked4" true-label="1" false-label="0" label="0">铝合金</el-checkbox>
                         </el-col>
                     </el-row>
                     <el-row :gutter="24">
@@ -386,9 +381,9 @@
                             <label for="payNumber" class="el-form-item__label ">内饰:</label>
                         </el-col>
                         <el-col :span="18" class="mart11">
-                            <el-checkbox v-model="checked5">真皮座椅</el-checkbox>
-                            <el-checkbox v-model="checked6">中控台液晶屏</el-checkbox>
-                            <el-checkbox v-model="checked7">电动门窗</el-checkbox>
+                            <el-checkbox v-model="checked5" true-label="1" false-label="0" label="0">真皮座椅</el-checkbox>
+                            <el-checkbox v-model="checked6" true-label="1" false-label="0" label="0">中控台液晶屏</el-checkbox>
+                            <el-checkbox v-model="checked7" true-label="1" false-label="0" label="0">电动门窗</el-checkbox>
                         </el-col>
                     </el-row>
                     <el-row :gutter="24">
@@ -396,9 +391,9 @@
                             <label for="payNumber" class="el-form-item__label ">内饰:</label>
                         </el-col>
                         <el-col :span="18" class="mart11">
-                            <el-checkbox v-model="checked8">倒车雷达</el-checkbox>
-                            <el-checkbox v-model="checked9">中控防盗</el-checkbox>
-                            <el-checkbox v-model="checked10">刹车辅助</el-checkbox>
+                            <el-checkbox v-model="checked8" true-label="1" false-label="0" label="0">真皮座椅</el-checkbox>
+                            <el-checkbox v-model="checked9" true-label="1" false-label="0" label="0">中控台液晶屏</el-checkbox>
+                            <el-checkbox v-model="checked10" true-label="1" false-label="0" label="0">电动门窗</el-checkbox>
                         </el-col>
                     </el-row>
                     <el-row :gutter="24">
@@ -406,23 +401,23 @@
                             <label for="payNumber" class="el-form-item__label">舒适:</label>
                         </el-col>
                         <el-col :span="18" class="mart11">
-                            <el-checkbox v-model="checked11">电动车窗</el-checkbox>
-                            <el-checkbox v-model="checked12">GPS导航系统</el-checkbox>
-                            <el-checkbox v-model="checked13">电动加热座椅</el-checkbox>
-                            <el-checkbox v-model="checked14">自动空调</el-checkbox>
+                            <el-checkbox v-model="checked11" true-label="1" false-label="0" label="0">电动车窗</el-checkbox>
+                            <el-checkbox v-model="checked12" true-label="1" false-label="0" label="0">GPS导航系统</el-checkbox>
+                            <el-checkbox v-model="checked13" true-label="1" false-label="0" label="0">电动加热座椅</el-checkbox>
+                            <el-checkbox v-model="checked14" true-label="1" false-label="0" label="0">自动空调</el-checkbox>
                         </el-col>
-                    </el-row>
-                    <el-row :gutter="24">
+                     </el-row>
+                     <el-row :gutter="24">
                         <el-col :span="18" class="marl256">
-                            <el-checkbox v-model="checked15">自动空调</el-checkbox>
-                            <el-checkbox v-model="checked16">可调节方向盘</el-checkbox>
-                            <el-checkbox v-model="checked17">自动加温反光镜</el-checkbox>
-                            <el-checkbox v-model="checked18">自动巡航系统</el-checkbox>
+                            <el-checkbox v-model="checked15" true-label="1" false-label="0" label="0">自动空调</el-checkbox>
+                            <el-checkbox v-model="checked16" true-label="1" false-label="0" label="0">可调节方向盘</el-checkbox>
+                            <el-checkbox v-model="checked17" true-label="1" false-label="0" label="0">自动加温反光镜</el-checkbox>
+                            <el-checkbox v-model="checked18" true-label="1" false-label="0" label="0">自动巡航系统</el-checkbox>
                         </el-col>
-                    </el-row>
+                     </el-row>
                     <el-row :gutter="24">
                         <el-col :span="24">
-                            <el-button type="primary" class="chusubmit"  @click="addALL()">确认提交</el-button>
+                            <el-button type="primary" class="chusubmit"  @click="sure('ruleForm')">确认提交</el-button>
                         </el-col>
                     </el-row>        
                 </div>
@@ -436,17 +431,15 @@
             data() {
                 return {
                     mapJson:'../static/json/map.json',
-                    title: "新增标的信息（必填)",
                     province:'',
+                    shi1: [],
                     action:base+'/file/uploadPic',
                     data:{
-                        tablename:'hrcf_stack_asset_base_materia',
-                        cloumnname:'account_no',
-                        linkno:'id_no_front',
+                        tablename:'hrcf_stack_target_info',
+                        cloumnname:'target_nid',
+                        linkno:'A机构',
                         moreFlag:'true',
                     },
-                    shi1: [],
-                    form1:'',
                     ruleForm:{
                         borrow_id:'',
                         main_brand:'',
@@ -469,13 +462,44 @@
                         car_displacement:'',
                         car_transmission:'',
                         car_photo:'',
-                        if_card:'',
-                        irst_card_time:'',
+                        if_card:'0',
+                        first_card_time:'',
                         card_belong:'',
                         card_type:'',
                         card_no:'',
-                        if_card_sell:'',
+                        if_card_sell:'0',
+                        card_type:'',
+                        insurance_give:'',
+                        insurance_expiration:'',
+                        if_send_insurance:'',
+                        commercial_insurance_expiration:'',
+                        tax_expiration:'',
+                        tax_purchase:'',
+                        car_registration:'',
+                        driving_license:'',
+                        exterior:'',
+                        interior:'',
+                        security:'',
+                        comfort:'',
                     },
+                    checked1:'0',
+                    checked2:'0',
+                    checked3:'0',
+                    checked4:'0',
+                    checked5:'0',
+                    checked6:'0',
+                    checked7:'0',
+                    checked8:'0',
+                    checked9:'0',
+                    checked10:'0',
+                    checked11:'0',
+                    checked12:'0',
+                    checked13:'0',
+                    checked14:'0',
+                    checked15:'0',
+                    checked16:'0',
+                    checked17:'0',
+                    checked18:'0',
                     rules:{
                         borrow_id:[
                             { required: true, message: '请选择借款产品', trigger: 'change' },
@@ -542,163 +566,124 @@
                         ]
                     },
                     options01: [{
-                            value: '01',
-                            label: 'A机构'
+                            value: '产品A',
+                            label: '产品A'
                         }, {
-                            value: '02',
-                            label: 'B机构'
+                            value: '产品B',
+                            label: '产品B'
                         }],
-                    value01:'',
                     options02: [{
-                            value: '01',
-                            label: 'A机构'
+                            value: 'A品牌',
+                            label: 'A品牌'
                         }, {
-                            value: '02',
-                            label: 'B机构'
+                            value: 'B品牌',
+                            label: 'B品牌'
                         }],
-                    value02:'',
                     options03: [{
-                            value: '01',
-                            label: 'A机构'
+                            value: 'A厂商',
+                            label: 'A厂商'
                         }, {
-                            value: '02',
-                            label: 'B机构'
+                            value: 'B厂商',
+                            label: 'B厂商'
                         }],
-                    value03:'',
                     options04: [{
-                            value: '01',
-                            label: 'A机构'
+                            value: 'A型号',
+                            label: 'A型号'
                         }, {
-                            value: '02',
-                            label: 'B机构'
+                            value: 'B型号',
+                            label: 'B型号'
                         }],
-                    value04:'',
-                    datatime1:'',
-                    datatime2:'',
-                    datatime3:'',
-                    datatime4:'',
-                    datatime5:'',
-                    datatime6:'',
+
                     options05: [{
-                            value: '01',
-                            label: 'A机构'
+                            value: '汽车红色',
+                            label: '汽车红色'
                         }, {
-                            value: '02',
-                            label: 'B机构'
+                            value: '汽车黄色',
+                            label: '汽车黄色'
                         }],
-                    value05:'',
                     options06: [{
-                            value: '01',
-                            label: 'A机构'
+                            value: '内饰红色',
+                            label: '内饰红色'
                         }, {
-                            value: '02',
-                            label: 'B机构'
+                            value: '内饰黄色',
+                            label: '内饰黄色'
                         }],
-                    value06:'',
                     options07: [{
-                            value: '01',
-                            label: 'A机构'
+                            value: '事故车',
+                            label: '事故车'
                         }, {
-                            value: '02',
-                            label: 'B机构'
+                            value: '九成新',
+                            label: '九成新'
                         }],
-                    value07:'',
-                    sheng: '',  
-                    shi: '',
-                    value08:'',
                     options08: [{
-                            value: '01',
-                            label: 'A机构'
+                            value: 'A变速器',
+                            label: 'A变速器'
                         }, {
-                            value: '02',
-                            label: 'B机构'
+                            value: 'B变速器',
+                            label: 'B变速器'
                         }],
-                    label1:'',
-                    value09:'',
                     options09: [{
-                            value: '01',
-                            label: 'A机构'
+                            value: '交强险A',
+                            label: '交强险A'
                         }, {
-                            value: '02',
-                            label: 'B机构'
+                            value: '交强险B',
+                            label: '交强险B'
                         }],
-                    value10:'',
                     options10: [{
-                            value: '01',
-                            label: 'A机构'
+                            value: '商业保险A',
+                            label: '商业保险A'
                         }, {
-                            value: '02',
-                            label: 'B机构'
+                            value: '商业保险B',
+                            label: '商业保险B'
                         }],
-                    value11:'',
-                    options11: [{
-                            value: '01',
-                            label: 'A机构'
-                        }, {
-                            value: '02',
-                            label: 'B机构'
-                        }],
-                    value12:'',
                     options12: [{
-                            value: '01',
-                            label: 'A机构'
+                            value: '10万',
+                            label: '10万'
                         }, {
-                            value: '02',
-                            label: 'B机构'
+                            value: '20万',
+                            label: '20万'
                         }],
-                    value13:'',
                     options13: [{
-                            value: '01',
-                            label: 'A机构'
+                            value: '有',
+                            label: '有'
                         }, {
-                            value: '02',
-                            label: 'B机构'
+                            value: '无',
+                            label: '无'
                         }],
-                    value14:'',
                     options14: [{
-                            value: '01',
-                            label: 'A机构'
+                            value: '有',
+                            label: '有'
                         }, {
-                            value: '02',
-                            label: 'B机构'
+                            value: '无',
+                            label: '无'
                         }],
-                    value15:'',
                     options15: [{
-                            value: '01',
-                            label: 'A机构'
+                            value: '浙A',
+                            label: '浙A'
                         }, {
-                            value: '02',
-                            label: 'B机构'
+                            value: '浙B',
+                            label: '浙B'
                         }],
-                    checked1:'',
-                    checked2:'',
-                    checked3:'',
-                    checked4:'',
-                    checked5:'',
-                    checked6:'',
-                    checked7:'',
-                    checked8:'',
-                    checked9:'',
-                    checked10:'',
-                    checked11:'',
-                    checked12:'',
-                    checked13:'',
-                    checked14:'',
-                    checked15:'',
-                    checked16:'',
-                    checked17:'',
-                    checked18:'',
-                    radio1:'2',
-                    radio2:'',
                     dialogImageUrl: '',
                     dialogVisible: false,
-                    imageUrl: ''
                 }
             },
             created(){
                 this.getCityData();
             },
             methods: {
+                addALL(){
+                    const self = this;
+                    const params = self.ruleForm
+                    self.ruleForm.exterior = self.checked1 + self.checked2 + self.checked3 + self.checked4;
+                    console.log(self.checked1,self.checked2,self.checked3,self.checked4)
+                    self.ruleForm.interior = self.checked5 + self.checked6 + self.checked7;
+                    self.ruleForm.security = self.checked8 + self.checked9 + self.checked10;
+                    self.ruleForm.comfort = self.checked11 + self.checked12 + self.checked13 + self.checked14 +self.checked15 + self.checked16 + self.checked17 + self.checked18;
+                    this.$ajax.investmentPro(params).then((res)=> {
+                        console.log(res);
+                    });
+                },
                 handleRemove(file, fileList) {
                     console.log(file, fileList);
                 },
@@ -773,10 +758,9 @@
                 sure(formName) {
                     const self = this;
                     self.$refs[formName].validate((valid) => {
-                        console.log(self.$refs[formName])
+                        // console.log(self.$refs[formName])
                         // if (valid) {
-                        //     // self.adminRolesave()
-                        //     console.log(1)
+                            self.addALL()
                         // } else {
                         //     console.log('error submit!!');
                         //     return false;
@@ -795,36 +779,6 @@
                          return false;
                      } 
                 },
-                addALL(){
-                    const that = this;
-                    const params = {
-                        borrow_id:'1',
-                        main_brand:'2',
-                        car_name:'3',
-                        car_factory:'4',
-                        car_model:'5',
-                        retail_price:'6',
-                        trade_price:'7',
-                        info_term:'2017-08-09',
-                        car_vin:'8',
-                        car_out_colour:'99',
-                        car_in_colour:'10',
-                        car_mileage:'11',
-                        car_nature:'12',
-                        car_province:'13',
-                        car_city:'14',
-                        car_time:'2017-08-09',
-                        insurance_term:'2017-08-09',
-                        inspect_term:'2017-08-09',
-                        car_displacement:'15',
-                        car_transmission:'16',
-                        car_photo:'17',
-                        if_card:'fasle'
-                    };
-                    this.$ajax.investmentPro(params).then((res)=> {
-                        console.log(res);
-                    });
-                }
             }
         }
 </script>
