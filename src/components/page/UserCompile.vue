@@ -3,8 +3,8 @@
         <h2 class="main-title"><i class="fa fa-tags"></i>{{title}}</h2>
         <div class="main-form">
             <el-form class="user-form" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
-                <el-form-item label="角色选择:" prop="role">
-                    <el-select placeholder="请选择" v-model="ruleForm.r_role">
+                <el-form-item label="角色选择:" prop="role_id">
+                    <el-select placeholder="请选择" v-model="ruleForm.role_id">
                         <el-option
                           v-for="item in RoleList"
                           :key="item.id"
@@ -33,16 +33,17 @@
     export default {
         data() {
             return {
-                title: "新增用户",
+                title: "编辑用户",
                 RoleList:[],
                 ruleForm:{
                     r_role:'',
+                    role_id:'',
                     username:'',                    
                     niname:'',
                     password:''                   
                 },
                 rules:{
-                    r_role:[
+                    role_id:[
                         { required: true, message: '请选择角色', trigger: 'change' }
                     ],
                     username:[
@@ -87,7 +88,7 @@
                 };
                 this.$ajax.getAdminInfoByUserid(params).then((res)=> {
                     this.ruleForm = res.lists[0];
-
+                    this.ruleForm.role_id = parseInt(this.ruleForm.role_id);
                 });
             },
             adminRolesave(){
@@ -97,7 +98,7 @@
                     username:self.ruleForm.username,
                     password:password,
                     niname:self.ruleForm.niname,
-                    role_id:self.ruleForm.r_role,
+                    role_id:self.ruleForm.role_id,
                     id:self.$route.query.id
                 };
                 self.$ajax.adminRolesave(params).then((res)=> {

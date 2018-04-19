@@ -41,12 +41,17 @@ export default {
     adminRolesave:params => {
         return utils.postData(`${admin}/adminRole/save`, params);
     },
+    //根据角色ID获取权限列表
     getResourceByRoleId:params => {
         return utils.postData(`${admin}/adminRole/getResourceByRoleId`, params);
     },
     //获取用户（管理员）账号信息
     getAdminInfoByUserid:params => {
         return utils.postData(`${admin}/adminRole/getAdminInfoByUserid`, params);
+    },
+    //获取用户（管理员）权限信息
+    getAdminRoleByUserid:params => {
+        return utils.postData(`${admin}/adminRole/getAdminRoleByUserid`, params);
     },
     //删除用户（管理员）账号
     adminRoledelete:params => {

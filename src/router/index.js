@@ -73,7 +73,7 @@ router.beforeEach((to, from, next) => {
                 // 获取权限列表，如果失败则跳回登录页重新登录
                 store.dispatch('getPermission').then(res => {
                     // 匹配并生成需要添加的路由对象
-                    routerMatch(res.data, asyncRoute).then(res => {
+                    routerMatch(res, asyncRoute).then(res => {
                         store.commit("setPermissionList",res)
                         router.addRoutes(res)
                         router.addRoutes(redirectRoute)
