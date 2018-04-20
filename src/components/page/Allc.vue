@@ -1,38 +1,11 @@
 <template>
-    <div class="panel">
-        <div class="panel-head">
-            <h5><span class="el-icon-star-off"></span>{{title}}</h5>
+   <div class="main-content" v-bind:data="tabledata">
+            <h2 class="main-title"><i class="fa fa-tags"></i>查看标的信息</h2>
             <div class="addo_content">
-                <el-row :gutter="24">
-                  <el-col :span="8">
-                      <label for="payNumber" class="el-form-item__label">申请报价:</label>
-                      <div class="el-form-item__content">
-                        <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
-                      </div>
-                  </el-col>
-                  <el-col :span="8">
-                      <label for="payNumber" class="el-form-item__label">车300估价:</label>
-                      <div class="el-form-item__content">
-                        <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
-                      </div>
-                  </el-col>
-                  <el-col :span="8">
-                      <label for="payNumber" class="el-form-item__label">运营定价:</label>
-                      <div class="el-form-item__content">
-                        <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
-                      </div>
-                  </el-col>
-                </el-row>
-                <el-row :gutter="24">
-                  <el-col :span="8" class="marl743">
-                    <el-button type="primary">审核通过</el-button>
-                    <el-button type="info">审核不通过</el-button>
-                  </el-col>
-                </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl42">主品牌:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label" prop="borrow_id"></label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl28">车辆名称:</label>
@@ -135,7 +108,7 @@
                         <label for="payNumber" class="el-form-item__label">22222:</label>
                     </el-col>
                 </el-row>
-                <div v-show="radio1 == 1">   
+                <div>   
                   <el-row :gutter="20">
                     <el-col :span="10">
                           <label for="payNumber" class="el-form-item__label">首次上牌时间:</label>
@@ -244,20 +217,15 @@
                 mapJson:'../static/json/map.json',
                 province:'',
                 shi1: [],
-                form1:'',
-                title: "审核",
+                tabledata:[],
             }
         },
         created(){
-            this.getCityData();
+            const self = this;
+            self.getCityData();
+            self.firstDate();
         },
         methods: {
-                 handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      handlePreview(file) {
-        console.log(file);
-      },
                 getCityData:function(){  
                     var that = this;  
                     this.$axios.get(this.mapJson).then(function(response){  
@@ -320,6 +288,16 @@
                     // console.log(this.E)  
                   }  
                 }  
+            },
+            firstDate:function(){
+              const self = this;
+              const params = {
+                target_nid:self.$route.query.id,
+              }
+              self.$ajax.getTargetByTargetnid(params).then((res)=> {
+                  self.tabledata= res;
+                  console.log(self.tabledata)
+              });
             },
         }
     }

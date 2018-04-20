@@ -1,8 +1,6 @@
 <template>
-    <div class="panel">
-        <div class="panel-head">
-            <h5><span class="el-icon-star-off"></span>{{title}}</h5>
-        </div>
+    <div class="main-content">
+        <h2 class="main-title"><i class="fa fa-tags"></i>初审</h2>
         <div class="addo_contentall">
           <div class="addo_content">
             <el-row :gutter="20">
@@ -59,58 +57,23 @@
               </el-row>
           </div>
         </div>
-        
-        <table class="table table-hover text-center">
-            <tbody>
-                <tr>
-                    <th>标的流水号</th>
-                    <th>借款产品</th>
-                    <th>借款人/机构</th>
-                    <th>申请金额</th>
-                    <th>评估定价</th>
-                    <th>审核状态</th>
-                    <th>申请时间</th>
-                    <th>操作</th>
-                </tr>
-            </tbody>
-            <tbody id="course-list">
-                <tr v-for="item in tabledata" :key="item.id">
-                    <td>{{item.aa}}</td>
-                    <td>{{item.bb}}</td>                       
-                    <td>{{item.cc}}</td>
-                    <td>{{item.dd}}</td> 
-                    <td>{{item.ee}}</td>
-                    <td>{{item.ff}}</td>
-                    <td>{{item.gg}}</td>
-                    <td><el-button type="primary" @click="shenhe()">{{item.hh}}</el-button></td>
-                </tr>
-            </tbody>
-        </table>
-        <table class="table table-hover text-center" id="table1">
-            <tbody>
-                <tr>
-                    <th>标的流水号</th>
-                    <th>借款产品</th>
-                    <th>借款人/机构</th>
-                    <th>申请金额</th>
-                    <th>评估定价</th>
-                    <th>审核状态</th>
-                    <th>申请时间</th>
-                </tr>
-            </tbody>
-            <tbody id="course-list">
-                <tr v-for="item in tabledata" :key="item.id">
-                    <td>{{item.aa}}</td>
-                    <td>{{item.bb}}</td>                       
-                    <td>{{item.cc}}</td>
-                    <td>{{item.dd}}</td> 
-                    <td>{{item.ee}}</td>
-                    <td>{{item.ff}}</td>
-                    <td>{{item.gg}}</td>
-                </tr>
-            </tbody>
-        </table>
-
+        <div class="main-form">
+            <el-table :data="tabledata" style="width: 100%">
+                <el-table-column prop="aa" label="标的流水号"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="bb" label="借款产品"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="cc" label="经销商名称"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="dd" label="评估金额"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="ee" label="期限"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="ff" label="资金端"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="gg" label="申请时间"  show-overflow-tooltip  align="center" v-bind:formatter="Addtime"></el-table-column>
+                <el-table-column prop="hh" label="放款时间"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column label="操作"  show-overflow-tooltip  align="center">
+                    <template slot-scope="scope">
+                        <el-button type="success" size="small" @click="">查看详情</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
     </div>
 </template>
 <script>

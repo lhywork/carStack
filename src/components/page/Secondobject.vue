@@ -1,8 +1,6 @@
 <template>
-    <div class="panel">
-        <div class="panel-head">
-            <h5><span class="el-icon-star-off"></span>{{title}}</h5>
-        </div>
+    <div class="main-content">
+        <h2 class="main-title"><i class="fa fa-tags"></i>复审</h2>
         <div class="addo_contentall">
           <div class="addo_content">
             <el-row :gutter="20">
@@ -52,66 +50,39 @@
                       </el-col>
                       <el-col :span="10">
                         <el-button type="primary" class="inquire">查询</el-button>
-                        <el-button type="warning">导出excel</el-button>
+                        <el-button type="warning" @click="exportExcel()">导出excel</el-button>
                       </el-col>
                   </div>
               </div>
               </el-row>
           </div>
         </div>
-        <table class="table table-hover text-center">
-            <tbody>
-                <tr>
-                    <th>标的流水号</th>
-                    <th>借款产品</th>
-                    <th>借款人/机构</th>
-                    <th>申请金额</th>
-                    <th>评估定价</th>
-                    <th>审核状态</th>
-                    <th>申请时间</th>
-                    <th>操作</th>
-                </tr>
-            </tbody>
-            <tbody id="course-list">
-                <tr>
-                    <td>1</td>
-                    <td>2</td>                       
-                    <td>1</td>
-                    <td>2</td> 
-                    <td>1</td>
-                    <td>未审</td>
-                    <td>1</td>
-                    <td><el-button type="primary" @click="shenhe()">审核</el-button></td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>                       
-                <td>1</td>
-                <td>2</td> 
-                <td>1</td>
-                <td>通过</td>
-                <td>1</td>
-                <td><el-button type="primary">查看</el-button></td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>                       
-                <td>1</td>
-                <td>2</td> 
-                <td>1</td>
-                <td>不通过</td>
-                <td>1</td>
-                <td><el-button type="primary">查看</el-button></td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="main-form">
+            <el-table :data="tabledata" style="width: 100%">
+                <el-table-column prop="aa" label="标的流水号"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="bb" label="借款产品"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="cc" label="经销商名称"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="dd" label="评估金额"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="ee" label="期限"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="ff" label="资金端"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="gg" label="申请时间"  show-overflow-tooltip  align="center" v-bind:formatter="Addtime"></el-table-column>
+                <el-table-column prop="hh" label="放款时间"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column label="操作"  show-overflow-tooltip  align="center">
+                    <template slot-scope="scope">
+                        <el-button type="success" size="small" @click="">查看详情</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
     </div>
 </template>
 <script>
+    import FileSaver from 'file-saver'
+    import XLSX from 'xlsx'
     export default {
             data() {
                 return {
-                    title: "复审",
+                    title: "初审",
                     originoptions: [{
                             value: '01',
                             label: 'A机构'
@@ -145,7 +116,8 @@
                         }],
                     productvalue:'',
                     datatime1:'',
-                    datatime2:''
+                    datatime2:'',
+                    tabledata:[{aa:11,bb:22,cc:33,dd:44,ee:55,ff:66,gg:88,hh:'操作'},{aa:11,bb:22,cc:33,dd:44,ee:55,ff:66,gg:88,hh:'操作'},{aa:11,bb:22,cc:33,dd:44,ee:55,ff:66,gg:88,hh:'操作'}]
                 }
             },
             created(){
@@ -158,8 +130,22 @@
                 },
                 shenhe:function(){
                     const self = this;
-                    self.$router.push('/SobjectC');
-                }
+                    self.$router.push('/FobjectC');
+                },
+                Addobject:function(){
+                    const self = this;
+                    self.$router.push('/Addobject');
+                },
+                exportExcel () {
+                     /* generate workbook object from table */
+                     var wb = XLSX.utils.table_to_book(document.querySelector('#table1'))
+                     /* get binary string as output */
+                     var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+                     try {
+                         FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'sheet1js.xlsx')
+                     } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
+                     return wbout
+                },
             }
         }
 </script>
@@ -270,5 +256,8 @@
     }
     .inquire{
         margin-left: 55px;
+    }
+    #table1{
+        display: none;
     }
 </style>

@@ -69,6 +69,10 @@ const asyncRoute = [
             name: '所有标的',
             component: resolve => require(['@/components/page/Allobject.vue'], resolve)
         },{
+            path: '/Allc',
+            name: '查看标的信息',
+            component: resolve => require(['@/components/page/Allc.vue'], resolve)
+        },{
             path: '/Addobject',
             name: '新增标的信息',
             hidden: true,
@@ -82,10 +86,6 @@ const asyncRoute = [
             name: '标的复审',
             component: resolve => require(['@/components/page/Secondobject.vue'], resolve)
         },{
-            path: '/Thirdlyobject',
-            name: '真实借款金额信息',
-            component: resolve => require(['@/components/page/Thirdlyobject.vue'], resolve)
-        },{
             path: '/FobjectC',
             name: '初审标的审核',
             hidden: true,
@@ -95,11 +95,6 @@ const asyncRoute = [
             name: '复审标的审核',
             hidden: true,
             component: resolve => require(['@/components/page/SobjectC.vue'], resolve)
-        },{
-            path: '/TobjectC',
-            name: '真实借款金额审核',
-            hidden: true,
-            component: resolve => require(['@/components/page/TobjectC.vue'], resolve)
         }]
     },{
         path: '/',

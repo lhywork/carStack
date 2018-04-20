@@ -681,7 +681,11 @@
                     self.ruleForm.security = self.checked8 + self.checked9 + self.checked10;
                     self.ruleForm.comfort = self.checked11 + self.checked12 + self.checked13 + self.checked14 +self.checked15 + self.checked16 + self.checked17 + self.checked18;
                     this.$ajax.investmentPro(params).then((res)=> {
-                        console.log(res);
+                        if(res.returnCode == 1){
+                            self.$router.push({ path: '/Allobject' });   
+                        }else{
+                            self.$alert(res.returnMsg,'系统提示')
+                        }
                     });
                 },
                 handleRemove(file, fileList) {
@@ -758,13 +762,13 @@
                 sure(formName) {
                     const self = this;
                     self.$refs[formName].validate((valid) => {
-                        // console.log(self.$refs[formName])
-                        // if (valid) {
+                        console.log(self.$refs[formName])
+                        if (valid) {
                             self.addALL()
-                        // } else {
-                        //     console.log('error submit!!');
-                        //     return false;
-                        // }
+                        } else {
+                            console.log('error submit!!');
+                            return false;
+                        }
                     });
                 },
                 beforeupload(file){
