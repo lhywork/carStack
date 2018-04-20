@@ -15,11 +15,15 @@
         </div>
     </div>
     <div class="main-form">
-        <el-table :data="tableData" style="width: 100%;min-height:335px;"  >
+        <el-table :data="tableData" style="width: 100%;min-height:335px;">
             <el-table-column prop="company_name" label="公司名称" show-overflow-tooltip align="center"></el-table-column>
             <el-table-column prop="mobile" label="手机号码" show-overflow-tooltip align="center"></el-table-column>
             <el-table-column prop="addr_area" label="省份" show-overflow-tooltip align="center"></el-table-column>
-            <el-table-column prop="dealer_type" label="是否同盟" show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column prop="dealer_type" label="是否同盟" show-overflow-tooltip align="center">
+              <template slot-scope="scope">
+                  {{ scope.row.dealer_type =='2' ? '是' : '否' }}
+              </template>
+            </el-table-column>
             <el-table-column prop="grant_type" label="额度类型" show-overflow-tooltip align="center"></el-table-column>
             <el-table-column prop="risk_score" label="风控评分" show-overflow-tooltip align="center"></el-table-column>
             <el-table-column prop="grant_account" label="授权金额" show-overflow-tooltip align="center"></el-table-column>
@@ -180,6 +184,15 @@ export default {
             that.total = res.total;
         });
       },
+      getSubjectAndOptions(){
+        const that = this;
+        const params = {
+            account_no:'',
+        }
+        this.$ajax.getSubjectAndOptions(params).then((res)=> {
+            console.log(res)
+        });
+      },
       //点击评分
       handleScore(){
         this.dialogFormVisible = true;
@@ -198,7 +211,8 @@ export default {
     },  
     created:function(){  
       this.getCityData();
-      this.getListData();  
+      this.getListData();
+      this.getSubjectAndOptions();  
     }  
 }  
 </script>
