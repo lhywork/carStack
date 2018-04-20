@@ -35,49 +35,45 @@
                         <template>
                             <div class="card-box">
                                 <div class="card-left">
-                                    <el-upload class="card-border" name="uploadfile"
+                                    <el-upload class="card-border" name="uploadfile" ref="id_no_front"
                                         accept="image/gif,image/jpeg,image/jpg,image/png"
                                         list-type="picture-card"
                                         :action="uploadUrl"                                        
-                                        :data="uploadData"
+                                        :data="uploadData1"
                                         :before-upload="beforeUpload"
-                                        :on-preview="handlePreview">
+                                        :on-preview="handlePreview"
+                                        :on-success="handleSuccess">
                                         <i class="plus-icon el-icon-plus"></i>
                                     </el-upload>
-                                    <el-dialog :visible.sync="dialogVisible">
-                                        <img width="100%" :src="dialogImageUrl" alt="">
-                                    </el-dialog>
                                     <p>（身份证正面）</p>   
                                 </div>
                                 <div class="card-right">
-                                    <el-upload class="card-border" name="uploadfile"
+                                    <el-upload class="card-border" name="uploadfile" ref="id_no_back"
                                         accept="image/gif,image/jpeg,image/jpg,image/png"
                                         list-type="picture-card"
                                         :action="uploadUrl"                                      
-                                        :data="uploadData"
+                                        :data="uploadData2"
                                         :before-upload="beforeUpload"
-                                        :on-preview="handlePreview">
+                                        :on-preview="handlePreview"
+                                        :on-success="handleSuccess">
                                         <i class="plus-icon el-icon-plus"></i>
                                     </el-upload>
-                                    <el-dialog :visible.sync="dialogVisible">
-                                        <img width="100%" :src="dialogImageUrl" alt="">
-                                    </el-dialog>
                                     <p>（身份证反面）</p> 
                                 </div>
                             </div>
                         </template>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="升级为分栈经销商">
-                        <el-radio-group v-model="isStack">
-                          <el-radio label="true">是</el-radio>
-                          <el-radio label="false">否</el-radio>
+                        <el-radio-group v-model="form.dealer_type">
+                          <el-radio label="2">是</el-radio>
+                          <el-radio label="1">否</el-radio>
                         </el-radio-group>
                     </el-form-item>
                 </el-form>
             </div>
         </div>
     </div>
-    <div class="main-module" v-show="isStack == 'true'">
+    <div class="main-module" v-show="form.dealer_type == '2'">
         <h2 class="main-title"><i class="fa fa-tags"></i>公司资料</h2>
         <div class="main-form">
             <div id="J_Form" class="form-content">
@@ -101,41 +97,86 @@
                         <el-input class="form-input" v-model="form.company_use_name" placeholder="请输入公司合同显示名称"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="车栈照片">
-                        <div class="card-border">
-                            <i class="plus-icon el-icon-plus"></i>
-                        </div>
+                      <div class="card-box">
+                          <el-upload class="card-border" name="uploadfile"
+                              accept="image/gif,image/jpeg,image/jpg,image/png"
+                              list-type="picture-card"
+                              :action="uploadUrl"                                      
+                              :data="uploadData3"
+                              :before-upload="beforeUpload"
+                              :on-preview="handlePreview"
+                              :on-success="handleSuccess">
+                              <i class="plus-icon el-icon-plus"></i>
+                          </el-upload>
+                      </div>                
                     </el-form-item>
                     <el-form-item class="J-form-item" label="营业执照">
-                        <div class="card-border">
-                            <i class="plus-icon el-icon-plus"></i>
-                        </div>
+                        <div class="card-box">
+                          <el-upload class="card-border" name="uploadfile"
+                              accept="image/gif,image/jpeg,image/jpg,image/png"
+                              list-type="picture-card"
+                              :action="uploadUrl"                                      
+                              :data="uploadData4"
+                              :before-upload="beforeUpload"
+                              :on-preview="handlePreview"
+                              :on-success="handleSuccess">
+                              <i class="plus-icon el-icon-plus"></i>
+                          </el-upload>
+                      </div>
                     </el-form-item>
-                    <el-form-item class="J-form-item block-item" label="场地租赁合同">
-                        <div class="card-border">
-                            <i class="plus-icon el-icon-plus"></i>
-                        </div>
+                    <el-form-item class="J-form-item block" label="场地租赁合同">
+                        <div class="card-box">
+                          <el-upload class="card-border" name="uploadfile"
+                              accept="image/gif,image/jpeg,image/jpg,image/png"
+                              list-type="picture-card"
+                              :action="uploadUrl"                                      
+                              :data="uploadData5"
+                              :before-upload="beforeUpload"
+                              :on-preview="handlePreview"
+                              :on-success="handleSuccess">
+                              <i class="plus-icon el-icon-plus"></i>
+                          </el-upload>
+                      </div>
                     </el-form-item>
-                    <el-form-item class="J-form-item block-item" label="场地照片">
-                        <div class="card-border">
-                            <i class="plus-icon el-icon-plus"></i>
-                        </div>
+                    <el-form-item class="J-form-item block" label="场地照片">
+                        <div class="card-box">
+                          <el-upload class="card-border" name="uploadfile"
+                              accept="image/gif,image/jpeg,image/jpg,image/png"
+                              list-type="picture-card"
+                              :action="uploadUrl"                                      
+                              :data="uploadData6"
+                              :before-upload="beforeUpload"
+                              :on-preview="handlePreview"
+                              :on-success="handleSuccess">
+                              <i class="plus-icon el-icon-plus"></i>
+                          </el-upload>
+                      </div>
                     </el-form-item>
-                    <el-form-item class="J-form-item block-item" label="申请表">
-                        <div class="card-border">
+                    <el-form-item class="J-form-item block" label="申请表">
+                      <div class="card-box">
+                        <el-upload class="card-border" name="uploadfile"
+                            accept="image/gif,image/jpeg,image/jpg,image/png"
+                            list-type="picture-card"
+                            :action="uploadUrl"                                      
+                            :data="uploadData7"
+                            :before-upload="beforeUpload"
+                            :on-preview="handlePreview"
+                            :on-success="handleSuccess">
                             <i class="plus-icon el-icon-plus"></i>
-                        </div>
+                        </el-upload>
+                      </div>
                     </el-form-item>
                 </el-form>
             </div>
         </div>
     </div>
-    <div class="main-module" v-show="isStack == 'true'">
+    <div class="main-module" v-show="form.dealer_type == '2'">
         <h2 class="main-title"><i class="fa fa-tags"></i>附件信息</h2>
         <div class="main-form">
             <div id="J_Form" class="form-content">
                 <el-form :inline="true" :model="form" :label-position="'right'" label-width="130px" class="demo-form-inline">
                     <el-form-item class="J-form-item" label="车商增信报告">
-                        <el-input class="form-input" v-model="form.user" placeholder="请输入公司名称"></el-input>
+                        <el-input class="form-input" v-model="form.user" placeholder="请输入车商增信报告"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="经营流水电子版">
                         <el-input class="form-input" v-model="form.user" placeholder="请输入经营年限"></el-input>
@@ -155,33 +196,56 @@
                         <template>
                             <div class="card-box">
                                 <div class="card-left">
-                                    <el-upload class="card-border" action="uploadUrl"
-                                      :show-file-list="false"
-                                      :on-success="handleSuccess"
-                                      :before-upload="beforeUpload">
-                                      <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                                      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                    <el-upload class="card-border" name="uploadfile"
+                                        accept="image/gif,image/jpeg,image/jpg,image/png"
+                                        list-type="picture-card"
+                                        :action="uploadUrl"                                        
+                                        :data="uploadData"
+                                        :before-upload="beforeUpload"
+                                        :on-preview="handlePreview"
+                                        :on-success="handleSuccess">
+                                        <i class="plus-icon el-icon-plus"></i>
                                     </el-upload>
                                     <p>（身份证正面）</p>   
                                 </div>
                                 <div class="card-right">
-                                    <div class="card-border">
+                                    <el-upload class="card-border" name="uploadfile"
+                                        accept="image/gif,image/jpeg,image/jpg,image/png"
+                                        list-type="picture-card"
+                                        :action="uploadUrl"                                      
+                                        :data="uploadData"
+                                        :before-upload="beforeUpload"
+                                        :on-preview="handlePreview"
+                                        :on-success="handleSuccess">
                                         <i class="plus-icon el-icon-plus"></i>
-                                        <input type="file" name="file" accept="image/gif,image/jpeg,image/jpg,image/png" class="el-upload__input">
-                                    </div>
+                                    </el-upload>
                                     <p>（身份证反面）</p> 
                                 </div>
                             </div>
                         </template>
                     </el-form-item>
-                    <el-form-item class="J-form-item block-item" label="资产证明">
-                        <div class="card-border">
-                            <i class="plus-icon el-icon-plus"></i>
+                    <el-form-item class="J-form-item block" label="资产证明">
+                        <div class="card-box">
+                          <el-upload class="card-border" name="uploadfile"
+                              accept="image/gif,image/jpeg,image/jpg,image/png"
+                              list-type="picture-card"
+                              :action="uploadUrl"                                      
+                              :data="uploadData8"
+                              :before-upload="beforeUpload"
+                              :on-preview="handlePreview"
+                              :on-success="handleSuccess">
+                              <i class="plus-icon el-icon-plus"></i>
+                          </el-upload>
                         </div>
                     </el-form-item>
                 </el-form>                
             </div>
         </div>
+    </div>
+    <div class="main-dialog">
+      <el-dialog :visible.sync="dialogVisible">
+        <img width="100%" :src="dialogImageUrl" alt="">
+      </el-dialog>
     </div>
     <el-button @click="SubmitBtn()" class="form-submit" type="success">确认提交</el-button>
   </div>
@@ -198,8 +262,6 @@ export default {
           qu: '',  
           quArr: [],
           gx:'',
-          imageUrl: '',
-          isStack:'true',
           dbr: [{
               value: '1',
               label: '父子'
@@ -216,23 +278,77 @@ export default {
               mobile:"13335711774",
               id_no:'362202199307164455',
               phone:'400-8878288',
-              addr_province:'江西省',
-              addr_city:'南昌市',
-              addr_area:'某某某',
-              id_no_front:'http://192.168.1.222:8087/images/22/11_11_92F5C584FA680BBF742A2DADFCC07D0D.png',
-              id_no_back:'http://192.168.1.222:8087/images/22/11_11_92F5C584FA680BBF742A2DADFCC07D0D.png',
+              addr_province:'浙江省',
+              addr_city:'杭州市',
+              addr_area:'中天MCC',
+              id_no_front:'',
+              id_no_back:'',
               company_name:'微拍贷',
-              run_life:'3年',
-              company_des:'微拍贷隶属于上海佩辉金融信息服务有限公司。上海佩辉金融信息服务有限公司（简称“佩辉金服”）于2015年2月4日在上海金融街成立，并逐步在全国形成全国性的服务网络，分别在上海杭州设有办公地点。',
+              run_life:'',
+              company_des:'',
               stack_name:'',
               stack_des:'',
-              company_use_name:''
+              company_use_name:'',
+              stack_pic:'',
+              run_license:'',
+              lease_contract:'',
+              lease_pic:'',
+              dealer_type:'2',
+              application:''
           },
           dialogImageUrl: '',
           dialogVisible: false,
           uploadUrl:'http://192.168.1.222:8087/file/uploadPic',
           uploadData:{
-            tablename:'11',
+            tablename:'hrcf_stack_asset_base_materia',
+            cloumnname:'11',
+            linkno:'22',
+            moreFlag:true
+          },
+          uploadData1:{
+            tablename:'hrcf_stack_asset_base_materia',
+            cloumnname:'id_no_front',
+            linkno:'22',
+            moreFlag:true
+          },
+          uploadData2:{
+            tablename:'hrcf_stack_asset_base_materia',
+            cloumnname:'id_no_back',
+            linkno:'22',
+            moreFlag:true
+          },
+          uploadData3:{
+            tablename:'hrcf_stack_asset_base_materia',
+            cloumnname:'stack_pic',
+            linkno:'22',
+            moreFlag:true
+          },
+          uploadData4:{
+            tablename:'hrcf_stack_asset_base_materia',
+            cloumnname:'run_license',
+            linkno:'22',
+            moreFlag:true
+          },
+          uploadData5:{
+            tablename:'hrcf_stack_asset_base_materia',
+            cloumnname:'lease_contract',
+            linkno:'22',
+            moreFlag:true
+          },
+          uploadData6:{
+            tablename:'hrcf_stack_asset_base_materia',
+            cloumnname:'lease_pic',
+            linkno:'22',
+            moreFlag:true
+          },
+          uploadData7:{
+            tablename:'hrcf_stack_asset_base_materia',
+            cloumnname:'application',
+            linkno:'22',
+            moreFlag:true
+          },
+          uploadData8:{
+            tablename:'hrcf_stack_asset_base_materia',
             cloumnname:'11',
             linkno:'22',
             moreFlag:true
@@ -297,35 +413,27 @@ export default {
           if (e === this.city[index3].id) {  
             this.quArr = this.city[index3].children  
             this.qu = this.city[index3].children[0].value  
-            this.E = this.quArr[0].id  
-            // console.log(this.E)  
+            this.E = this.quArr[0].id    
           }  
         }  
       }, 
-      handlePreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
-        console.log(file.url)
-      },
-      handleSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
-      },
       SubmitBtn(){
         const that = this;
         const params = this.form;
         that.$ajax.BaseMaterialSave(params).then((res)=> {
           if(res.returnCode == 1){
-              that.$alert('新增成功！', '系统后台提示', {
-                confirmButtonText: '确定',
-                callback: action => {
-                  that.$router.push({ path: '/index' });
-                }
-              });
+            that.$alert('新增成功！', '系统后台提示', {
+              confirmButtonText: '确定',
+              callback: action => {
+                that.$router.push({ path: '/index' });
+              }
+            });
           }else{
-              this.msgAlert(res.returnMsg);
+            this.msgAlert(res.returnMsg);
           }        
         })
       },
+      //图片上传之前
       beforeUpload(file) {
         const isJPG = /\.(gif|jpg|jpeg|png)$/.test(file.name);
         const isLt2M = file.size / 1024 / 1024 < 2;
@@ -337,11 +445,20 @@ export default {
         }else{
             
         }
-        return isJPG && isLt2M;
+        return isJPG && isLt2M; 
+      },
+      //图片预览
+      handlePreview(file) {
+        this.dialogImageUrl = file.url;
+        this.dialogVisible = true;
+      },
+      //图片上传成功
+      handleSuccess(response, file, fileList){
+        console.log(response, file, fileList)
       },
       //系统消息提示
       msgAlert(title){
-          this.$alert(title,'系统后台提示');
+        this.$alert(title,'系统后台提示');
       }, 
     },  
     created:function(){  
@@ -362,6 +479,9 @@ export default {
     }
     .card-item .el-form-item__content{
         display:block;
+    }
+    .el-form--inline .el-form-item.block{
+      display: block;
     }
     .card-item{
         margin-bottom: -50px;

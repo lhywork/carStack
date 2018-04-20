@@ -8,6 +8,9 @@ export default {
     },
     getPermissionList:params=>{
         return utils.getData(`../static/json/navlist.json`,params);
+    },    
+    getAccountNo:params=>{
+        return utils.getData(`${base}/baseMaterial/getAccountNo`,params);
     },
     //获取资产端用户基础资料列表
     getBaseMaterialList : params => {
@@ -74,7 +77,7 @@ export default {
     },
     //新增/修改借款产品基础资料
     borrowProSave:params =>{
-        return utils.postRowData(`${admin}/borrowPro/save2`, params);
+        return utils.postJSON(`${admin}/borrowPro/save2`, params);
     },
     //借款产品信息列表
     getBorrowProById:params =>{

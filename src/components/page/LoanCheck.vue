@@ -43,12 +43,9 @@
                 self.$ajax.getBorrowProById(params).then((res)=> {
                     self.form.name = res.lists[0].name;
                     self.form.if_forward = res.lists[0].if_forward;
-                    self.form.tableData = res.lists
-                    console.log(self.form)
+                    self.form.tableData = res.lists;
                     // self.form.if_forward = res.lists["0"].if_forward;
-
-                });
-                
+                });               
             }
         },  
         created:function(){  
