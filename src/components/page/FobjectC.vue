@@ -1,7 +1,6 @@
 <template>
-    <div class="panel">
-        <div class="panel-head">
-            <h5><span class="el-icon-star-off"></span>{{title}}</h5>
+   <div class="main-content">
+            <h2 class="main-title"><i class="fa fa-tags"></i>审核</h2>
             <div class="addo_content">
                 <el-row :gutter="24">
                   <el-col :span="8">
@@ -244,20 +243,12 @@
                 mapJson:'../static/json/map.json',
                 province:'',
                 shi1: [],
-                form1:'',
-                title: "审核",
             }
         },
         created(){
             this.getCityData();
         },
         methods: {
-                 handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      handlePreview(file) {
-        console.log(file);
-      },
                 getCityData:function(){  
                     var that = this;  
                     this.$axios.get(this.mapJson).then(function(response){  
@@ -321,6 +312,15 @@
                   }  
                 }  
             },
+            firstDate:function(){
+              const self = this;
+              const params = {
+                target_nid
+              }
+              // self.$ajax.getTargetByTargetnid(params).then((res)=> {
+
+              // });
+            }
         }
     }
 </script>

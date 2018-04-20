@@ -79,7 +79,15 @@ export default {
     //借款产品信息列表
     getBorrowProById:params =>{
         return utils.postData(`${admin}/borrowPro/getBorrowProById`, params);
-    } 
+    },
+    //获取标的信息列表
+    getTargetList:params =>{
+        return utils.postData(`${admin}/targetInfo/getTargetList`, params);
+    },
+    //获取单个标的信息 
+    getTargetByTargetnid:params =>{
+        return utils.postData(`${admin}/targetInfo/getTargetByTargetnid`, params);
+    }, 
 };
 
 

@@ -51,6 +51,10 @@
             "name": "所有标的",
             "isAuth":true
         },{
+            "path": "/Allc",
+            "name": "查看标的信息",
+            "isAuth":true
+        },{
             "path": "/Addobject",
             "name": "新增标的信息",
             "isAuth":true
@@ -63,20 +67,12 @@
             "name": "标的复审",
             "isAuth":true
         },{
-            "path": "/Thirdlyobject",
-            "name": "真实借款金额信息",
-            "isAuth":true
-        },{
             "path": "/FobjectC",
             "name": "初审标的审核",
             "isAuth":true
         },{
             "path": "/SobjectC",
             "name": "复审标的审核",
-            "isAuth":true
-        },{
-            "path": "/TobjectC",
-            "name": "真实借款金额审核",
             "isAuth":true
         }]
     },{
