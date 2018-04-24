@@ -46,7 +46,7 @@
         </div>
     </div>
     <div class="main-form">
-        <el-table :data="tableData" style="width: 100%;min-height:335px;">
+        <el-table :data="tableData" style="width: 100%;min-height:334px;">
             <el-table-column prop="account_name" label="姓名"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="mobile" label="手机号码" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="company_name" label="公司名称" show-overflow-tooltip  align="center"></el-table-column>

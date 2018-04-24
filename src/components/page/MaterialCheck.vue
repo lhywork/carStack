@@ -183,21 +183,28 @@
             <div id="J_Form" class="form-content">
                 <el-form :inline="true" :model="form" :label-position="'right'" label-width="130px" class="demo-form-inline">
                     <el-form-item class="J-form-item" label="车商增信报告">
-                        <el-input :disabled="true" class="form-input" v-model="form.user" placeholder="请输入车商增信报告"></el-input>
+                        <el-upload class="upload-file" name="uploadfile"
+                          :action="FileUrl"
+                          :data="FileData1"
+                          :file-list="form.credit_report">
+                          <el-button size="small" type="primary">点击上传</el-button>
+                        </el-upload>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="经营流水电子版">
-                        <el-input :disabled="true" class="form-input" v-model="form.user" placeholder="请输入经营年限"></el-input>
+                        <el-upload class="upload-file" name="uploadfile"
+                          :action="FileUrl"
+                          :data="FileData2"
+                          :file-list="form.running_water">
+                          <el-button size="small" type="primary">点击上传</el-button>
+                        </el-upload>
                     </el-form-item>
                     <el-form-item class="J-form-item card-laber-item" label="担保人姓名">
-                        <el-input :disabled="true" class="form-input" v-model="form.user" placeholder="请输入担保人姓名"></el-input>
+                        <el-input :disabled="true" class="form-input" v-model="form.guarantor_name" placeholder="请输入担保人姓名"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item card-laber-item" label="身份证照片">
                     </el-form-item>
                     <el-form-item class="J-form-item card-laber-item" label="担保人手机号">
-                        <el-input :disabled="true" class="form-input" v-model="form.user" placeholder="请输入担保人手机号"></el-input>
-                        <el-select disabled  class="address-input" v-model="gx"  placeholder="与被担保人关系">
-                            <el-option v-for="item in dbr" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                        </el-select>
+                        <el-input :disabled="true" class="form-input" v-model="form.guarantor_phone" placeholder="请输入担保人手机号"></el-input>
                     </el-form-item>             
                     <el-form-item class="J-form-item card-item" label="">
                         <template>
@@ -207,10 +214,11 @@
                                         accept="image/gif,image/jpeg,image/jpg,image/png"
                                         list-type="picture-card"
                                         :action="uploadUrl"                                        
-                                        :data="uploadData"
+                                        :data="uploadData8"
                                         :before-upload="beforeUpload"
                                         :on-preview="handlePreview"
-                                        :on-success="handleSuccess">
+                                        :on-success="handleSuccess"
+                                        :file-list="form.gt_id_no_front">
                                         <i class="plus-icon el-icon-plus"></i>
                                     </el-upload>
                                     <p>（身份证正面）</p>   
@@ -220,10 +228,11 @@
                                         accept="image/gif,image/jpeg,image/jpg,image/png"
                                         list-type="picture-card"
                                         :action="uploadUrl"                                      
-                                        :data="uploadData"
+                                        :data="uploadData9"
                                         :before-upload="beforeUpload"
                                         :on-preview="handlePreview"
-                                        :on-success="handleSuccess">
+                                        :on-success="handleSuccess"
+                                        :file-list="form.gt_id_no_back">
                                         <i class="plus-icon el-icon-plus"></i>
                                     </el-upload>
                                     <p>（身份证反面）</p> 
@@ -231,16 +240,20 @@
                             </div>
                         </template>
                     </el-form-item>
-                    <el-form-item class="J-form-item block" label="资产证明">
+                    <el-form-item class="J-form-item links-item" label="与被担保人关系">
+                        <el-input :disabled="true" v-model="form.guarantor_links" placeholder="与被担保人关系"></el-input>
+                    </el-form-item> 
+                    <el-form-item class="block-item" label="资产证明">
                         <div class="card-box">
-                          <el-upload :disabled="true" class="card-border" name="uploadfile"
+                          <el-upload :disabled="true" class="card-border more" name="uploadfile"
                               accept="image/gif,image/jpeg,image/jpg,image/png"
                               list-type="picture-card"
                               :action="uploadUrl"                                      
-                              :data="uploadData8"
+                              :data="uploadData10"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
-                              :on-success="handleSuccess">
+                              :on-success="handleSuccess"
+                              :file-list="form.asset_proof">
                               <i class="plus-icon el-icon-plus"></i>
                           </el-upload>
                         </div>
@@ -302,17 +315,19 @@ export default {
               lease_contract:[],
               lease_pic:[],
               dealer_type:'',
-              application:[]
+              application:[],
+              guarantor_name:'',
+              guarantor_phone:'',
+              guarantor_links:'',
+              gt_id_no_front:[],
+              gt_id_no_back:[],
+              asset_proof:[],
+              credit_report:[],
+              running_water:[]
           },
           dialogImageUrl: '',
           dialogVisible: false,
           uploadUrl:this.$ajax.getBaseUrl+'/file/uploadPic',
-          uploadData:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'11',
-            linkno:this.$route.query.id,
-            moreFlag:false
-          },
           uploadData1:{
             tablename:'hrcf_stack_asset_base_material',
             cloumnname:'id_no_front',
@@ -357,9 +372,34 @@ export default {
           },
           uploadData8:{
             tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'11',
+            cloumnname:'gt_id_no_front',
+            linkno:this.$route.query.id,
+            moreFlag:false
+          },
+          uploadData9:{
+            tablename:'hrcf_stack_asset_base_material',
+            cloumnname:'gt_id_no_back',
+            linkno:this.$route.query.id,
+            moreFlag:false
+          },
+          uploadData10:{
+            tablename:'hrcf_stack_asset_base_material',
+            cloumnname:'asset_proof',
             linkno:this.$route.query.id,
             moreFlag:true
+          },
+          FileUrl:this.$ajax.getBaseUrl+'/file/uploadFile',
+          FileData1:{
+            tablename:'hrcf_stack_asset_base_material',
+            cloumnname:'credit_report',
+            linkno:this.$route.query.id,
+            moreFlag:false
+          },
+          FileData2:{
+            tablename:'hrcf_stack_asset_base_material',
+            cloumnname:'running_water',
+            linkno:this.$route.query.id,
+            moreFlag:false
           }  
         }  
     },   
@@ -546,6 +586,10 @@ export default {
         display: block;
         width: 100%;
     }
+    .links-item{
+      position: relative;
+      top: -55px;
+    } 
     .form-textarea{
         width: 586px;
     }

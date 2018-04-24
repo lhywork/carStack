@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="main-form">
-        <el-table :data="tableData" style="width: 100%;min-height:335px;">
+        <el-table :data="tableData" style="width: 100%;min-height:334px;">
             <el-table-column prop="company_name" label="公司名称" show-overflow-tooltip align="center"></el-table-column>
             <el-table-column prop="mobile" label="手机号码" show-overflow-tooltip align="center"></el-table-column>
             <el-table-column prop="addr_area" label="省份" show-overflow-tooltip align="center"></el-table-column>
@@ -39,41 +39,19 @@
         <!--编辑界面-->
         <el-dialog title="公司风控评分" :visible.sync="dialogFormVisible">
           <el-form ref="editForm" :label-position="'left'">
-            <h3>一.流水审核</h3>
-            <el-form-item class="radio-form-item" label="1.年流水金额">
-                
-            </el-form-item>
-            <el-form-item class="radio-form-item">
-              <el-radio-group v-model="AnnualFlowAmount">
-                <el-radio label="1">1000<总量<2000万</el-radio>
-                <el-radio label="2">2000<总量<3000万</el-radio>
-                <el-radio label="3">3000<总量<4000万</el-radio>
-                <el-radio label="4">5000万以上</el-radio>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item class="radio-form-item" label="2.月均赢利">         
-            </el-form-item>
-            <el-form-item class="radio-form-item">
-                <el-radio-group v-model="AnnualFlowAmount">
-                  <el-radio label="1">1000<总量<2000万</el-radio>
-                  <el-radio label="2">2000<总量<3000万</el-radio>
-                  <el-radio label="3">3000<总量<4000万</el-radio>
-                  <el-radio label="4">5000万以上</el-radio>
+            <div class="" v-for="item in listsData" :key="item.subject_id">
+              <el-form-item class="radio-form-item" :label="item.subject_des">          
+              </el-form-item>
+              <el-form-item class="radio-form-item">
+                <el-radio-group v-model="AnnualFlowAmount" v-for="v in item.options" :key="v.sno">
+                  <el-radio :label="v.sno">{{v.option_des}}</el-radio>
                 </el-radio-group>
-            </el-form-item>      
-            <el-form-item class="radio-form-item" label="3.有无其它信贷公司入账">         
-            </el-form-item>
-            <el-form-item class="radio-form-item">
-                <el-radio-group v-model="AnnualFlowAmount">
-                  <el-radio label="1">0</el-radio>
-                  <el-radio label="2">1</el-radio>
-                  <el-radio label="3">2</el-radio>
-                  <el-radio label="4">3</el-radio>
-                </el-radio-group>
-            </el-form-item>      
+              </el-form-item>
+            </div>  
           </el-form>  
           <div slot="footer" class="dialog-footer">
             <el-button @click.native="dialogFormVisible = false">取消</el-button>
+            <el-button @click.native="handleNext" type="primary">下一步</el-button>
             <el-button type="primary">确认提交</el-button>
           </div>
         </el-dialog>
@@ -103,7 +81,12 @@ export default {
       page:1,
       epage:5,
       total:1,
-      tableData:[]  
+      tableData:[],
+      lists:[],
+      listsData:[],
+      liststotal:1,
+      size:8,
+      curpage:1 
     }  
   },  
   methods:{  
@@ -190,12 +173,16 @@ export default {
             account_no:'',
         }
         this.$ajax.getSubjectAndOptions(params).then((res)=> {
-            console.log(res)
+          that.lists = res.lists;
+          that.listsData = res.lists.slice(0,that.size);
+          that.liststotal = res.total;
         });
       },
       //点击评分
       handleScore(){
         this.dialogFormVisible = true;
+        this.curpage = 1;
+        this.listsData = this.pagination(this.curpage,this.size,this.lists); 
       },
       handleCurrentChange(e){
         this.page = e;
@@ -207,7 +194,19 @@ export default {
       },  
       handSearch:function() {
         this.getListData();
-      }
+      },
+      handleNext(){
+        this.curpage++;
+        var pages =  Math.ceil(this.liststotal/this.size);
+        if(this.curpage > pages){
+          return false;
+        }
+        this.listsData = this.pagination(this.curpage,this.size,this.lists);      
+      },
+      pagination(pageNo, pageSize, array) {
+        var offset = (pageNo - 1) * pageSize;           
+        return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);  
+      } 
     },  
     created:function(){  
       this.getCityData();

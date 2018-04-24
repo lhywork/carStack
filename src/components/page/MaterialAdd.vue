@@ -176,21 +176,26 @@
             <div id="J_Form" class="form-content">
                 <el-form :inline="true" :model="form" :label-position="'right'" label-width="130px" class="demo-form-inline">
                     <el-form-item class="J-form-item" label="车商增信报告">
-                        <el-input class="form-input" v-model="form.user" placeholder="请输入车商增信报告"></el-input>
+                        <el-upload class="upload-file" name="uploadfile"
+                          :action="FileUrl"
+                          :data="FileData1">
+                          <el-button size="small" type="primary">点击上传</el-button>
+                        </el-upload>
                     </el-form-item>
                     <el-form-item class="J-form-item" label="经营流水电子版">
-                        <el-input class="form-input" v-model="form.user" placeholder="请输入经营年限"></el-input>
+                        <el-upload class="upload-file" name="uploadfile"
+                          :action="FileUrl"
+                          :data="FileData2">
+                          <el-button size="small" type="primary">点击上传</el-button>
+                        </el-upload>
                     </el-form-item>
                     <el-form-item class="J-form-item card-laber-item" label="担保人姓名">
-                        <el-input class="form-input" v-model="form.user" placeholder="请输入担保人姓名"></el-input>
+                        <el-input class="form-input" v-model="form.guarantor_name" placeholder="请输入担保人姓名"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item card-laber-item" label="身份证照片">
                     </el-form-item>
                     <el-form-item class="J-form-item card-laber-item" label="担保人手机号">
-                        <el-input class="form-input" v-model="form.user" placeholder="请输入担保人手机号"></el-input>
-                        <el-select class="address-input" v-model="gx"  placeholder="与被担保人关系">
-                            <el-option v-for="item in dbr" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                        </el-select>
+                        <el-input class="form-input" v-model="form.guarantor_phone" placeholder="请输入担保人手机号"></el-input>                      
                     </el-form-item>             
                     <el-form-item class="J-form-item card-item" label="">
                         <template>
@@ -200,7 +205,7 @@
                                         accept="image/gif,image/jpeg,image/jpg,image/png"
                                         list-type="picture-card"
                                         :action="uploadUrl"                                        
-                                        :data="uploadData"
+                                        :data="uploadData8"
                                         :before-upload="beforeUpload"
                                         :on-preview="handlePreview"
                                         :on-success="handleSuccess">
@@ -213,7 +218,7 @@
                                         accept="image/gif,image/jpeg,image/jpg,image/png"
                                         list-type="picture-card"
                                         :action="uploadUrl"                                      
-                                        :data="uploadData"
+                                        :data="uploadData9"
                                         :before-upload="beforeUpload"
                                         :on-preview="handlePreview"
                                         :on-success="handleSuccess">
@@ -224,13 +229,16 @@
                             </div>
                         </template>
                     </el-form-item>
+                    <el-form-item class="J-form-item links-item" label="与被担保人关系">
+                        <el-input v-model="form.guarantor_links" placeholder="与被担保人关系"></el-input>
+                    </el-form-item>
                     <el-form-item class="block-item" label="资产证明">
                         <div class="card-box">
                           <el-upload class="card-border more" name="uploadfile"
                               accept="image/gif,image/jpeg,image/jpg,image/png"
                               list-type="picture-card"
                               :action="uploadUrl"                                      
-                              :data="uploadData8"
+                              :data="uploadData10"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
                               :on-success="handleSuccess">
@@ -260,18 +268,7 @@ export default {
           block:[],    
           shiArr: [],  
           qu: '',  
-          quArr: [],
-          gx:'',
-          dbr: [{
-              value: '1',
-              label: '父子'
-            }, {
-              value: '2',
-              label: '朋友'
-            }, {
-              value: '3',
-              label: '夫妻'
-          }], 
+          quArr: [], 
           form: {
               account_no:this.$route.query.id,
               email: '',
@@ -295,17 +292,14 @@ export default {
               lease_contract:'',
               lease_pic:'',
               dealer_type:'2',
-              application:''
+              application:'',
+              guarantor_name:'',
+              guarantor_phone:'',
+              guarantor_links:''
           },
           dialogImageUrl: '',
           dialogVisible: false,
-          uploadUrl:'http://192.168.1.222:8087/file/uploadPic',
-          uploadData:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'11',
-            linkno:this.$route.query.id,
-            moreFlag:true
-          },
+          uploadUrl:this.$ajax.getBaseUrl+'/file/uploadPic',
           uploadData1:{
             tablename:'hrcf_stack_asset_base_material',
             cloumnname:'id_no_front',
@@ -350,9 +344,34 @@ export default {
           },
           uploadData8:{
             tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'application',
+            cloumnname:'gt_id_no_front',
+            linkno:this.$route.query.id,
+            moreFlag:false
+          },
+          uploadData9:{
+            tablename:'hrcf_stack_asset_base_material',
+            cloumnname:'gt_id_no_back',
+            linkno:this.$route.query.id,
+            moreFlag:false
+          },
+          uploadData10:{
+            tablename:'hrcf_stack_asset_base_material',
+            cloumnname:'asset_proof',
             linkno:this.$route.query.id,
             moreFlag:true
+          },
+          FileUrl:this.$ajax.getBaseUrl+'/file/uploadFile',
+          FileData1:{
+            tablename:'hrcf_stack_asset_base_material',
+            cloumnname:'credit_report',
+            linkno:this.$route.query.id,
+            moreFlag:false
+          },
+          FileData2:{
+            tablename:'hrcf_stack_asset_base_material',
+            cloumnname:'running_water',
+            linkno:this.$route.query.id,
+            moreFlag:false
           }  
         }  
     },  
@@ -455,7 +474,7 @@ export default {
       },
       //图片上传成功
       handleSuccess(response, file, fileList){
-        console.log(response, file, fileList)
+
       },
       //系统消息提示
       msgAlert(title){
@@ -539,6 +558,10 @@ export default {
         display: block;
         width: 100%;
     }
+    .links-item{
+      position: relative;
+      top: -55px;
+    } 
     .form-textarea{
         width: 586px;
     }
