@@ -780,7 +780,6 @@
                 getTargetnid(){
                     const self = this;
                     const params = {
-
                     }
                     this.$ajax.getTargetnid(params).then((res)=> {
                         self.ruleForm.target_nid = res.target_nid

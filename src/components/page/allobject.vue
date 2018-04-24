@@ -134,7 +134,7 @@
                     </el-table>
                 </div>
                 <el-pagination v-if="total" :page-size="epage" :page-sizes="[5, 10, 15, 20]" background layout="prev, sizes, pager, next" :total="total" @current-change="handleCurrentChange" @size-change="pageSizeChange">
-    </el-pagination>
+                </el-pagination>
             </div>
     </template>
 <script>
@@ -190,6 +190,7 @@
         created(){
             const self = this;
             self.getTargetList();
+
         },
         methods: {
             Addobject:function(){
@@ -230,6 +231,9 @@
                     epage:self.epage,
                     target_nid:self.target_nid,
                     name:self.name,
+                    asset_name:self.asset_name,
+                    examine_status:self.examine_status,
+                    borrow_name:self.borrow_name,
                     start_time:self.start_time,
                     end_time:self.end_time,
                 }

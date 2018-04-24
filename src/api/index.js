@@ -104,6 +104,10 @@ export default {
     getTargetnid:params =>{
         return utils.postData(`${admin}/targetInfo/getTargetnid`, params);
     }, 
+    auditorFirst:params => {
+        return utils.postData(`${admin}/targetInfo/auditorFirst`, params);
+    }
+    
 };
 
 

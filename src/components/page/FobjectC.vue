@@ -2,6 +2,31 @@
    <div class="main-content" v-bind:data="tabledata">
             <h2 class="main-title"><i class="fa fa-tags"></i>初审标的信息</h2>
             <div class="addo_content">
+                <el-form class="loan-form" :rules="rules"ref="form" :model="form" label-width="120px"  v-if="tabledata.examine_status == 0" >
+                    <el-row :gutter="24" >
+                       <el-col :span="8">
+                            <el-form-item prop="quote" label="申请报价:">
+                                <el-input  placeholder="请输入内容" class="el-form-item__content" v-model="form.quote"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-form-item prop="valuation" label="车300估价:">
+                                  <el-input  placeholder="请输入内容" class="el-form-item__content" v-model="form.valuation"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-form-item prop="fix_price" label="运营定价:">
+                              <el-input  placeholder="请输入内容" class="el-form-item__content" v-model="form.fix_price"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row :gutter="24" >
+                      <el-col :span="8" class="marl743">
+                        <el-button type="primary" @click="sure('form')">审核通过</el-button>
+                        <el-button type="info" @click="ffase('form')">审核不通过</el-button>
+                      </el-col>
+                    </el-row>
+                </el-form>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl28">借款产品:</label>
@@ -222,89 +247,40 @@
     export default {
         data() {
             return {
-                mapJson:'../static/json/map.json',
-                province:'',
-                shi1: [],
                 tabledata:[],
                 exterior:'',
                 interior:'',
                 security:'',
                 comfort:'',
+                target_nid:'',
+                form:{
+                  quote:'',
+                  valuation:'',
+                  fix_price:''
+                },
+                rules:{
+                    quote:[
+                        { required: true, message: '请选择申请的报价', trigger: 'change' },
+                    ],
+                    valuation:[
+                        { required: true, message: '请选择车300的估价', trigger: 'change' },
+                    ],
+                    fix_price:[
+                        { required: true, message: '请选择运营定价', trigger: 'change' },
+                    ],
+                }
             }
         },
         created(){
             const self = this;
-            self.getCityData();
             self.firstDate();
         },
         methods: {
-                getCityData:function(){  
-                    var that = this;  
-                    this.$axios.get(this.mapJson).then(function(response){  
-                      if (response.status==200) {  
-                        var data = response.data  
-                        that.province = []  
-                        that.city = []  
-                        that.block = []  
-                        // 省市区数据分类  
-                        for (var item in data) {  
-                          if (item.match(/0000$/)) {//省  
-                            that.province.push({id: item, value: data[item], children: []})  
-                          } else if (item.match(/00$/)) {//市  
-                            that.city.push({id: item, value: data[item], children: []})  
-                          } else {//区  
-                            that.block.push({id: item, value: data[item]})  
-                          }  
-                        }  
-                        // 分类市级  
-                        for (var index in that.province) {  
-                          for (var index1 in that.city) {  
-                            if (that.province[index].id.slice(0, 2) === that.city[index1].id.slice(0, 2)) {  
-                              that.province[index].children.push(that.city[index1])  
-                            }  
-                          }  
-                        }  
-                        // 分类区级  
-                        for(var item1 in that.city) {  
-                          for(var item2 in that.block) {  
-                            if (that.block[item2].id.slice(0, 4) === that.city[item1].id.slice(0, 4)) {  
-                              that.city[item1].children.push(that.block[item2])  
-                            }  
-                          }  
-                        }  
-                      }  
-                      else{  
-                        console.log(response.status)  
-                      }  
-                    }).catch(function(error){console.log(typeof+ error)})  
-              }, 
-            // 选省  
-            choseProvince:function(e) {  
-                for (var index2 in this.province) {  
-                  if (e === this.province[index2].id) {  
-                    this.shi1 = this.province[index2].children  
-                    this.shi = this.province[index2].children[0].value  
-                    this.qu1 =this.province[index2].children[0].children  
-                    this.qu = this.province[index2].children[0].children[0].value  
-                    this.E = this.qu1[0].id  
-                  }  
-                }  
-            },  
-            // 选市  
-            choseCity:function(e) {  
-                for (var index3 in this.city) {  
-                  if (e === this.city[index3].id) {  
-                    this.qu1 = this.city[index3].children  
-                    this.qu = this.city[index3].children[0].value  
-                    this.E = this.qu1[0].id  
-                    // console.log(this.E)  
-                  }  
-                }  
-            },
             firstDate:function(){
               const self = this;
+              self.target_nid = self.$route.query.id;
               const params = {
-                target_nid:self.$route.query.id,
+                target_nid:self.target_nid
               }
               self.$ajax.getTargetByTargetnid(params).then((res)=> {
                   self.tabledata= res;
@@ -333,6 +309,48 @@
                 }
               }
             },
+            sure(formName) {
+                const self = this;
+                self.$refs[formName].validate((valid) => {
+                    console.log(self.$refs[formName])
+                    if (valid) {
+                        self.shenhe("1")
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            ffase(formName) {
+                const self = this;
+                self.$refs[formName].validate((valid) => {
+                    console.log(self.$refs[formName])
+                    if (valid) {
+                        self.shenhe("2")
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            shenhe(status){
+              const self = this;
+              const params = {
+                quote:self.form.quote,
+                valuation:self.form.valuation,
+                fix_price:self.form.fix_price,
+                target_nid:self.target_nid,
+                examine_status:status,
+              }
+              self.$ajax.auditorFirst(params).then((res)=> {
+                  if(res.returnCode == 1){
+                    self.$router.push({ path: '/Firstobject' });   
+                  }else{
+                      self.$alert(res.returnMsg,'系统提示')
+                  }
+              });
+              
+            },
         }
     }
 </script>
@@ -347,6 +365,10 @@
           margin-bottom: 0;
         }
     }
+    .bottomxian{
+      border-bottom: solid 1px #ddd;
+      padding-bottom: 10px;
+    }
     .addo_content{
         width: 1000px;
     }
@@ -356,7 +378,6 @@
         line-height: 40px;
         position: relative;
         font-size: 14px;
-        width: 202px;
     }
     .mart10{
         margin-top: 10px;
@@ -425,5 +446,6 @@
     }
     .marl743{
       margin-left: 743px;
+      margin-top: 10px;
     }
 </style>
