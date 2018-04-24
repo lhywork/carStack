@@ -115,7 +115,15 @@
                         <el-table-column prop="quote" label="评估金额"  show-overflow-tooltip  align="center"></el-table-column>
                         <el-table-column prop="info_term" label="期限"  show-overflow-tooltip  align="center"></el-table-column>
                         <el-table-column prop="asset" label="资金端"  show-overflow-tooltip  align="center"></el-table-column>
-                        <el-table-column prop="examine_status" label="标的状态"  show-overflow-tooltip  align="center"></el-table-column>
+                        <el-table-column prop="" label="标的状态"  show-overflow-tooltip  align="center">
+                            <template slot-scope="scope">
+                                <label for="payNumber" v-if="scope.row.examine_status == '0'">未审核</label>
+                                <label for="payNumber" v-else-if="scope.row.examine_status == '1'">初审通过</label>
+                                <label for="payNumber" v-else-if="scope.row.examine_status == '2'">初审失败</label>
+                                <label for="payNumber" v-else-if="scope.row.examine_status == '3'">复审通过</label>
+                                <label for="payNumber" v-else-if="scope.row.examine_status == '4'">复审失败</label>
+                            </template>
+                        </el-table-column>
                         <el-table-column prop="add_time" label="申请时间"  show-overflow-tooltip  align="center" v-bind:formatter="Addtime"></el-table-column>
                         <el-table-column prop="examine_review_time" label="放款时间"  show-overflow-tooltip  align="center" v-bind:formatter="Addtime"></el-table-column>
                         <el-table-column label="操作"  show-overflow-tooltip  align="center">
@@ -170,13 +178,13 @@
                 page:1,
                 epage:5,
                 target_nid:'',
-                name:'',
                 asset_name:'',
                 examine_status:'',
                 borrow_name:'',
+                tablist:[],
+                name:'',
                 start_time:'',
                 end_time:'',
-                tablist:[],
             }
         },
         created(){
@@ -184,7 +192,7 @@
             self.getTargetList();
         },
         methods: {
-            handleAdd:function(){
+            Addobject:function(){
                 const self = this;
                 self.$router.push('/Addobject');
             },
@@ -222,9 +230,6 @@
                     epage:self.epage,
                     target_nid:self.target_nid,
                     name:self.name,
-                    asset_name:self.asset_name,
-                    examine_status:self.examine_status,
-                    borrow_name:self.borrow_name,
                     start_time:self.start_time,
                     end_time:self.end_time,
                 }

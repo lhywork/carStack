@@ -61,16 +61,14 @@
             <el-table :data="tablist" style="width: 100%">
                 <el-table-column prop="target_nid" label="标的流水号"  show-overflow-tooltip  align="center"></el-table-column>
                 <el-table-column prop="borrow_id" label="借款产品"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="dealer_name" label="经销商名称"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="quote" label="评估金额"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="info_term" label="期限"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="asset" label="资金端"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="examine_status" label="标的状态"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="name" label="借款人/机构"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="" label="申请金额"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="" label="评估定价"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="" label="审核状态"  show-overflow-tooltip  align="center"></el-table-column>
                 <el-table-column prop="add_time" label="申请时间"  show-overflow-tooltip  align="center" v-bind:formatter="Addtime"></el-table-column>
-                <el-table-column prop="examine_review_time" label="放款时间"  show-overflow-tooltip  align="center" v-bind:formatter="Addtime"></el-table-column>
                 <el-table-column label="操作"  show-overflow-tooltip  align="center">
                     <template slot-scope="scope">
-                        <el-button type="success" size="small" @click="viewDetails(scope.row.target_nid)">查看详情</el-button>
+                        <el-button type="success" size="small" @click="viewDetails(scope.row.target_nid)">查看</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -192,7 +190,19 @@
                         path:'FobjectC',
                         query: {id: e}
                     })    
-                }
+                },
+                getTargetList(){
+                    const self = this;
+                    const params = {
+                        page:self.page,
+                        epage:self.epage,
+                        target_nid:self.target_nid,
+                    }
+                    this.$ajax.getTargetList(params).then((res)=> {
+                        self.total = res.total;
+                        self.tablist = res.lists
+                    });
+                },
             }
         }
 </script>

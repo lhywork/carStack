@@ -329,7 +329,7 @@
               var  i = 0;
               for(i = 0;i<newarr.length;i++){
                 if(newarr[i] == 1){
-                  self[e] = self[e] + arr[i];
+                  self[e] = self[e] + arr[i] + " ";
                 }
               }
             },
