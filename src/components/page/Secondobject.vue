@@ -30,7 +30,7 @@
             </el-row>
           </div>
         </div>
-        <div class="addo_contentall">
+        <div class="addo_contentall bordernone">
           <div class="addo_content">
             <el-row :gutter="24">
               <div class="el-formz">
@@ -136,6 +136,14 @@
                     const self = this;
                     self.$router.push('/Addobject');
                 },
+                Addtime(row,column){
+                    const self = this;
+                    const date = row[column.property]; 
+                    if (date == undefined) {  
+                         return "";  
+                    }  
+                    return self.$ajax.formatDate(date,"yyyy-MM-dd hh:mm:ss"); 
+                },
                 exportExcel () {
                      /* generate workbook object from table */
                      var wb = XLSX.utils.table_to_book(document.querySelector('#table1'))
@@ -154,6 +162,9 @@
     .addo_contentall{
       width: 100%;
       border-bottom:1px solid #ddd;
+    }
+    .bordernone{
+        border: none;
     }
     .addo_content{
       width: 1000px;

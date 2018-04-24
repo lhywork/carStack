@@ -11,8 +11,8 @@
                     <el-table-column type="expand">
                         <template slot-scope="scope">
                             <el-form label-position="left" inline class="demo-table-expand">
-                                <el-form-item >
-                                    <el-checkbox v-for="(item, index) in scope.row.children" :key="index" style="margin:0 10px" v-model="item.isAuth" v-if="item.isAuth !== undefined">{{item.name}}</el-checkbox>
+                                <el-form-item>
+                                    <el-checkbox v-for="(item, index) in scope.row.children" :key="index" style="margin:0 10px" v-model="item.isAuth" v-if="item.isAuth !== undefined" title="勾选显示页面">{{item.name}}</el-checkbox>
                                 </el-form-item>
                             </el-form>
                         </template>

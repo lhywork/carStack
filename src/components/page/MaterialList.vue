@@ -51,11 +51,15 @@
             <el-table-column prop="mobile" label="手机号码" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="company_name" label="公司名称" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="addr_area" label="地区" show-overflow-tooltip  align="center"></el-table-column>
-            <el-table-column prop="dealer_type" label="同盟" show-overflow-tooltip  align="center"></el-table-column>
+            <el-table-column prop="dealer_type" label="是否同盟" show-overflow-tooltip  align="center">
+              <template slot-scope="scope">
+                  {{ scope.row.dealer_type =='2' ? '是' : '否' }}
+              </template>
+            </el-table-column>
             <el-table-column prop="add_time" label="操作时间" :formatter="dateFormat" show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="account_status" label="账户状态" show-overflow-tooltip  align="center">
                 <template slot-scope="scope">
-                    {{ scope.row.account_status ? '已启用' : '未启用' }}
+                  {{ scope.row.account_status ? '已启用' : '未启用' }}
                 </template>
             </el-table-column>
             <el-table-column prop="auditor_status" label="审核状态" show-overflow-tooltip  align="center">
@@ -233,7 +237,15 @@ export default {
       },
       //点击添加
       handleAdd(){
-        this.$router.push('/MaterialAdd');
+        const self = this;
+        self.$ajax.getAccountNo({}).then((res)=>{
+          self.$router.push({
+              path: 'MaterialAdd',
+              query: {
+                id: res.account_no
+              }
+          });
+        });
       },
       //点击查看
       handleCheck(id){
@@ -309,7 +321,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .action-bar{
-        padding: 10px 0;
+        padding: 10px 0 0 0;
+        border-top:1px solid #ddd;
     }
     .barli{
         width: 100%;
@@ -320,9 +333,6 @@ export default {
     }
     .barli-input{
         width: 216px;
-    }
-    .main-form{
-        padding: 10px 0;
     }
     .el-pagination{
       text-align: right;

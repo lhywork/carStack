@@ -3,30 +3,39 @@ import * as utils from '../utils';
 export const base = 'http://192.168.1.222:8087';
 export const admin = 'http://192.168.1.190:8087';
 export default {
+    getBaseUrl:base,
     formatDate: (date,fmt) => {
         return utils.formatDate(date,fmt);
     },
     getPermissionList:params=>{
         return utils.getData(`../static/json/navlist.json`,params);
-    },    
+    },
+    //删除上传文件
+    deletePicLink:params=>{
+        return utils.getData(`${base}/file/deletePicLink`,params);
+    },      
     getAccountNo:params=>{
         return utils.getData(`${base}/baseMaterial/getAccountNo`,params);
     },
     //获取资产端用户基础资料列表
-    getBaseMaterialList : params => {
+    getBaseMaterialList: params => {
         return utils.getData(`${base}/asset/getBaseMaterialList`, params);
     },
     //获取资产端用户基础资料
-    getBaseMaterial : params => {
-        return utils.getData(`${base}/asset/getBaseMaterial`, params);
+    getBaseMaterial: params => {
+        return utils.postData(`${base}/asset/getBaseMaterial`, params);
     },
     //新增/修改资产端用户基础资料
-    BaseMaterialSave : params => {
+    BaseMaterialSave: params => {
         return utils.postData(`${base}/baseMaterial/save`, params);
     },
     //获取资产端用户授权额度列表
     getGrantMaterialList: params => {
         return utils.getData(`${base}/asset/getGrantMaterialList`, params);
+    },
+    //查看资产端用户授权评分
+    getSubjectAndOptions: params => {
+        return utils.getData(`${base}/asset/getSubjectAndOptions`, params);
     },
     //用户（管理员）登录
     Login:params => {

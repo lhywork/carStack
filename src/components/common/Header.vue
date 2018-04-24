@@ -4,9 +4,9 @@
         <slot name="topnav"></slot>
         <div class="userinfo">
             <el-dropdown trigger="click">
-                <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
+                <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{getUserName}}</span>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>个人信息</el-dropdown-item>
+                    <el-dropdown-item divided @click.native="userInfo">个人信息</el-dropdown-item>
                     <el-dropdown-item divided @click.native="changeTheme">切换布局</el-dropdown-item>
                     <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
                 </el-dropdown-menu>
@@ -27,13 +27,20 @@
         created() {
             var user = this.$store.state.user;
             if (isLogin()) {
-                this.sysUserName = user.username || '';
                 this.sysUserAvatar = user.avatar || this.sysUserAvatar;
             }else{
                 this.$router.push('/login');
             }
         },
+        computed:{
+            getUserName(){
+                return this.$store.state.user.username;
+            }
+        },
         methods:{
+            userInfo(){
+                this.$router.push({ path: '/UserInfo' });
+            },
             logout() {
                 var self = this;
                 self.$confirm('确认退出吗?', '提示', {

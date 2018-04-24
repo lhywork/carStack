@@ -124,9 +124,9 @@
                           </el-upload>
                       </div>
                     </el-form-item>
-                    <el-form-item class="J-form-item block" label="场地租赁合同">
+                    <el-form-item class="block-item" label="场地租赁合同">
                         <div class="card-box">
-                          <el-upload class="card-border" name="uploadfile"
+                          <el-upload class="card-border more" name="uploadfile"
                               accept="image/gif,image/jpeg,image/jpg,image/png"
                               list-type="picture-card"
                               :action="uploadUrl"                                      
@@ -138,9 +138,9 @@
                           </el-upload>
                       </div>
                     </el-form-item>
-                    <el-form-item class="J-form-item block" label="场地照片">
+                    <el-form-item class="block-item" label="场地照片">
                         <div class="card-box">
-                          <el-upload class="card-border" name="uploadfile"
+                          <el-upload class="card-border more" name="uploadfile"
                               accept="image/gif,image/jpeg,image/jpg,image/png"
                               list-type="picture-card"
                               :action="uploadUrl"                                      
@@ -152,9 +152,9 @@
                           </el-upload>
                       </div>
                     </el-form-item>
-                    <el-form-item class="J-form-item block" label="申请表">
+                    <el-form-item class="block-item" label="申请表">
                       <div class="card-box">
-                        <el-upload class="card-border" name="uploadfile"
+                        <el-upload class="card-border more" name="uploadfile"
                             accept="image/gif,image/jpeg,image/jpg,image/png"
                             list-type="picture-card"
                             :action="uploadUrl"                                      
@@ -224,9 +224,9 @@
                             </div>
                         </template>
                     </el-form-item>
-                    <el-form-item class="J-form-item block" label="资产证明">
+                    <el-form-item class="block-item" label="资产证明">
                         <div class="card-box">
-                          <el-upload class="card-border" name="uploadfile"
+                          <el-upload class="card-border more" name="uploadfile"
                               accept="image/gif,image/jpeg,image/jpg,image/png"
                               list-type="picture-card"
                               :action="uploadUrl"                                      
@@ -273,17 +273,18 @@ export default {
               label: '夫妻'
           }], 
           form: {
-              email: 'lhywork@aliyu.com',
-              account_name:'鑫荣1号',
-              mobile:"13335711774",
-              id_no:'362202199307164455',
-              phone:'400-8878288',
-              addr_province:'浙江省',
-              addr_city:'杭州市',
-              addr_area:'中天MCC',
+              account_no:this.$route.query.id,
+              email: '',
+              account_name:'',
+              mobile:"",
+              id_no:'',
+              phone:'',
+              addr_province:'',
+              addr_city:'',
+              addr_area:'',
               id_no_front:'',
               id_no_back:'',
-              company_name:'微拍贷',
+              company_name:'',
               run_life:'',
               company_des:'',
               stack_name:'',
@@ -300,57 +301,57 @@ export default {
           dialogVisible: false,
           uploadUrl:'http://192.168.1.222:8087/file/uploadPic',
           uploadData:{
-            tablename:'hrcf_stack_asset_base_materia',
+            tablename:'hrcf_stack_asset_base_material',
             cloumnname:'11',
-            linkno:'22',
+            linkno:this.$route.query.id,
             moreFlag:true
           },
           uploadData1:{
-            tablename:'hrcf_stack_asset_base_materia',
+            tablename:'hrcf_stack_asset_base_material',
             cloumnname:'id_no_front',
-            linkno:'22',
+            linkno:this.$route.query.id,
             moreFlag:true
           },
           uploadData2:{
-            tablename:'hrcf_stack_asset_base_materia',
+            tablename:'hrcf_stack_asset_base_material',
             cloumnname:'id_no_back',
-            linkno:'22',
+            linkno:this.$route.query.id,
             moreFlag:true
           },
           uploadData3:{
-            tablename:'hrcf_stack_asset_base_materia',
+            tablename:'hrcf_stack_asset_base_material',
             cloumnname:'stack_pic',
-            linkno:'22',
+            linkno:this.$route.query.id,
             moreFlag:true
           },
           uploadData4:{
-            tablename:'hrcf_stack_asset_base_materia',
+            tablename:'hrcf_stack_asset_base_material',
             cloumnname:'run_license',
-            linkno:'22',
+            linkno:this.$route.query.id,
             moreFlag:true
           },
           uploadData5:{
-            tablename:'hrcf_stack_asset_base_materia',
+            tablename:'hrcf_stack_asset_base_material',
             cloumnname:'lease_contract',
-            linkno:'22',
+            linkno:this.$route.query.id,
             moreFlag:true
           },
           uploadData6:{
-            tablename:'hrcf_stack_asset_base_materia',
+            tablename:'hrcf_stack_asset_base_material',
             cloumnname:'lease_pic',
-            linkno:'22',
+            linkno:this.$route.query.id,
             moreFlag:true
           },
           uploadData7:{
-            tablename:'hrcf_stack_asset_base_materia',
+            tablename:'hrcf_stack_asset_base_material',
             cloumnname:'application',
-            linkno:'22',
+            linkno:this.$route.query.id,
             moreFlag:true
           },
           uploadData8:{
-            tablename:'hrcf_stack_asset_base_materia',
-            cloumnname:'11',
-            linkno:'22',
+            tablename:'hrcf_stack_asset_base_material',
+            cloumnname:'application',
+            linkno:this.$route.query.id,
             moreFlag:true
           }  
         }  
@@ -467,7 +468,7 @@ export default {
 }  
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style >
+<style scoped>
     .form-content{
         width: 900px;
     }
@@ -487,7 +488,6 @@ export default {
         margin-bottom: -50px;
     }
     .card-box{
-        width: 310px;
         height: 170px;
         overflow: hidden;
         margin-left:42px;
@@ -498,6 +498,7 @@ export default {
         height: 148px;
         text-align: center;     
         float: left;
+        margin-right: 8px;
     }
     .card-border{
         width: 148px;
@@ -506,6 +507,9 @@ export default {
         line-height: 80px;
         text-align: center;
         cursor: pointer;
+    }
+    .card-border.more{
+      width: auto;
     }
     .card-border:hover {
         border-color: #409EFF;
@@ -528,7 +532,7 @@ export default {
     .form-input{
         width: 220px;
     }
-    .select-item .el-input{
+    .select-item {
         width: 110px;
     }
     .block-item{

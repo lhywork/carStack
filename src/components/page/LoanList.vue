@@ -168,6 +168,9 @@
         width: 1000px;
         margin: 10px 0 10px 0;
     }
+    .addo_contentall{
+        border-top: 1px solid #ddd;
+    }
     .el-pagination{
         display: block;
         margin: 0 auto;

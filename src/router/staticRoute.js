@@ -8,9 +8,17 @@ const staticRoute = [
         path: '/login',
         component: resolve => require(['@/components/page/Login.vue'], resolve)
     },{
+        path: '/',
+        name:"个人信息",
+        component: Home,
+        children:[{
+            path: '/UserInfo',
+            component: resolve => require(['@/components/page/UserInfo.vue'], resolve)
+        }]     
+    },{
         path: '/error',
         component: Home,
-        name:"错误页",
+        name:"错误页",   
         children: [
             {
                 path: '401',
