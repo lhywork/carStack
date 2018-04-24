@@ -1,8 +1,7 @@
 <template>
-    <div class="panel">
-        <div class="panel-head">
+    <div class="main-content">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-                <h5><span class="el-icon-star-off"></span>新增标的信息（必填)</h5>
+                <h2 class="main-title"><i class="fa fa-tags"></i>新增标的信息（必填)</h2>
                 <div class="addo_content">
                     <el-row :gutter="10">
                         <el-col :span="10">
@@ -92,7 +91,7 @@
                         </el-col>
                     </el-row>
                 </div>
-                <h5 class="mart10"><span class="el-icon-star-off"></span>车辆信息（必填）</h5>
+                <h2 class="main-title"><i class="fa fa-tags"></i>车辆信息（必填）</h2>
                 <div class="addo_content">
                     <el-row :gutter="20">
                         <el-col :span="10">
@@ -264,7 +263,7 @@
                             </el-col>
                         </el-row>
                     </div> 
-                    <h5 class="mart10"><span class="el-icon-star-off"></span>更多信息（非必填）</h5>
+                    <h2 class="main-title"><i class="fa fa-tags"></i>更多信息（非必填）</h2>
                     <el-row :gutter="20">
                         <el-col :span="10">
                             <label for="payNumber" class="el-form-item__label">是否随带/赠送交强险:</label>
@@ -409,10 +408,9 @@
                      </el-row>
                      <el-row :gutter="24">
                         <el-col :span="18" class="marl256">
-                            <el-checkbox v-model="checked15" true-label="1" false-label="0" label="0">自动空调</el-checkbox>
-                            <el-checkbox v-model="checked16" true-label="1" false-label="0" label="0">可调节方向盘</el-checkbox>
-                            <el-checkbox v-model="checked17" true-label="1" false-label="0" label="0">自动加温反光镜</el-checkbox>
-                            <el-checkbox v-model="checked18" true-label="1" false-label="0" label="0">自动巡航系统</el-checkbox>
+                            <el-checkbox v-model="checked15" true-label="1" false-label="0" label="0">可调节方向盘</el-checkbox>
+                            <el-checkbox v-model="checked16" true-label="1" false-label="0" label="0">自动加温反光镜</el-checkbox>
+                            <el-checkbox v-model="checked17" true-label="1" false-label="0" label="0">自动巡航系统</el-checkbox>
                         </el-col>
                      </el-row>
                     <el-row :gutter="24">
@@ -422,7 +420,6 @@
                     </el-row>        
                 </div>
             </el-form>
-        </div>
     </div>
 </template>
 <script>
@@ -441,6 +438,7 @@
                         moreFlag:'true',
                     },
                     ruleForm:{
+                        target_nid:'',
                         borrow_id:'',
                         main_brand:'',
                         car_name:'',
@@ -481,6 +479,7 @@
                         interior:'',
                         security:'',
                         comfort:'',
+
                     },
                     checked1:'0',
                     checked2:'0',
@@ -499,7 +498,6 @@
                     checked15:'0',
                     checked16:'0',
                     checked17:'0',
-                    checked18:'0',
                     rules:{
                         borrow_id:[
                             { required: true, message: '请选择借款产品', trigger: 'change' },
@@ -666,20 +664,22 @@
                         }],
                     dialogImageUrl: '',
                     dialogVisible: false,
+                    
                 }
             },
             created(){
-                this.getCityData();
+                const self = this
+                self.getCityData();
+                self.getTargetnid();
             },
             methods: {
                 addALL(){
                     const self = this;
                     const params = self.ruleForm
-                    self.ruleForm.exterior = self.checked1 + self.checked2 + self.checked3 + self.checked4;
-                    console.log(self.checked1,self.checked2,self.checked3,self.checked4)
-                    self.ruleForm.interior = self.checked5 + self.checked6 + self.checked7;
-                    self.ruleForm.security = self.checked8 + self.checked9 + self.checked10;
-                    self.ruleForm.comfort = self.checked11 + self.checked12 + self.checked13 + self.checked14 +self.checked15 + self.checked16 + self.checked17 + self.checked18;
+                    self.ruleForm.exterior = self.checked1 + ',' + self.checked2 + ',' +self.checked3 + ',' + self.checked4;
+                    self.ruleForm.interior = self.checked5 + ',' + self.checked6 + ',' + self.checked7;
+                    self.ruleForm.security = self.checked8 + ',' + self.checked9 + ',' +self.checked10;
+                    self.ruleForm.comfort = self.checked11 + ',' +self.checked12 + ',' +self.checked13 + ',' + self.checked14+ ',' +self.checked15 + ',' + self.checked16 + ',' + self.checked17;
                     this.$ajax.investmentPro(params).then((res)=> {
                         if(res.returnCode == 1){
                             self.$router.push({ path: '/Allobject' });   
@@ -710,23 +710,13 @@
                                     that.province.push({id: item, value: data[item], children: []})  
                                 } else if (item.match(/00$/)) {//市  
                                     that.city.push({id: item, value: data[item], children: []})  
-                                } else {//区  
-                                    that.block.push({id: item, value: data[item]})  
-                                }  
+                                } 
                             }  
                             // 分类市级  
                             for (var index in that.province) {  
                                 for (var index1 in that.city) {  
                                     if (that.province[index].id.slice(0, 2) === that.city[index1].id.slice(0, 2)) {  
                                         that.province[index].children.push(that.city[index1])  
-                                    }  
-                                }  
-                            }  
-                            // 分类区级  
-                            for(var item1 in that.city) {  
-                                for(var item2 in that.block) {  
-                                    if (that.block[item2].id.slice(0, 4) === that.city[item1].id.slice(0, 4)) {  
-                                        that.city[item1].children.push(that.block[item2])  
                                     }  
                                 }  
                             }  
@@ -739,12 +729,15 @@
                 // 选省  
                 choseProvince:function(e) {  
                     for (var index2 in this.province) {  
-                        if (e === this.province[index2].id) {  
-                            this.shi1 = this.province[index2].children  
-                            this.shi = this.province[index2].children[0].value  
-                            this.qu1 =this.province[index2].children[0].children  
-                            this.qu = this.province[index2].children[0].children[0].value  
-                            this.E = this.qu1[0].id  
+                        if (e === this.province[index2].id) {
+                            console.log(this.province[index2]);
+                            this.ruleForm.car_province  = this.province[index2].value;
+                            this.shi1 = this.province[index2].children;
+                            // this.shi1 = this.province[index2].children  
+                            // this.shi = this.province[index2].children[0].value  
+                            // this.qu1 =this.province[index2].children[0].children  
+                            // this.qu = this.province[index2].children[0].children[0].value  
+                            // this.E = this.qu1[0].id  
                         }  
                     }  
                 },  
@@ -752,9 +745,10 @@
                 choseCity:function(e) {  
                     for (var index3 in this.city) {  
                         if (e === this.city[index3].id) {  
-                            this.qu1 = this.city[index3].children  
-                            this.qu = this.city[index3].children[0].value  
-                            this.E = this.qu1[0].id  
+                            this.ruleForm.car_city  =  this.city[index3].value;
+                            // this.qu1 = this.city[index3].children  
+                            // this.qu = this.city[index3].children[0].value  
+                            // this.E = this.qu1[0].id  
                             // console.log(this.E)  
                         }  
                     }  
@@ -783,6 +777,15 @@
                          return false;
                      } 
                 },
+                getTargetnid(){
+                    const self = this;
+                    const params = {
+
+                    }
+                    this.$ajax.getTargetnid(params).then((res)=> {
+                        self.ruleForm.target_nid = res.target_nid
+                    });
+                }
             }
         }
 </script>

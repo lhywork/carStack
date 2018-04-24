@@ -57,23 +57,25 @@
               </el-row>
           </div>
         </div>
-        <div class="main-form">
-            <el-table :data="tabledata" style="width: 100%">
-                <el-table-column prop="aa" label="标的流水号"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="bb" label="借款产品"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="cc" label="经销商名称"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="dd" label="评估金额"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="ee" label="期限"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="ff" label="资金端"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="gg" label="申请时间"  show-overflow-tooltip  align="center" v-bind:formatter="Addtime"></el-table-column>
-                <el-table-column prop="hh" label="放款时间"  show-overflow-tooltip  align="center"></el-table-column>
+       <div class="main-form">
+            <el-table :data="tablist" style="width: 100%">
+                <el-table-column prop="target_nid" label="标的流水号"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="borrow_id" label="借款产品"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="dealer_name" label="经销商名称"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="quote" label="评估金额"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="info_term" label="期限"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="asset" label="资金端"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="examine_status" label="标的状态"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="add_time" label="申请时间"  show-overflow-tooltip  align="center" v-bind:formatter="Addtime"></el-table-column>
+                <el-table-column prop="examine_review_time" label="放款时间"  show-overflow-tooltip  align="center" v-bind:formatter="Addtime"></el-table-column>
                 <el-table-column label="操作"  show-overflow-tooltip  align="center">
                     <template slot-scope="scope">
-                        <el-button type="success" size="small" @click="">查看详情</el-button>
+                        <el-button type="success" size="small" @click="viewDetails(scope.row.target_nid)">查看详情</el-button>
                     </template>
                 </el-table-column>
             </el-table>
         </div>
+<!--         <el-pagination v-if="total" :page-size="epage" :page-sizes="[5, 10, 15, 20]" background layout="prev, sizes, pager, next" :total="total" @current-change="handleCurrentChange" @size-change="pageSizeChange"> -->
     </div>
 </template>
 <script>
@@ -117,11 +119,15 @@
                     productvalue:'',
                     datatime1:'',
                     datatime2:'',
-                    tabledata:[{aa:11,bb:22,cc:33,dd:44,ee:55,ff:66,gg:88,hh:'操作'},{aa:11,bb:22,cc:33,dd:44,ee:55,ff:66,gg:88,hh:'操作'},{aa:11,bb:22,cc:33,dd:44,ee:55,ff:66,gg:88,hh:'操作'}]
+                    tablist:[],
+                    total:1,
+                    page:1,
+                    epage:5,
                 }
             },
             created(){
-            
+                const self = this;
+                self.getTargetList();
             },
             methods: {
                 Addobject:function(){
@@ -146,6 +152,39 @@
                      } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
                      return wbout
                 },
+                getTargetList(){
+                    const self = this;
+                    const params = {
+                        page:self.page,
+                        epage:self.epage,
+                        target_nid:self.target_nid,
+                        name:self.name,
+                        asset_name:self.asset_name,
+                        examine_status:self.examine_status,
+                        borrow_name:self.borrow_name,
+                        start_time:self.start_time,
+                        end_time:self.end_time,
+                    }
+                    this.$ajax.getTargetList(params).then((res)=> {
+                        self.total = res.total;
+                        self.tablist = res.lists
+                    });
+                },
+                Addtime(row,column){
+                    const self = this;
+                    const date = row[column.property]; 
+                    if (date == undefined) {  
+                         return "";  
+                    }  
+                    return self.$ajax.formatDate(date,"yyyy-MM-dd hh:mm:ss"); 
+                },
+                viewDetails(e){
+                    const self = this;
+                    self.$router.push({
+                        path:'FobjectC',
+                        query: {id: e}
+                    })    
+                }
             }
         }
 </script>

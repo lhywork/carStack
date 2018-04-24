@@ -90,6 +90,10 @@ export default {
     //获取单个标的信息 
     getTargetByTargetnid:params =>{
         return utils.postData(`${admin}/targetInfo/getTargetByTargetnid`, params);
+    },
+    //获取标的流水号 
+    getTargetnid:params =>{
+        return utils.postData(`${admin}/targetInfo/getTargetnid`, params);
     }, 
 };
 

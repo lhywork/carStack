@@ -2,7 +2,7 @@
     <div class="main-content">
         <h2 class="main-title"><i class="fa fa-tags"></i>所有标的</h2>
         <div class="search-box">
-            <el-button type="primary" @click="handleAdd()" icon="fa fa-plus-square-o">新增</el-button>
+            <el-button type="primary" @click="Addobject()" icon="fa fa-plus-square-o">新增</el-button>
         </div>
                 <div class="addo_contentall">
                     <div class="addo_content">

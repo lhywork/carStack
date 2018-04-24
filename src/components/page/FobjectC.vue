@@ -1,67 +1,47 @@
 <template>
-   <div class="main-content">
-            <h2 class="main-title"><i class="fa fa-tags"></i>审核</h2>
+   <div class="main-content" v-bind:data="tabledata">
+            <h2 class="main-title"><i class="fa fa-tags"></i>初审标的信息</h2>
             <div class="addo_content">
-                <el-row :gutter="24">
-                  <el-col :span="8">
-                      <label for="payNumber" class="el-form-item__label">申请报价:</label>
-                      <div class="el-form-item__content">
-                        <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
-                      </div>
-                  </el-col>
-                  <el-col :span="8">
-                      <label for="payNumber" class="el-form-item__label">车300估价:</label>
-                      <div class="el-form-item__content">
-                        <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
-                      </div>
-                  </el-col>
-                  <el-col :span="8">
-                      <label for="payNumber" class="el-form-item__label">运营定价:</label>
-                      <div class="el-form-item__content">
-                        <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
-                      </div>
-                  </el-col>
-                </el-row>
-                <el-row :gutter="24">
-                  <el-col :span="8" class="marl743">
-                    <el-button type="primary">审核通过</el-button>
-                    <el-button type="info">审核不通过</el-button>
-                  </el-col>
+                <el-row :gutter="20">
+                    <el-col :span="10">
+                        <label for="payNumber" class="el-form-item__label marl28">借款产品:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.borrow_id}}</label>
+                    </el-col>
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl42">主品牌:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.main_brand}}</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl28">车辆名称:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.car_name}}</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl27">厂商系列:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.car_factory}}</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl42">零售价:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.retail_price}}</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl54">型号:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.car_model}}</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl42">批发价:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.trade_price}}</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="10">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl12">信息有效期:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.info_term}}</label>
                     </el-col>
                 </el-row>
             </div>
@@ -70,89 +50,91 @@
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label">车辆识别代码:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.car_vin}}</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl28">汽车颜色:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.car_out_colour}}</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl27">行驶里程:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.car_mileage}}</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl28">内饰颜色:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.car_in_colour}}</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl27">车辆性质:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.car_nature}}</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl13">保险有效期:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.insurance_term}}</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl12">车辆所在地:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.car_province}}{{tabledata.car_city}}</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl13">年检有效期:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.inspect_term}}</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label">车辆出厂年月:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.car_time}}</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl56">排量:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.car_displacement}}</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl42">变速器:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.car_transmission}}</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl56">备注:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.remark}}</label>
                     </el-col>
                 </el-row>
                 <h5 class="mart10">车辆照片:</h5>
                 <el-row :gutter="10">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl28">是否上牌:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label" v-if="tabledata.if_card == 1">是</label>
+                        <label for="payNumber" class="el-form-item__label" v-if="tabledata.if_card == 0">否</label>
                     </el-col>
                 </el-row>
-                <div v-show="radio1 == 1">   
+                <div>   
                   <el-row :gutter="20">
                     <el-col :span="10">
                           <label for="payNumber" class="el-form-item__label">首次上牌时间:</label>
-                          <label for="payNumber" class="el-form-item__label">22222:</label>
+                          <label for="payNumber" class="el-form-item__label">{{tabledata.first_card_time}}</label>
                       </el-col>
                       <el-col :span="10">
                           <label for="payNumber" class="el-form-item__label marl13">牌照归属地:</label>
-                          <label for="payNumber" class="el-form-item__label">22222:</label>
+                          <label for="payNumber" class="el-form-item__label">{{tabledata.card_belong}}</label>
                       </el-col>
                   </el-row>
                   <el-row :gutter="20">
                     <el-col :span="10">
-                          <label for="payNumber" class="el-form-item__label marl27">厂商系列:</label>
-                          <label for="payNumber" class="el-form-item__label">22222:</label>
+                          <label for="payNumber" class="el-form-item__label marl27">牌照类型:</label>
+                          <label for="payNumber" class="el-form-item__label">{{tabledata.card_type}}</label>
                       </el-col>
                       <el-col :span="10">
                               <label for="payNumber" class="el-form-item__label">是否含拍照出售:</label>
-                              <label for="payNumber" class="el-form-item__label">22222:</label>
+                              <label for="payNumber" class="el-form-item__label" v-if="tabledata.if_card_sell == 1">是</label>
+                              <label for="payNumber" class="el-form-item__label" v-if="tabledata.if_card_sell == 0">否</label>
                         </el-col>
                   </el-row>
                 </div> 
@@ -160,41 +142,41 @@
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label">是否随带/赠送交强险:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.insurance_give}}</label>
                     </el-col>
                     <el-col :span="10" class="marl14">
                         <label for="payNumber" class="el-form-item__label ">交强险到期年月:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.insurance_expiration}}</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="20">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl17">是否随送商业保险:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.if_send_insurance}}</label>
                     </el-col>
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label ">商业保险到期年月:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.commercial_insurance_expiration}}</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="12">
                     <el-col :span="12">
                         <label for="payNumber" class="el-form-item__label">车辆使用税截至年月:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.tax_expiration}}</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="24">
                     <el-col :span="8">
                         <label for="payNumber" class="el-form-item__label marl28">购置税:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.tax_purchase}}</label>
                     </el-col>
                     <el-col :span="8">
                         <label for="payNumber" class="el-form-item__label marl28">车辆登记证:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.car_registration}}</label>
                     </el-col>
                     <el-col :span="8">
                         <label for="payNumber" class="el-form-item__label marl28">车辆行驶证:</label>
-                        <label for="payNumber" class="el-form-item__label">22222:</label>
+                        <label for="payNumber" class="el-form-item__label">{{tabledata.driving_license}}</label>
                     </el-col>
                 </el-row>
                 <el-row :gutter="24">
@@ -205,7 +187,7 @@
                       <label for="payNumber" class="el-form-item__label ">外观:</label>
                   </el-col>
                   <el-col :span="18">
-                    <label for="payNumber" class="el-form-item__label">22222:</label>
+                    <label for="payNumber" class="el-form-item__label">{{exterior}}</label>
                   </el-col>
                 </el-row>
                 <el-row :gutter="24">
@@ -213,15 +195,15 @@
                       <label for="payNumber" class="el-form-item__label ">内饰:</label>
                   </el-col>
                   <el-col :span="18">
-                    <label for="payNumber" class="el-form-item__label">22222:</label>
+                    <label for="payNumber" class="el-form-item__label">{{interior}}</label>
                   </el-col>
                 </el-row>
                 <el-row :gutter="24">
                   <el-col :span="3" class="marl128">
-                      <label for="payNumber" class="el-form-item__label ">内饰:</label>
+                      <label for="payNumber" class="el-form-item__label ">安全:</label>
                   </el-col>
                   <el-col :span="18">
-                    <label for="payNumber" class="el-form-item__label">22222:</label>
+                    <label for="payNumber" class="el-form-item__label">{{security}}</label>
                   </el-col>
                 </el-row>
                 <el-row :gutter="24">
@@ -229,7 +211,7 @@
                       <label for="payNumber" class="el-form-item__label">舒适:</label>
                   </el-col>
                   <el-col :span="18">
-                   <label for="payNumber" class="el-form-item__label">22222222222222:</label>
+                   <label for="payNumber" class="el-form-item__label">{{comfort}}</label>
                   </el-col>
                 </el-row>       
             </div>
@@ -243,10 +225,17 @@
                 mapJson:'../static/json/map.json',
                 province:'',
                 shi1: [],
+                tabledata:[],
+                exterior:'',
+                interior:'',
+                security:'',
+                comfort:'',
             }
         },
         created(){
-            this.getCityData();
+            const self = this;
+            self.getCityData();
+            self.firstDate();
         },
         methods: {
                 getCityData:function(){  
@@ -315,12 +304,35 @@
             firstDate:function(){
               const self = this;
               const params = {
-                target_nid
+                target_nid:self.$route.query.id,
               }
-              // self.$ajax.getTargetByTargetnid(params).then((res)=> {
-
-              // });
-            }
+              self.$ajax.getTargetByTargetnid(params).then((res)=> {
+                  self.tabledata= res;
+                  console.log(self.tabledata)
+                  self.initialize();
+              });
+            },
+            initialize:function(){
+              const self = this
+              const exteriorarr = ["大包围","尾翼","运动轮廓","铝合金"];
+              const interiorarr = ["真皮坐椅","中控台液晶屏","电动门窗"];
+              const securityarr = ["倒车雷达","中控防盗","刹车辅助"];
+              const comfortarr = ["电动天窗","GPS导航系统","电动加热座椅","自动空调","可调节方向盘","自动加温反光镜","自动巡航系统"]
+              self.newdata(exteriorarr,"exterior");
+              self.newdata(interiorarr,"interior");
+              self.newdata(securityarr,"security");
+              self.newdata(comfortarr,"comfort");
+            },
+            newdata:function(arr,e){
+              const self = this;
+              const newarr =self.tabledata[e].split(",");
+              var  i = 0;
+              for(i = 0;i<newarr.length;i++){
+                if(newarr[i] == 1){
+                  self[e] = self[e] + arr[i];
+                }
+              }
+            },
         }
     }
 </script>

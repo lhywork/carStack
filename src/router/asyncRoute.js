@@ -71,6 +71,7 @@ const asyncRoute = [
         },{
             path: '/Allc',
             name: '查看标的信息',
+            hidden: true,
             component: resolve => require(['@/components/page/Allc.vue'], resolve)
         },{
             path: '/Addobject',
