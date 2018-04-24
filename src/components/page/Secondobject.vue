@@ -8,7 +8,7 @@
                     <div class="el-form-item">
                       <label for="payNumber" class="el-form-item__label">标的流水号:</label>
                       <div class="el-form-item__content">
-                        <el-input  placeholder="请输入内容" class="el-form-item__content"></el-input>
+                        <el-input  placeholder="请输入内容" class="el-form-item__content" v-model="target_nid"></el-input>
                       </div>
                     </div>
                 </el-col>
@@ -16,7 +16,7 @@
                     <div class="el-form-item">
                       <label for="payNumber" class="el-form-item__label">借款人/机构:</label>
                       <div class="el-form-item__content">
-                          <el-select v-model="originvalue" placeholder="请选择">
+                          <el-select v-model="name" placeholder="请选择">
                               <el-option
                                   v-for="item in originoptions"
                                   :key="item.value"
@@ -38,18 +38,18 @@
                       <el-col :span="14">
                         <span class="demonstration">申请时间:</span>
                         <el-date-picker
-                            v-model="datatime1"
+                            v-model="start_time"
                             type="date"
-                            placeholder="选择日期" class="marl10">
+                            placeholder="选择日期" class="marl10" value-format="yyyy-MM-dd">
                         </el-date-picker>
                         <el-date-picker
-                            v-model="datatime2"
+                            v-model="end_time"
                             type="date"
-                            placeholder="选择日期" class="marl10">
+                            placeholder="选择日期" class="marl10" value-format="yyyy-MM-dd">
                         </el-date-picker>
                       </el-col>
                       <el-col :span="10">
-                        <el-button type="primary" class="inquire">查询</el-button>
+                        <el-button type="primary" class="inquire" @click="inquire()">查询</el-button>
                         <el-button type="warning" @click="exportExcel()">导出excel</el-button>
                       </el-col>
                   </div>
@@ -57,23 +57,34 @@
               </el-row>
           </div>
         </div>
-        <div class="main-form">
-            <el-table :data="tabledata" style="width: 100%">
-                <el-table-column prop="aa" label="标的流水号"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="bb" label="借款产品"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="cc" label="经销商名称"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="dd" label="评估金额"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="ee" label="期限"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="ff" label="资金端"  show-overflow-tooltip  align="center"></el-table-column>
-                <el-table-column prop="gg" label="申请时间"  show-overflow-tooltip  align="center" v-bind:formatter="Addtime"></el-table-column>
-                <el-table-column prop="hh" label="放款时间"  show-overflow-tooltip  align="center"></el-table-column>
+               <div class="main-form">
+            <el-table :data="tablist" style="width: 100%">
+                <el-table-column prop="target_nid" label="标的流水号"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="borrow_id" label="借款产品"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="" label="借款人/机构"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="quote" label="申请金额"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="valuation" label="评估定价"  show-overflow-tooltip  align="center"></el-table-column>
+                <el-table-column prop="" label="审核状态"  show-overflow-tooltip  align="center">
+                    <template slot-scope="scope">
+                        <label for="payNumber" v-if="scope.row.examine_status == '0'">未审核</label>
+                        <label for="payNumber" v-else-if="scope.row.examine_status == '1'">初审通过</label>
+                        <label for="payNumber" v-else-if="scope.row.examine_status == '2'">初审失败</label>
+                        <label for="payNumber" v-else-if="scope.row.examine_status == '3'">复审通过</label>
+                        <label for="payNumber" v-else-if="scope.row.examine_status == '4'">复审失败</label>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="add_time" label="申请时间"  show-overflow-tooltip  align="center" v-bind:formatter="Addtime"></el-table-column>
                 <el-table-column label="操作"  show-overflow-tooltip  align="center">
                     <template slot-scope="scope">
-                        <el-button type="success" size="small" @click="">查看详情</el-button>
+
+                        <el-button type="success" size="small" @click="viewDetails(scope.row.target_nid)" v-if="scope.row.examine_status == '1'">审核</el-button>
+                        <el-button type="success" size="small" @click="viewDetails(scope.row.target_nid)" v-else>查看</el-button>
                     </template>
                 </el-table-column>
             </el-table>
         </div>
+        <el-pagination v-if="total" :page-size="epage" :page-sizes="[5, 10, 15, 20]" background layout="prev, sizes, pager, next" :total="total" @current-change="handleCurrentChange" @size-change="pageSizeChange">
+        </el-pagination>
     </div>
 </template>
 <script>
@@ -82,7 +93,7 @@
     export default {
             data() {
                 return {
-                    title: "初审",
+                    title: "复审",
                     originoptions: [{
                             value: '01',
                             label: 'A机构'
@@ -90,51 +101,83 @@
                             value: '02',
                             label: 'B机构'
                         }],
-                    originvalue: '',
-                    moneyoptions:[{
-                            value: '01',
-                            label: 'A端'
-                        }, {
-                            value: '02',
-                            label: 'B端'
-                        }],
-                    moneyvalue:'',
-                    stateoptions:[{
-                            value: '01',
-                            label: 'A端'
-                        }, {
-                            value: '02',
-                            label: 'B端'
-                        }],
-                    statevalue:'',
-                    productoptions:[{
-                            value: '01',
-                            label: 'A端'
-                        }, {
-                            value: '02',
-                            label: 'B端'
-                        }],
-                    productvalue:'',
-                    datatime1:'',
-                    datatime2:'',
-                    tabledata:[{aa:11,bb:22,cc:33,dd:44,ee:55,ff:66,gg:88,hh:'操作'},{aa:11,bb:22,cc:33,dd:44,ee:55,ff:66,gg:88,hh:'操作'},{aa:11,bb:22,cc:33,dd:44,ee:55,ff:66,gg:88,hh:'操作'}]
+                    start_time:'',
+                    end_time:'',
+                    tablist:[],
+                    total:1,
+                    page:1,
+                    epage:5,
+                    target_nid:'',
+                    name:'',
                 }
             },
             created(){
-            
+                const self = this;
+                self.getTargetList();
             },
             methods: {
-                Addobject:function(){
+                 Addtime(row,column){
                     const self = this;
-                    self.$router.push('/Addobject');
+                    const date = row[column.property]; 
+                    if (date == undefined) {  
+                         return "";  
+                    }  
+                    return self.$ajax.formatDate(date,"yyyy-MM-dd hh:mm:ss"); 
                 },
-                shenhe:function(){
+                exportExcel () {
                     const self = this;
-                    self.$router.push('/FobjectC');
+                     import('@/vendor/Export2Excel').then(excel => {
+                     const times = this.$ajax.formatDate(new Date(),"yyyyMMddhhmm");
+                     const filename = times+'_标的初审'
+                     const tHeader = ['标的流水号', '借款产品', '借款人/机构', '申请金额', '评估定价','审核状态','申请时间',]
+                     const filterVal = ['target_nid', 'borrow_id', '', 'quote', 'valuation','examine_status','add_time',]
+                     const tablist = this.tablist
+                     const data = self.formatJson(filterVal, tablist)
+                     excel.export_json_to_excel({
+                        header: tHeader,
+                        data,
+                        filename: filename,
+                        autoWidth: true
+                     })
+                    })
                 },
-                Addobject:function(){
+                formatJson(filterVal, jsonData) {
+                    console.log(jsonData,456456456654)
+            　　　　return jsonData.map(v => filterVal.map(j => {
+                      console.log(j)
+                      if (j == 'add_time') {
+                        return this.$ajax.formatDate(v[j],"yyyy-MM-dd hh:mm:ss")
+                      }else if(j == 'examine_status'){
+                        if(v[j] == 0){
+                            return "未审核"
+                        }else if(v[j] == 1){
+                            return "初审通过"
+                        }else if(v[j] == 2){
+                            return "初审失败"
+                        }else if(v[j] == 3){
+                            return "复审通过"
+                        }else if(v[j] == 4){
+                            return "复审失败"
+                        }
+                    }else {
+                        return v[j]
+                      }  
+                    })) 
+    　　　　    },
+                getTargetList(){
                     const self = this;
-                    self.$router.push('/Addobject');
+                    const params = {
+                        page:self.page,
+                        epage:self.epage,
+                        target_nid:self.target_nid,
+                        name:self.name,
+                        start_time:self.start_time,
+                        end_time:self.end_time,
+                    }
+                    this.$ajax.getTargetList(params).then((res)=> {
+                        self.total = res.total;
+                        self.tablist = res.lists;
+                    });
                 },
                 Addtime(row,column){
                     const self = this;
@@ -144,16 +187,27 @@
                     }  
                     return self.$ajax.formatDate(date,"yyyy-MM-dd hh:mm:ss"); 
                 },
-                exportExcel () {
-                     /* generate workbook object from table */
-                     var wb = XLSX.utils.table_to_book(document.querySelector('#table1'))
-                     /* get binary string as output */
-                     var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
-                     try {
-                         FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'sheet1js.xlsx')
-                     } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
-                     return wbout
+                viewDetails(e){
+                    const self = this;
+                    self.$router.push({
+                        path:'SobjectC',
+                        query: {id: e}
+                    })    
                 },
+                handleCurrentChange(e){
+                    const self = this;
+                    self.page = e;
+                    self.getTargetList();
+                },
+                pageSizeChange(e){
+                    const self = this;
+                    self.epage = e;
+                    self.getTargetList();
+                },
+                inquire(){
+                    const self = this;
+                    self.getTargetList();
+                }
             }
         }
 </script>
