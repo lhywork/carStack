@@ -9,7 +9,11 @@ export default {
     },
     getPermissionList:params=>{
         return utils.getData(`../static/json/navlist.json`,params);
-    },    
+    },
+    //删除上传文件
+    deletePicLink:params=>{
+        return utils.getData(`${base}/file/deletePicLink`,params);
+    },      
     getAccountNo:params=>{
         return utils.getData(`${base}/baseMaterial/getAccountNo`,params);
     },

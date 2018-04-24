@@ -4,11 +4,13 @@
         <div class="main-form">
             <el-form class="loan-form" :model="form" label-width="120px">
                 <el-form-item label="借款产品名称:">
-                    <label for="payNumber" class="el-form-item__label">{{form.name}}</label>
+                    <el-input :disabled="true" v-model="form.name" placeholder="请输入借款产品名称"></el-input>
                 </el-form-item>
                 <el-form-item label="提前还款:">
-                    <label for="payNumber" v-if="form.if_forward == '0'">不能</label>
-                    <label for="payNumber" v-if="form.if_forward == '1'">能</label>
+                    <el-radio-group :disabled="true" v-model="form.if_forward">
+                      <el-radio :label="1">能</el-radio>
+                      <el-radio :label="0">不能</el-radio>
+                    </el-radio-group>
                 </el-form-item>
             </el-form>
             <el-table :data="form.tableData" style="width: 100%">
@@ -44,7 +46,6 @@
                     self.form.name = res.lists[0].name;
                     self.form.if_forward = res.lists[0].if_forward;
                     self.form.tableData = res.lists;
-                    // self.form.if_forward = res.lists["0"].if_forward;
                 });               
             }
         },  

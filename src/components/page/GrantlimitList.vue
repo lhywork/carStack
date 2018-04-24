@@ -219,7 +219,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .action-bar{
-        padding: 10px 0;
+        padding: 10px 0 0 0;       
     }
     .barli{
         width: 100%;
@@ -233,9 +233,6 @@ export default {
     }
     .marginl10{
         margin-left:10px;
-    }
-    .main-form{
-        padding: 10px 0;
     }
     .radio-form-item{
         margin-bottom: 0;

@@ -321,7 +321,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .action-bar{
-        padding: 10px 0;
+        padding: 10px 0 0 0;
+        border-top:1px solid #ddd;
     }
     .barli{
         width: 100%;
@@ -332,9 +333,6 @@ export default {
     }
     .barli-input{
         width: 216px;
-    }
-    .main-form{
-        padding: 10px 0;
     }
     .el-pagination{
       text-align: right;

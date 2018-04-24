@@ -42,6 +42,8 @@
                                         :data="uploadData1"
                                         :before-upload="beforeUpload"
                                         :on-preview="handlePreview"
+                                        :on-remove="handleRemove"
+                                        :before-remove="beforeRemove"
                                         :on-success="handleSuccess"
                                         :file-list="form.id_no_front">                                       
                                         <i class="plus-icon el-icon-plus"></i>
@@ -56,6 +58,8 @@
                                         :data="uploadData2"
                                         :before-upload="beforeUpload"
                                         :on-preview="handlePreview"
+                                        :on-remove="handleRemove"
+                                        :before-remove="beforeRemove"
                                         :on-success="handleSuccess"
                                         :file-list="form.id_no_back">
                                         <i class="plus-icon el-icon-plus"></i>
@@ -107,6 +111,8 @@
                               :data="uploadData3"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
+                              :on-remove="handleRemove"
+                              :before-remove="beforeRemove"
                               :on-success="handleSuccess"
                               :file-list="form.stack_pic">
                               <i class="plus-icon el-icon-plus"></i>
@@ -122,6 +128,8 @@
                               :data="uploadData4"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
+                              :on-remove="handleRemove"
+                              :before-remove="beforeRemove"
                               :on-success="handleSuccess"
                               :file-list="form.run_license">
                               <i class="plus-icon el-icon-plus"></i>
@@ -137,6 +145,8 @@
                               :data="uploadData5"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
+                              :on-remove="handleRemove"
+                              :before-remove="beforeRemove"
                               :on-success="handleSuccess"
                               :file-list="form.lease_contract">
                               <i class="plus-icon el-icon-plus"></i>
@@ -152,6 +162,8 @@
                               :data="uploadData6"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
+                              :on-remove="handleRemove"
+                              :before-remove="beforeRemove"
                               :on-success="handleSuccess"
                               :file-list="form.lease_pic">
                               <i class="plus-icon el-icon-plus"></i>
@@ -167,6 +179,8 @@
                             :data="uploadData7"
                             :before-upload="beforeUpload"
                             :on-preview="handlePreview"
+                            :on-remove="handleRemove"
+                            :before-remove="beforeRemove"
                             :on-success="handleSuccess"
                             :file-list="form.application">
                             <i class="plus-icon el-icon-plus"></i>
@@ -210,6 +224,8 @@
                                         :data="uploadData"
                                         :before-upload="beforeUpload"
                                         :on-preview="handlePreview"
+                                        :on-remove="handleRemove"
+                                        :before-remove="beforeRemove"
                                         :on-success="handleSuccess">
                                         <i class="plus-icon el-icon-plus"></i>
                                     </el-upload>
@@ -223,6 +239,8 @@
                                         :data="uploadData"
                                         :before-upload="beforeUpload"
                                         :on-preview="handlePreview"
+                                        :on-remove="handleRemove"
+                                        :before-remove="beforeRemove"
                                         :on-success="handleSuccess">
                                         <i class="plus-icon el-icon-plus"></i>
                                     </el-upload>
@@ -240,6 +258,8 @@
                               :data="uploadData8"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
+                              :on-remove="handleRemove"
+                              :before-remove="beforeRemove"
                               :on-success="handleSuccess">
                               <i class="plus-icon el-icon-plus"></i>
                           </el-upload>
@@ -472,6 +492,17 @@ export default {
       handlePreview(file) {
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
+      },
+      handleRemove(file) {
+        const params = {
+          fileId:file.id
+        }
+        this.$ajax.deletePicLink(params).then((res)=>{
+          // console.log(res)
+        })      
+      },
+      beforeRemove(){
+        return this.$confirm('确认删除这张图片吗?');
       },
       //图片上传成功
       handleSuccess(response, file, fileList){

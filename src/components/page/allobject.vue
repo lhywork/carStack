@@ -184,7 +184,7 @@
             self.getTargetList();
         },
         methods: {
-            Addobject:function(){
+            handleAdd:function(){
                 const self = this;
                 self.$router.push('/Addobject');
             },
@@ -269,7 +269,7 @@
 <style scoped>
     .addo_contentall{
       width: 100%;
-      border-bottom:1px solid #ddd;
+      border-top:1px solid #ddd;
     }
     .addo_content{
       width: 1000px;
