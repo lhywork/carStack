@@ -133,6 +133,16 @@
                     </el-col>
                 </el-row>
                 <h5 class="mart10">车辆照片:</h5>
+                <el-row :gutter="24">
+                    <el-col :span="24">
+                      <el-upload :disabled="true" name="uploadfile" accept="image/gif,image/jpeg,image/jpg,image/png" :file-list="imagesarr" list-type ="picture-card" action=" " :on-preview="handlePictureCardPreview">
+                          <i class="el-icon-plus"></i>
+                      </el-upload>
+                      <el-dialog :visible.sync="dialogVisible">
+                        <img width="100%" :src="dialogImageUrl" alt="">
+                      </el-dialog>
+                    </el-col>
+                </el-row>
                 <el-row :gutter="10">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl28">是否上牌:</label>
@@ -268,7 +278,11 @@
                     fix_price:[
                         { required: true, message: '请选择运营定价', trigger: 'change' },
                     ],
-                }
+                },
+                imagesarr:[],
+                uploadUrl:this.$ajax.getBaseUrl+'/file/uploadPic',
+                dialogImageUrl: '',
+                dialogVisible: false,
             }
         },
         created(){
@@ -288,6 +302,12 @@
                   self.form.quote = res.quote;
                   self.form.valuation = res.valuation;
                   self.form.fix_price = res.fix_price;
+                  const imagesarr1 = res.stack_pic;
+                  imagesarr1.forEach((item,index) => {
+                     item.url = this.$ajax.getBaseUrl + '/images' + item.res_url;
+                  })
+                  console.log(imagesarr1)
+                  self.imagesarr = imagesarr1
                   self.initialize();
               });
             },
@@ -353,6 +373,14 @@
                   }
               });
               
+            },
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
+                console.log(file)
             },
         }
     }
