@@ -123,7 +123,6 @@
             SubmitBtn(formName){
                 const self = this;
                 self.$refs[formName].validate((valid) => {
-                    console.log(self.$refs[formName])
                     if (valid) {
                         const self = this;
                         const params = [];
@@ -134,14 +133,12 @@
                         })
                         this.$ajax.borrowProSave(params).then((res)=> {
                             if(res.data.returnCode == 1){
-                                console.log("22222")
                                 self.$router.push({ path: '/LoanList' });   
                             }else{
                                 self.$alert(res.returnMsg,'系统提示')
                             }
                         });
                     } else {
-                        console.log('error submit!!');
                         return false;
                     }
                 });

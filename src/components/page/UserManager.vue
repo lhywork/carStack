@@ -68,7 +68,6 @@
                 });
             },
             handleEdit:function(e){
-                // console.log(e)
                 const self = this;
                 self.$router.push({
                     path:'UserCompile',

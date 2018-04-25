@@ -215,7 +215,6 @@
                 })
             },
             formatJson(filterVal, jsonData) {
-                console.log(jsonData)
         　　　　return jsonData.map(v => filterVal.map(j => {
                   if (j == 'add_time' || j == 'examine_review_time') {
                     return this.$ajax.formatDate(v[j],"yyyy-MM-dd hh:mm:ss")

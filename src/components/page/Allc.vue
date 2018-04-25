@@ -288,7 +288,6 @@
                         }  
                       }  
                       else{  
-                        console.log(response.status)  
                       }  
                     }).catch(function(error){console.log(typeof+ error)})  
               }, 
@@ -326,7 +325,6 @@
                   imagesarr1.forEach((item,index) => {
                      item.url = this.$ajax.getBaseUrl + '/images' + item.res_url;
                   })
-                  console.log(imagesarr1)
                   self.imagesarr = imagesarr1
                   self.initialize();
               });
@@ -352,13 +350,9 @@
                 }
               }
             },
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
-            },
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
-                console.log(file)
             },
         }
     }

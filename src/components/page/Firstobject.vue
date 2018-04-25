@@ -144,9 +144,7 @@
                     })
                 },
                 formatJson(filterVal, jsonData) {
-                    console.log(jsonData,456456456654)
             　　　　return jsonData.map(v => filterVal.map(j => {
-                      console.log(j)
                       if (j == 'add_time') {
                         return this.$ajax.formatDate(v[j],"yyyy-MM-dd hh:mm:ss")
                       }else if(j == 'examine_status'){
@@ -178,9 +176,7 @@
                     }
                     this.$ajax.getTargetList(params).then((res)=> {
                         self.total = res.total;
-                        console.log(111111111111111111)
                         self.tablist = res.lists;
-                        console.log(self.total)
                     });
                 },
                 Addtime(row,column){

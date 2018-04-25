@@ -360,8 +360,7 @@ export default {
               }  
             } 
           }  
-          else{  
-            console.log(response.status)  
+          else{   
           }  
         }).catch(function(error){console.log(typeof+ error)})  
       },  
@@ -423,7 +422,6 @@ export default {
       },
       //图片上传成功
       handleSuccess(response, file, fileList){
-        console.log(response, file, fileList)
       },
       //系统消息提示
       msgAlert(title){

@@ -730,8 +730,7 @@
                                 }  
                             }  
                         }  
-                        else{  
-                            console.log(response.status)  
+                        else{    
                         }  
                     }).catch(function(error){console.log(typeof+ error)})  
                 }, 
@@ -739,7 +738,6 @@
                 choseProvince:function(e) {  
                     for (var index2 in this.province) {  
                         if (e === this.province[index2].id) {
-                            console.log(this.province[index2]);
                             this.ruleForm.car_province  = this.province[index2].value;
                             this.shi1 = this.province[index2].children;
                             // this.shi1 = this.province[index2].children  
@@ -765,11 +763,9 @@
                 sure(formName) {
                     const self = this;
                     self.$refs[formName].validate((valid) => {
-                        console.log(self.$refs[formName])
                         if (valid) {
                             self.addALL()
                         } else {
-                            console.log('error submit!!');
                             return false;
                         }
                     });

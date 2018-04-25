@@ -337,8 +337,7 @@ export default {
               }  
             } 
           }  
-          else{  
-            console.log(response.status)  
+          else{   
           }  
         }).catch(function(error){console.log(typeof+ error)})  
       },  
@@ -403,7 +402,6 @@ export default {
               formData.append('linkno', this.$route.query.id)
               formData.append('moreFlag', moreFlag)
         this.$ajax.uploadPic(formData).then((res)=>{
-          //console.log(res)
         })
       },
       uploadFile(file,cloumnname,moreFlag){
@@ -414,7 +412,6 @@ export default {
               formData.append('linkno', this.$route.query.id)
               formData.append('moreFlag', moreFlag)
         this.$ajax.uploadFile(formData).then((res)=>{
-          //console.log(res)
         })
       },
       //图片预览

@@ -127,7 +127,6 @@ export default {
             }  
           }  
           else{  
-            console.log(response.status)  
           }  
         }).catch(function(error){console.log(typeof+ error)})  
       },  

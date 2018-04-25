@@ -302,7 +302,6 @@
                   imagesarr1.forEach((item,index) => {
                      item.url = this.$ajax.getBaseUrl + '/images' + item.res_url;
                   })
-                  console.log(imagesarr1)
                   self.imagesarr = imagesarr1
                   self.initialize();
               });
@@ -331,11 +330,9 @@
             sure(formName) {
                 const self = this;
                 self.$refs[formName].validate((valid) => {
-                    console.log(self.$refs[formName])
                     if (valid) {
                         self.shenhe("1")
                     } else {
-                        console.log('error submit!!');
                         return false;
                     }
                 });
@@ -343,11 +340,9 @@
             ffase(formName) {
                 const self = this;
                 self.$refs[formName].validate((valid) => {
-                    console.log(self.$refs[formName])
                     if (valid) {
                         self.shenhe("2")
                     } else {
-                        console.log('error submit!!');
                         return false;
                     }
                 });
@@ -370,13 +365,9 @@
               });
               
             },
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
-            },
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
-                console.log(file)
             },
         }
     }
