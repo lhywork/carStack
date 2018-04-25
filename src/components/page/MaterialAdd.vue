@@ -4,20 +4,20 @@
         <h2 class="main-title"><i class="fa fa-tags"></i>经销商资料</h2>
         <div class="main-form">
             <div id="J_Form" class="form-content">
-                <el-form :inline="true" :model="form" :label-position="'right'" label-width="130px" class="demo-form-inline">
-                    <el-form-item class="J-form-item" label="姓名">
+                <el-form :inline="true" :model="form" :rules="rules" ref="form"  :label-position="'right'" label-width="130px" class="demo-form-inline">
+                    <el-form-item class="J-form-item" label="姓名" prop="account_name">
                         <el-input class="form-input" v-model="form.account_name" placeholder="请输入真实姓名"></el-input>
                     </el-form-item>
-                    <el-form-item class="J-form-item" label="Email地址">
+                    <el-form-item class="J-form-item" label="Email地址" prop="email">
                         <el-input class="form-input" v-model="form.email" placeholder="请输入邮箱地址"></el-input>
                     </el-form-item>
-                    <el-form-item class="J-form-item" label="手机号码">
+                    <el-form-item class="J-form-item" label="手机号码" prop="mobile">
                         <el-input class="form-input" v-model="form.mobile" placeholder="请输入手机号码"></el-input>
                     </el-form-item>                   
                     <el-form-item class="J-form-item" label="固定电话">
                         <el-input class="form-input" v-model="form.phone" placeholder="请输入固定电话"></el-input>
                     </el-form-item>
-                    <el-form-item class="J-form-item" label="身份证号">
+                    <el-form-item class="J-form-item" label="身份证号" prop="id_no">
                         <el-input class="form-input" v-model="form.id_no" placeholder="请输入二代身份证号码"></el-input>
                     </el-form-item>
                     <el-form-item class="J-form-item card-laber-item" label="身份证照片">
@@ -297,6 +297,23 @@ export default {
               guarantor_phone:'',
               guarantor_links:''
           },
+          rules:{
+              account_name:[
+                  { required: true, message: '请输入真实姓名', trigger: 'blur' },
+              ],
+              email:[
+                  { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+                  { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] },
+              ],
+              mobile:[
+                  { required: true, message: '请输入手机号码', trigger: 'blur' },
+                  { pattern: /^1[345789]\d{9}$/, message: '请输入正确的手机号码'},
+              ],
+              id_no:[
+                  {required: true, message: '请输入二代身份证号码', trigger: 'blur' },
+                  {pattern: /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/, message: '二代身份证号码格式有误！', trigger: 'blur'}
+              ]
+          },
           dialogImageUrl: '',
           dialogVisible: false,
           uploadUrl:this.$ajax.getBaseUrl+'/file/uploadPic',         
@@ -368,17 +385,24 @@ export default {
       SubmitBtn(){
         const that = this;
         const params = this.form;
-        that.$ajax.BaseMaterialSave(params).then((res)=> {
-          if(res.returnCode == 1){
-            that.$alert('新增成功！', '系统后台提示', {
-              confirmButtonText: '确定',
-              callback: action => {
-                that.$router.push({ path: '/index' });
-              }
-            });
-          }else{
-            this.msgAlert(res.returnMsg);
-          }        
+        that.$refs['form'].validate((valid) => {
+          if (valid) {
+            that.$ajax.BaseMaterialSave(params).then((res)=> {
+              if(res.returnCode == 1){
+                that.$alert('新增成功！', '系统后台提示', {
+                  confirmButtonText: '确定',
+                  callback: action => {
+                    that.$router.push({ path: '/index' });
+                  }
+                });
+              }else{
+                this.msgAlert(res.returnMsg);
+              }        
+            })
+          }else {
+              console.log('error submit!!');
+              return false;
+          }
         })
       },
       //图片上传之前

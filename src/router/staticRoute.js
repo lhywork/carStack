@@ -29,6 +29,7 @@ const staticRoute = [
                 component: resolve => require(['@/components/error/403'], resolve)
             },{
                 path: '404',
+                name:"页面不存在",
                 component: resolve => require(['@/components/error/404'], resolve)
             },{
                 path: '500',
