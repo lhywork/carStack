@@ -81,6 +81,7 @@ export default {
     saveRole:params=>{
         return utils.postData(`${admin}/adminRole/saveRole`, params);
     }, 
+    //新增标的
     investmentPro:params => {
         return utils.postData(`${admin}/targetInfo/save`, params);
     },
