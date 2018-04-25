@@ -326,7 +326,7 @@
     .inquire{
         margin-left: 55px;
     }
-    #table1{
-        display: none;
+    .el-pagination{
+      text-align: right;
     }
 </style>

@@ -262,54 +262,6 @@
         display: inline-block;
         width: 100%;
     } 
-    .panel-cont {
-        overflow: hidden;
-    }
-    h5{
-        font-weight: bold;
-    }
-    .search {
-        overflow: hidden;
-        padding-left:10px;
-    }
-    .search li {
-        float: left;
-        margin-right: 15px;
-        line-height: 35px
-    }
-    .search .input{
-        width: 200px;
-        line-height: 16px;
-        cursor: pointer;
-    }
-    .search .keywords{
-        width:250px; 
-        line-height:16px;
-        display:inline-block;
-    }
-    .button {
-        padding: 8px 15px;
-    }
-    .table th{
-        text-align: center;
-        padding: 12px;
-    }
-    .table td {
-        vertical-align: middle;
-        padding: 10px;
-    }
-    .padl14{
-        padding-left: 14px;
-    }
-    .padl10{
-        padding-left: 10px;
-    }
-    .marl5{
-        margin-left: 5px;
-    }
-    .marl3{
-        margin-left: 3px;
-    }
     .marl10{
         margin-left: 10px;
     }
@@ -322,7 +274,7 @@
     .inquire{
         margin-left: 55px;
     }
-    #table1{
-        display: none;
+    .el-pagination{
+      text-align: right;
     }
 </style>
