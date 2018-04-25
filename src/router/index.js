@@ -55,7 +55,7 @@ function filterAsyncRouter(asyncRouterMap){
 Vue.use(VueRouter)
 
 const router = new VueRouter({
-    mode: 'history',
+    // mode: 'history',
     routes: staticRoute
 })
 

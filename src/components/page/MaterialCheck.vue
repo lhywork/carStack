@@ -265,7 +265,7 @@ export default {
     data () {  
         return {
           loading: true,  
-          mapJson:'../static/json/map.json',  
+          mapJson:'./static/json/map.json',  
           province:[],
           city:[], 
           block:[],    

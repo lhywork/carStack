@@ -262,7 +262,7 @@
 export default {  
     data () {  
         return {  
-          mapJson:'../static/json/map.json',  
+          mapJson:'./static/json/map.json',  
           province:[],
           city:[], 
           block:[],    
