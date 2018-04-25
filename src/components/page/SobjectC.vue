@@ -298,7 +298,6 @@
               }
               self.$ajax.getTargetByTargetnid(params).then((res)=> {
                   self.tabledata= res;
-                  // console.log(res)
                   self.form.quote = res.quote;
                   self.form.valuation = res.valuation;
                   self.form.fix_price = res.fix_price;

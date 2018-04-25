@@ -202,13 +202,13 @@
                     <h5 class="mart10">车辆照片:</h5>
                     <el-row :gutter="24">
                         <el-col :span="24" class="marl26">
-                            <el-upload  v-bind:action="action" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove" name="uploadfile" v-bind:data="data1" accept="image/*" v-bind:before-upload ="beforeupload">
+                            <el-upload  v-bind:action="action" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove" name="uploadfile" v-bind:data="data1" accept="image/*" v-bind:before-upload ="beforeupload" >
                                 <i class="el-icon-plus"></i>
                             </el-upload>
                             <el-dialog :visible.sync="dialogVisible">
-                                <el-form-item prop="car_photo" class="el-form-item__content" >
-                                    <img width="100%" :src="ruleForm.car_photo" alt="">
-                                </el-form-item>
+                                <el-dialog :visible.sync="dialogVisible">
+                                    <img width="100%" :src="dialogImageUrl" alt="">
+                                </el-dialog>
                             </el-dialog>
                         </el-col>
                     </el-row>
@@ -689,12 +689,21 @@
                     });
                 },
                 handleRemove(file, fileList) {
-                    console.log(file, fileList);
+                    const self = this;
+                    const fileId = file.response.fileId;
+                    const params={
+                        fileId:fileId,
+                    }
+                    this.$ajax.deletePicLink(params).then((res)=> {
+                        if(res.returnCode == 1){ 
+                        }else{
+                            self.$alert(res.returnMsg,'系统提示')
+                        }
+                    }); 
                 },
                 handlePictureCardPreview(file) {
                     this.dialogImageUrl = file.url;
                     this.dialogVisible = true;
-                    console.log(file)
                 },
                 getCityData:function(){  
                     var that = this;  
@@ -785,7 +794,7 @@
                         self.ruleForm.target_nid = res.target_nid;
                         self.data1.linkno = res.target_nid;
                     });
-                }
+                },
             }
         }
 </script>
