@@ -51,7 +51,7 @@
                     ],
                     niname: [
                         { required: true, message: '请输入手机号码', trigger: 'blur' },
-                        { pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号码'}
+                        { pattern: /^1[345789]\d{9}$/, message: '请输入正确的手机号码'}
                     ]
                 },
             }

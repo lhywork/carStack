@@ -55,7 +55,7 @@ function filterAsyncRouter(asyncRouterMap){
 Vue.use(VueRouter)
 
 const router = new VueRouter({
-    mode: 'history',
+    // mode: 'history',
     routes: staticRoute
 })
 
@@ -66,7 +66,7 @@ router.beforeEach((to, from, next) => {
         // 如果当前处于登录状态，并且跳转地址为login，则自动跳回系统首页
         // 这种情况出现在手动修改地址栏地址时
         if (to.path === '/login') {
-            router.replace('/')
+            router.replace('/index')
         } else {
             // 页面跳转前先判断是否存在权限列表，如果存在则直接跳转，如果没有则请求一次
             if (store.state.auth.permissionList.length === 0) {

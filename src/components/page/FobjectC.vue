@@ -2,7 +2,7 @@
    <div class="main-content" v-bind:data="tabledata">
             <h2 class="main-title"><i class="fa fa-tags"></i>初审标的信息</h2>
             <div class="addo_content">
-                <el-form class="loan-form" :rules="rules"ref="form" :model="form" label-width="120px"  v-if="tabledata.examine_status == 0" >
+                <el-form class="loan-form" :rules="rules" ref="form" :model="form" label-width="120px"  v-if="tabledata.examine_status == 0" >
                     <el-row :gutter="24" >
                        <el-col :span="8">
                             <el-form-item prop="quote" label="申请报价:">

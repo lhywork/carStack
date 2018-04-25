@@ -20,7 +20,7 @@
         data() {
             return {
                 sysName:'车栈金融后台管理',
-                sysUserAvatar:'../../../static/img/img.jpg',
+                sysUserAvatar:'./static/img/Avatar.jpg',
                 sysUserName: ''
             }
         },
