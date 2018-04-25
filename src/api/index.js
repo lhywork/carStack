@@ -10,6 +10,14 @@ export default {
     getPermissionList:params=>{
         return utils.getData(`../static/json/navlist.json`,params);
     },
+    //上传单个图片
+    uploadPic:params=>{
+        return utils.postFile(`${base}/file/uploadPic`,params);
+    },
+    //上传单个文件
+    uploadFile:params=>{
+        return utils.postFile(`${base}/file/uploadFile`,params);
+    },
     //删除上传文件
     deletePicLink:params=>{
         return utils.getData(`${base}/file/deletePicLink`,params);

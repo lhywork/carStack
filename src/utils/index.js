@@ -45,6 +45,21 @@ export const postJSON = (url, params) => {
       })
   })
 }
+export const postFile = (url, params) => {
+    return new Promise((resolve,reject) => {
+      axios({
+        method: 'post',
+        url:url,
+        data: params,
+      }).then(res => {
+        resolve(res)
+      })
+      .catch(err => {
+        console.log("post请求failed")
+        reject(err)
+      })
+  })
+}
 /**
   * POST请求
   * @param  {[type]} url     url地址

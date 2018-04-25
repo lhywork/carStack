@@ -38,13 +38,12 @@
                                     <el-upload class="card-border" name="uploadfile"
                                         accept="image/gif,image/jpeg,image/jpg,image/png"
                                         list-type="picture-card"
-                                        :action="uploadUrl"                                        
-                                        :data="uploadData1"
+                                        :action="uploadUrl"
+                                        :http-request="(res)=>{return uploadImg(res, 'id_no_front', false)}"
                                         :before-upload="beforeUpload"
                                         :on-preview="handlePreview"
                                         :on-remove="handleRemove"
-                                        :before-remove="beforeRemove"
-                                        :on-success="handleSuccess"
+                                        :before-remove="beforeRemove"        
                                         :file-list="form.id_no_front">                                       
                                         <i class="plus-icon el-icon-plus"></i>
                                     </el-upload>
@@ -54,13 +53,12 @@
                                     <el-upload class="card-border" name="uploadfile"
                                         accept="image/gif,image/jpeg,image/jpg,image/png"
                                         list-type="picture-card"
-                                        :action="uploadUrl"                                      
-                                        :data="uploadData2"
+                                        :action="uploadUrl"
+                                        :http-request="(res)=>{return uploadImg(res, 'id_no_back', false)}"
                                         :before-upload="beforeUpload"
                                         :on-preview="handlePreview"
                                         :on-remove="handleRemove"
-                                        :before-remove="beforeRemove"
-                                        :on-success="handleSuccess"
+                                        :before-remove="beforeRemove"         
                                         :file-list="form.id_no_back">
                                         <i class="plus-icon el-icon-plus"></i>
                                     </el-upload>
@@ -107,13 +105,12 @@
                           <el-upload class="card-border" name="uploadfile"
                               accept="image/gif,image/jpeg,image/jpg,image/png"
                               list-type="picture-card"
-                              :action="uploadUrl"                                      
-                              :data="uploadData3"
+                              :action="uploadUrl"
+                              :http-request="(res)=>{return uploadImg(res, 'stack_pic', false)}"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
                               :on-remove="handleRemove"
                               :before-remove="beforeRemove"
-                              :on-success="handleSuccess"
                               :file-list="form.stack_pic">
                               <i class="plus-icon el-icon-plus"></i>
                           </el-upload>
@@ -124,13 +121,12 @@
                           <el-upload class="card-border" name="uploadfile"
                               accept="image/gif,image/jpeg,image/jpg,image/png"
                               list-type="picture-card"
-                              :action="uploadUrl"                                      
-                              :data="uploadData4"
+                              :action="uploadUrl"
+                              :http-request="(res)=>{return uploadImg(res, 'run_license', false)}"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
                               :on-remove="handleRemove"
                               :before-remove="beforeRemove"
-                              :on-success="handleSuccess"
                               :file-list="form.run_license">
                               <i class="plus-icon el-icon-plus"></i>
                           </el-upload>
@@ -141,13 +137,12 @@
                           <el-upload class="card-border more" name="uploadfile"
                               accept="image/gif,image/jpeg,image/jpg,image/png"
                               list-type="picture-card"
-                              :action="uploadUrl"                                      
-                              :data="uploadData5"
+                              :action="uploadUrl"
+                              :http-request="(res)=>{return uploadImg(res, 'lease_contract', true)}"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
                               :on-remove="handleRemove"
                               :before-remove="beforeRemove"
-                              :on-success="handleSuccess"
                               :file-list="form.lease_contract">
                               <i class="plus-icon el-icon-plus"></i>
                           </el-upload>
@@ -158,13 +153,12 @@
                           <el-upload class="card-border more" name="uploadfile"
                               accept="image/gif,image/jpeg,image/jpg,image/png"
                               list-type="picture-card"
-                              :action="uploadUrl"                                      
-                              :data="uploadData6"
+                              :action="uploadUrl"
+                              :http-request="(res)=>{return uploadImg(res, 'lease_pic', true)}"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
                               :on-remove="handleRemove"
                               :before-remove="beforeRemove"
-                              :on-success="handleSuccess"
                               :file-list="form.lease_pic">
                               <i class="plus-icon el-icon-plus"></i>
                           </el-upload>
@@ -175,13 +169,12 @@
                         <el-upload class="card-border more" name="uploadfile"
                             accept="image/gif,image/jpeg,image/jpg,image/png"
                             list-type="picture-card"
-                            :action="uploadUrl"                                      
-                            :data="uploadData7"
+                            :action="uploadUrl"
+                            :http-request="(res)=>{return uploadImg(res, 'application', true)}"
                             :before-upload="beforeUpload"
                             :on-preview="handlePreview"
                             :on-remove="handleRemove"
                             :before-remove="beforeRemove"
-                            :on-success="handleSuccess"
                             :file-list="form.application">
                             <i class="plus-icon el-icon-plus"></i>
                         </el-upload>
@@ -196,18 +189,22 @@
         <div class="main-form">
             <div id="J_Form" class="form-content">
                 <el-form :inline="true" :model="form" :label-position="'right'" label-width="130px" class="demo-form-inline">
-                    <el-form-item class="J-form-item" label="车商增信报告">
+                    <el-form-item class="J-file-item" label="车商增信报告">
                         <el-upload class="upload-file" name="uploadfile"
                           :action="FileUrl"
-                          :data="FileData1"
+                          :http-request="(res)=>{return uploadFile(res, 'credit_report', false)}"
+                          :on-remove="handleRemove"
+                          :before-remove="beforeRemove"
                           :file-list="form.credit_report">
                           <el-button size="small" type="primary">点击上传</el-button>
                         </el-upload>
                     </el-form-item>
-                    <el-form-item class="J-form-item" label="经营流水电子版">
+                    <el-form-item class="J-file-item" label="经营流水电子版">
                         <el-upload class="upload-file" name="uploadfile"
                           :action="FileUrl"
-                          :data="FileData2"
+                          :http-request="(res)=>{return uploadFile(res, 'running_water', false)}"
+                          :on-remove="handleRemove"
+                          :before-remove="beforeRemove"
                           :file-list="form.running_water">
                           <el-button size="small" type="primary">点击上传</el-button>
                         </el-upload>
@@ -227,13 +224,12 @@
                                     <el-upload class="card-border" name="uploadfile"
                                         accept="image/gif,image/jpeg,image/jpg,image/png"
                                         list-type="picture-card"
-                                        :action="uploadUrl"                                        
-                                        :data="uploadData8"
+                                        :action="uploadUrl"
+                                        :http-request="(res)=>{return uploadImg(res, 'gt_id_no_front', false)}"
                                         :before-upload="beforeUpload"
                                         :on-preview="handlePreview"
                                         :on-remove="handleRemove"
-                                        :before-remove="beforeRemove"
-                                        :on-success="handleSuccess"
+                                        :before-remove="beforeRemove"         
                                         :file-list="form.gt_id_no_front">
                                         <i class="plus-icon el-icon-plus"></i>
                                     </el-upload>
@@ -243,13 +239,12 @@
                                     <el-upload class="card-border" name="uploadfile"
                                         accept="image/gif,image/jpeg,image/jpg,image/png"
                                         list-type="picture-card"
-                                        :action="uploadUrl"                                      
-                                        :data="uploadData9"
+                                        :action="uploadUrl"
+                                        :http-request="(res)=>{return uploadImg(res, 'gt_id_no_back', false)}"
                                         :before-upload="beforeUpload"
                                         :on-preview="handlePreview"
                                         :on-remove="handleRemove"
-                                        :before-remove="beforeRemove"
-                                        :on-success="handleSuccess"
+                                        :before-remove="beforeRemove"       
                                         :file-list="form.gt_id_no_back">
                                         <i class="plus-icon el-icon-plus"></i>
                                     </el-upload>
@@ -266,13 +261,12 @@
                           <el-upload class="card-border more" name="uploadfile"
                               accept="image/gif,image/jpeg,image/jpg,image/png"
                               list-type="picture-card"
-                              :action="uploadUrl"                                      
-                              :data="uploadData10"
+                              :action="uploadUrl"
+                              :http-request="(res)=>{return uploadImg(res, 'asset_proof', true)}"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
                               :on-remove="handleRemove"
                               :before-remove="beforeRemove"
-                              :on-success="handleSuccess"
                               :file-list="form.asset_proof">
                               <i class="plus-icon el-icon-plus"></i>
                           </el-upload>
@@ -337,66 +331,6 @@ export default {
           dialogImageUrl: '',
           dialogVisible: false,
           uploadUrl:this.$ajax.getBaseUrl+'/file/uploadPic',
-          uploadData1:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'id_no_front',
-            linkno:this.$route.query.id,
-            moreFlag:false
-          },
-          uploadData2:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'id_no_back',
-            linkno:this.$route.query.id,
-            moreFlag:false
-          },
-          uploadData3:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'stack_pic',
-            linkno:this.$route.query.id,
-            moreFlag:false
-          },
-          uploadData4:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'run_license',
-            linkno:this.$route.query.id,
-            moreFlag:false
-          },
-          uploadData5:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'lease_contract',
-            linkno:this.$route.query.id,
-            moreFlag:true
-          },
-          uploadData6:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'lease_pic',
-            linkno:this.$route.query.id,
-            moreFlag:true
-          },
-          uploadData7:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'application',
-            linkno:this.$route.query.id,
-            moreFlag:true
-          },
-          uploadData8:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'gt_id_no_front',
-            linkno:this.$route.query.id,
-            moreFlag:false
-          },
-          uploadData9:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'gt_id_no_back',
-            linkno:this.$route.query.id,
-            moreFlag:false
-          },
-          uploadData10:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'asset_proof',
-            linkno:this.$route.query.id,
-            moreFlag:true
-          },
           FileUrl:this.$ajax.getBaseUrl+'/file/uploadFile',
           FileData1:{
             tablename:'hrcf_stack_asset_base_material',
@@ -513,9 +447,31 @@ export default {
         else if (!isLt2M) {
           this.msgAlert('上传图片大小不能超过 2MB!');
         }else{
-            
+
         }
         return isJPG && isLt2M; 
+      },
+      uploadImg(file,cloumnname,moreFlag){
+        const formData = new FormData()
+              formData.append('uploadfile', file.file)
+              formData.append('tablename', 'hrcf_stack_asset_base_material')
+              formData.append('cloumnname', cloumnname)
+              formData.append('linkno', this.$route.query.id)
+              formData.append('moreFlag', moreFlag)
+        this.$ajax.uploadPic(formData).then((res)=>{
+          //console.log(res)
+        })
+      },
+      uploadFile(file,cloumnname,moreFlag){
+        const formData = new FormData()
+              formData.append('uploadfile', file.file)
+              formData.append('tablename', 'hrcf_stack_asset_base_material')
+              formData.append('cloumnname', cloumnname)
+              formData.append('linkno', this.$route.query.id)
+              formData.append('moreFlag', moreFlag)
+        this.$ajax.uploadFile(formData).then((res)=>{
+          //console.log(res)
+        })
       },
       //图片预览
       handlePreview(file) {
@@ -531,11 +487,7 @@ export default {
         })      
       },
       beforeRemove(){
-        return this.$confirm('确认删除这张图片吗?');
-      },
-      //图片上传成功
-      handleSuccess(response, file, fileList){
-        console.log(response, file, fileList)
+        return this.$confirm('确认删除这个文件吗?');
       },
       //系统消息提示
       msgAlert(title){
@@ -551,6 +503,9 @@ export default {
     }
     .J-form-item{
         width: 350px;
+    }
+    .J-file-item{
+      min-width: 350px;
     }
     .card-laber-item{
         width: 354px;

@@ -39,7 +39,7 @@
                                         accept="image/gif,image/jpeg,image/jpg,image/png"
                                         list-type="picture-card"
                                         :action="uploadUrl"                                        
-                                        :data="uploadData1"
+                                        :http-request="(res)=>{return uploadImg(res, 'id_no_front', false)}"
                                         :before-upload="beforeUpload"
                                         :on-preview="handlePreview"
                                         :on-success="handleSuccess">
@@ -52,7 +52,7 @@
                                         accept="image/gif,image/jpeg,image/jpg,image/png"
                                         list-type="picture-card"
                                         :action="uploadUrl"                                      
-                                        :data="uploadData2"
+                                        :http-request="(res)=>{return uploadImg(res, 'id_no_back', false)}"
                                         :before-upload="beforeUpload"
                                         :on-preview="handlePreview"
                                         :on-success="handleSuccess">
@@ -102,7 +102,7 @@
                               accept="image/gif,image/jpeg,image/jpg,image/png"
                               list-type="picture-card"
                               :action="uploadUrl"                                      
-                              :data="uploadData3"
+                              :http-request="(res)=>{return uploadImg(res, 'stack_pic', false)}"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
                               :on-success="handleSuccess">
@@ -116,7 +116,7 @@
                               accept="image/gif,image/jpeg,image/jpg,image/png"
                               list-type="picture-card"
                               :action="uploadUrl"                                      
-                              :data="uploadData4"
+                              :http-request="(res)=>{return uploadImg(res, 'run_license', false)}"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
                               :on-success="handleSuccess">
@@ -130,7 +130,7 @@
                               accept="image/gif,image/jpeg,image/jpg,image/png"
                               list-type="picture-card"
                               :action="uploadUrl"                                      
-                              :data="uploadData5"
+                              :http-request="(res)=>{return uploadImg(res, 'lease_contract', true)}"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
                               :on-success="handleSuccess">
@@ -144,7 +144,7 @@
                               accept="image/gif,image/jpeg,image/jpg,image/png"
                               list-type="picture-card"
                               :action="uploadUrl"                                      
-                              :data="uploadData6"
+                              :http-request="(res)=>{return uploadImg(res, 'lease_pic', true)}"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
                               :on-success="handleSuccess">
@@ -158,7 +158,7 @@
                             accept="image/gif,image/jpeg,image/jpg,image/png"
                             list-type="picture-card"
                             :action="uploadUrl"                                      
-                            :data="uploadData7"
+                            :http-request="(res)=>{return uploadImg(res, 'application', true)}"
                             :before-upload="beforeUpload"
                             :on-preview="handlePreview"
                             :on-success="handleSuccess">
@@ -174,18 +174,18 @@
         <h2 class="main-title"><i class="fa fa-tags"></i>附件信息</h2>
         <div class="main-form">
             <div id="J_Form" class="form-content">
-                <el-form :inline="true" :model="form" :label-position="'right'" label-width="130px" class="demo-form-inline">
-                    <el-form-item class="J-form-item" label="车商增信报告">
+                <el-form :inline="true" :model="form" :label-position="'right'" label-width="120px" class="demo-form-inline">
+                    <el-form-item class="J-file-item" label="车商增信报告">
                         <el-upload class="upload-file" name="uploadfile"
                           :action="FileUrl"
-                          :data="FileData1">
+                          :http-request="(res)=>{return uploadFile(res, 'credit_report', false)}">
                           <el-button size="small" type="primary">点击上传</el-button>
                         </el-upload>
                     </el-form-item>
-                    <el-form-item class="J-form-item" label="经营流水电子版">
+                    <el-form-item class="J-file-item" label="经营流水电子版">
                         <el-upload class="upload-file" name="uploadfile"
                           :action="FileUrl"
-                          :data="FileData2">
+                          :http-request="(res)=>{return uploadFile(res, 'running_water', false)}">
                           <el-button size="small" type="primary">点击上传</el-button>
                         </el-upload>
                     </el-form-item>
@@ -205,7 +205,7 @@
                                         accept="image/gif,image/jpeg,image/jpg,image/png"
                                         list-type="picture-card"
                                         :action="uploadUrl"                                        
-                                        :data="uploadData8"
+                                        :http-request="(res)=>{return uploadImg(res, 'gt_id_no_front', false)}"
                                         :before-upload="beforeUpload"
                                         :on-preview="handlePreview"
                                         :on-success="handleSuccess">
@@ -218,7 +218,7 @@
                                         accept="image/gif,image/jpeg,image/jpg,image/png"
                                         list-type="picture-card"
                                         :action="uploadUrl"                                      
-                                        :data="uploadData9"
+                                        :http-request="(res)=>{return uploadImg(res, 'gt_id_no_back', false)}"
                                         :before-upload="beforeUpload"
                                         :on-preview="handlePreview"
                                         :on-success="handleSuccess">
@@ -238,7 +238,7 @@
                               accept="image/gif,image/jpeg,image/jpg,image/png"
                               list-type="picture-card"
                               :action="uploadUrl"                                      
-                              :data="uploadData10"
+                              :http-request="(res)=>{return uploadImg(res, 'asset_proof', true)}"
                               :before-upload="beforeUpload"
                               :on-preview="handlePreview"
                               :on-success="handleSuccess">
@@ -299,80 +299,8 @@ export default {
           },
           dialogImageUrl: '',
           dialogVisible: false,
-          uploadUrl:this.$ajax.getBaseUrl+'/file/uploadPic',
-          uploadData1:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'id_no_front',
-            linkno:this.$route.query.id,
-            moreFlag:true
-          },
-          uploadData2:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'id_no_back',
-            linkno:this.$route.query.id,
-            moreFlag:true
-          },
-          uploadData3:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'stack_pic',
-            linkno:this.$route.query.id,
-            moreFlag:true
-          },
-          uploadData4:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'run_license',
-            linkno:this.$route.query.id,
-            moreFlag:true
-          },
-          uploadData5:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'lease_contract',
-            linkno:this.$route.query.id,
-            moreFlag:true
-          },
-          uploadData6:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'lease_pic',
-            linkno:this.$route.query.id,
-            moreFlag:true
-          },
-          uploadData7:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'application',
-            linkno:this.$route.query.id,
-            moreFlag:true
-          },
-          uploadData8:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'gt_id_no_front',
-            linkno:this.$route.query.id,
-            moreFlag:false
-          },
-          uploadData9:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'gt_id_no_back',
-            linkno:this.$route.query.id,
-            moreFlag:false
-          },
-          uploadData10:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'asset_proof',
-            linkno:this.$route.query.id,
-            moreFlag:true
-          },
-          FileUrl:this.$ajax.getBaseUrl+'/file/uploadFile',
-          FileData1:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'credit_report',
-            linkno:this.$route.query.id,
-            moreFlag:false
-          },
-          FileData2:{
-            tablename:'hrcf_stack_asset_base_material',
-            cloumnname:'running_water',
-            linkno:this.$route.query.id,
-            moreFlag:false
-          }  
+          uploadUrl:this.$ajax.getBaseUrl+'/file/uploadPic',         
+          FileUrl:this.$ajax.getBaseUrl+'/file/uploadFile' 
         }  
     },  
   methods:{  
@@ -467,6 +395,28 @@ export default {
         }
         return isJPG && isLt2M; 
       },
+      uploadImg(file,cloumnname,moreFlag){
+        const formData = new FormData()
+              formData.append('uploadfile', file.file)
+              formData.append('tablename', 'hrcf_stack_asset_base_material')
+              formData.append('cloumnname', cloumnname)
+              formData.append('linkno', this.$route.query.id)
+              formData.append('moreFlag', moreFlag)
+        this.$ajax.uploadPic(formData).then((res)=>{
+          //console.log(res)
+        })
+      },
+      uploadFile(file,cloumnname,moreFlag){
+        const formData = new FormData()
+              formData.append('uploadfile', file.file)
+              formData.append('tablename', 'hrcf_stack_asset_base_material')
+              formData.append('cloumnname', cloumnname)
+              formData.append('linkno', this.$route.query.id)
+              formData.append('moreFlag', moreFlag)
+        this.$ajax.uploadFile(formData).then((res)=>{
+          //console.log(res)
+        })
+      },
       //图片预览
       handlePreview(file) {
         this.dialogImageUrl = file.url;
@@ -493,6 +443,9 @@ export default {
     }
     .J-form-item{
         width: 350px;
+    }
+    .J-file-item{
+      min-width: 350px;
     }
     .card-laber-item{
         width: 354px;
