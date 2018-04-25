@@ -134,6 +134,11 @@
                 </el-row>
                 <h5 class="mart10">车辆照片:</h5>
                 <el-row :gutter="10">
+                    <el-col :span="24">
+                      <img src="" alt=""> 
+                    </el-col>
+                </el-row>
+                <el-row :gutter="10">
                     <el-col :span="10">
                         <label for="payNumber" class="el-form-item__label marl28">是否上牌:</label>
                         <label for="payNumber" class="el-form-item__label" v-if="tabledata.if_card == 1">是</label>
@@ -268,7 +273,8 @@
                     fix_price:[
                         { required: true, message: '请选择运营定价', trigger: 'change' },
                     ],
-                }
+                },
+                imagesarr:'',
             }
         },
         created(){
@@ -284,7 +290,8 @@
               }
               self.$ajax.getTargetByTargetnid(params).then((res)=> {
                   self.tabledata= res;
-                  console.log(self.tabledata)
+                  self.imagesarr = res.stack_pic;
+                  console.log(self.imagesarr)
                   self.initialize();
               });
             },

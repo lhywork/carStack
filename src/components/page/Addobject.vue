@@ -202,7 +202,7 @@
                     <h5 class="mart10">车辆照片:</h5>
                     <el-row :gutter="24">
                         <el-col :span="24" class="marl26">
-                            <el-upload  v-bind:action="action" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove" name="uploadfile" v-bind:data="data" accept="image/*" v-bind:before-upload ="beforeupload">
+                            <el-upload  v-bind:action="action" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove" name="uploadfile" v-bind:data="data1" accept="image/*" v-bind:before-upload ="beforeupload">
                                 <i class="el-icon-plus"></i>
                             </el-upload>
                             <el-dialog :visible.sync="dialogVisible">
@@ -431,10 +431,10 @@
                     province:'',
                     shi1: [],
                     action:base+'/file/uploadPic',
-                    data:{
+                    data1:{
                         tablename:'hrcf_stack_target_info',
                         cloumnname:'target_nid',
-                        linkno:'A机构',
+                        linkno:'',
                         moreFlag:'true',
                     },
                     ruleForm:{
@@ -694,7 +694,7 @@
                 handlePictureCardPreview(file) {
                     this.dialogImageUrl = file.url;
                     this.dialogVisible = true;
-                    console.log(file.url)
+                    console.log(file)
                 },
                 getCityData:function(){  
                     var that = this;  
@@ -782,7 +782,8 @@
                     const params = {
                     }
                     this.$ajax.getTargetnid(params).then((res)=> {
-                        self.ruleForm.target_nid = res.target_nid
+                        self.ruleForm.target_nid = res.target_nid;
+                        self.data1.linkno = res.target_nid;
                     });
                 }
             }
