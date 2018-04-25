@@ -57,8 +57,29 @@ export default {
             };
             self.$ajax.getResourceByRoleId(params).then((res)=> {
                 self.ruleForm.role = res.lists[0].r_role;
-                self.ruleForm.tableData = JSON.parse(res.lists[0].r_resource);
+                var listsData = JSON.parse(res.lists[0].r_resource);
+                self.filterData(listsData)
             });
+        },
+        filterData(listsData){
+            var self = this;
+            listsData.forEach((item) => {
+                if(item.children && item.children.length){
+                    // 递归
+                    self.filterData(item.children)
+                }
+                self.ruleForm.tableData.forEach((s) => {
+                    if((s.name == item.name)){
+                        s.isAuth = item.isAuth;
+                    }
+                    s.children.forEach((j) =>{
+                       if((j.name == item.name)){
+                            j.isAuth = item.isAuth;
+                            return
+                        } 
+                    })                   
+                })           
+            })
         },
         handleCheckAll(e,index){
             console.log()
