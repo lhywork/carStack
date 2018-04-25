@@ -33,7 +33,7 @@
                     </el-form-item>
                     <el-form-item class="J-form-item card-item" label="">
                         <template>
-                            <div class="card-box">
+                            <div class="card-box ml24">
                                 <div class="card-left">
                                     <el-upload class="card-border" name="uploadfile"
                                         accept="image/gif,image/jpeg,image/jpg,image/png"
@@ -219,7 +219,7 @@
                     </el-form-item>             
                     <el-form-item class="J-form-item card-item" label="">
                         <template>
-                            <div class="card-box">
+                            <div class="card-box ml24">
                                 <div class="card-left">
                                     <el-upload class="card-border" name="uploadfile"
                                         accept="image/gif,image/jpeg,image/jpg,image/png"
@@ -254,7 +254,7 @@
                         </template>
                     </el-form-item>
                     <el-form-item class="J-form-item links-item" label="与被担保人关系">
-                        <el-input v-model="form.guarantor_links" placeholder="与被担保人关系"></el-input>
+                        <el-input class="form-input" v-model="form.guarantor_links" placeholder="与被担保人关系"></el-input>
                     </el-form-item> 
                     <el-form-item class="block-item" label="资产证明">
                         <div class="card-box">
@@ -507,6 +507,10 @@ export default {
     .J-file-item{
       min-width: 350px;
     }
+    .J-file-item .el-form-item__content{
+      width: 260px;
+      overflow: hidden;
+    }
     .card-laber-item{
         width: 354px;
     }
@@ -522,8 +526,10 @@ export default {
     .card-box{
         height: 170px;
         overflow: hidden;
-        margin-left:42px;
         color: #999; 
+    }
+    .ml24{
+        margin-left:42px;
     }
     .card-left{
         width: 150px;
