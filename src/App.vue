@@ -11,7 +11,6 @@ export default {
 </script>
 
 <style>
-@import "../static/css/common.css";
 html, body, #app, .wrapper {
     width: 100%;
     height: 100%;
