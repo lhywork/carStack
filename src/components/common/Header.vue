@@ -8,6 +8,7 @@
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item divided @click.native="userInfo">个人信息</el-dropdown-item>
                     <el-dropdown-item divided @click.native="changeTheme">切换布局</el-dropdown-item>
+                    <el-dropdown-item divided @click.native="changeCollapse">收起展开</el-dropdown-item>
                     <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
@@ -55,8 +56,14 @@
                 });
             },
             changeTheme(){
-                var navbarPosition = this.$store.state.user.navbarPosition == 'left' ? 'top' : 'left';
+                var navbarPosition = this.$store.state.user.navbarPosition === 'left' ? 'top' : 'left';
+                console.log(navbarPosition)
                 this.$store.commit("SET_LAYOUT", navbarPosition)
+            },
+            changeCollapse(){
+                var navbarPosition = this.$store.state.user.Collapse === 'false' ? 'true' : 'false';
+                console.log(navbarPosition)
+                this.$store.commit("SET_Collapse", navbarPosition)
             }
         }
     }

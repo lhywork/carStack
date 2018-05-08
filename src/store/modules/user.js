@@ -5,7 +5,8 @@ const user = {
   state: {
   	username:sessionStorage.getItem('USERNAME'),
     userid:sessionStorage.getItem('USERID'),
-  	navbarPosition:sessionStorage.getItem('THEME') || 'left'
+  	navbarPosition:sessionStorage.getItem('THEME') || 'left',
+    Collapse:sessionStorage.getItem('Collapse') || false,
   },
   mutations: {
   	SET_USERNAME:(state, username) => {
@@ -20,6 +21,12 @@ const user = {
       if(theme){
         sessionStorage.setItem('THEME', theme);
         state.navbarPosition = theme
+      }
+    },
+    SET_Collapse(state, Collapse){
+      if(Collapse){
+        sessionStorage.setItem('Collapse', Collapse);
+        state.Collapse = Collapse
       }
     }
   },

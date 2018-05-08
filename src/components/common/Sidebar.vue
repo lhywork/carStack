@@ -1,7 +1,7 @@
 <template>
     <div class="sidebar" :class="layout">
-        <el-menu :default-active="$route.path" :mode="navMode" class="el-menu-vertical-demo" background-color="#324157" text-color="#fff" nique-opened router>
-            <template v-for="(item,index) in navList" v-if="!item.hidden">
+        <el-menu :default-active="$route.path"  class="el-menu-vertical-demo" background-color="#324157" text-color="#fff" nique-opened router :collapse = "collapse == 'false' ? false : true" >
+            <template v-for="(item,index) in navList" v-if="!item.hidden" >
                 <el-submenu :index="index+''" v-if="!item.leaf">
                     <template slot="title"><i class="fa" :class="item.iconCls"></i>{{item.name}}</template>
                     <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
@@ -20,22 +20,20 @@
 
             }
         },
-        props: ['layout'],
+        props: ['layout','collapse'],
         computed:{
             ...mapState({
                 navList: state => state.auth.permissionList
             }),          
             onRoutes(){
                 return this.$route.path.replace('/','');
-            },
-            navMode(){
-                if(this.layout == "left"){
-                    return "vertical"
-                }
-                if(this.layout == "top"){
-                    return "horizontal"
-                }
-            } 
+            }
+        },
+        methods: {
+
+        },
+        create(){
+            console.log(state.auth.permissionList)
         }
     }
 </script>
