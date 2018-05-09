@@ -1,7 +1,7 @@
 <template>
-    <div class="sidebar" :class="layout">
-        <el-menu :default-active="$route.path"  class="el-menu-vertical-demo" background-color="#324157" text-color="#fff" nique-opened router :collapse = "collapse == 'false' ? false : true" >
-            <template v-for="(item,index) in navList" v-if="!item.hidden" >
+    <div class="sidebar" :class="[ layout,collapse]">
+        <el-menu :default-active="$route.path" :mode="navMode" class="el-menu-vertical-demo" background-color="#324157" text-color="#fff" nique-opened router :collapse = "collapse == 'false' ? false : true">
+            <template v-for="(item,index) in navList" v-if="!item.hidden">
                 <el-submenu :index="index+''" v-if="!item.leaf">
                     <template slot="title"><i class="fa" :class="item.iconCls"></i>{{item.name}}</template>
                     <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
@@ -27,13 +27,15 @@
             }),          
             onRoutes(){
                 return this.$route.path.replace('/','');
-            }
-        },
-        methods: {
-
-        },
-        create(){
-            console.log(state.auth.permissionList)
+            },
+            navMode(){
+                if(this.layout == "left"){
+                    return "vertical"
+                }
+                if(this.layout == "top"){
+                    return "horizontal"
+                }
+            } 
         }
     }
 </script>
@@ -62,5 +64,13 @@
     }
     .sidebar > ul {
         height:100%;
+    }
+    .sidebar.false > ul{
+        height:100%;
+        width: 180px;
+    }
+    .sidebar.true > ul{
+        height:100%;
+        width: 40px;
     }
 </style>

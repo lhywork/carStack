@@ -1,11 +1,18 @@
 <template>
     <div class="wrapper">
-        <template>
-            <vHeader></vHeader>
-            <vSidebar :layout="layout" :collapse="collapse"></vSidebar>
+        <template v-if="layout =='left'">
+            <v-header></v-header>
+            <v-sidebar :layout="layout" :collapse="collapse"></v-sidebar>
         </template>
-        <div class="content" :class="layout">
-            <vBread></vBread>
+        <template v-if="layout == 'top'">
+            <v-header>
+                <template slot="topnav">
+                    <v-sidebar :layout="layout"></v-sidebar>
+                </template>
+            </v-header>
+        </template>
+        <div class="content" :class="[ layout,collapse]">
+            <v-bread></v-bread>
             <transition name="fade" mode="out-in"><router-view></router-view></transition>
         </div>
     </div>
@@ -21,18 +28,23 @@
             }
         },
         computed: {
-            layout(){                
+            layout(){
                 return this.$store.state.user.navbarPosition
             },
             collapse(){
-                console.log(this.$store.state.user.Collapse)
+                // console.log(this.$store.state.user.Collapse)
                 return this.$store.state.user.Collapse
             }
         },
         components:{
             vHeader, 
             vSidebar,
-            vBread,
+            vBread
         }
     }
 </script>
+<style>
+    .content.true{
+        left: 40px;
+    }
+</style>

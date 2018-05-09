@@ -56,14 +56,18 @@
                 });
             },
             changeTheme(){
-                var navbarPosition = this.$store.state.user.navbarPosition === 'left' ? 'top' : 'left';
-                console.log(navbarPosition)
+                var navbarPosition = this.$store.state.user.navbarPosition == 'left' ? 'top' : 'left';
                 this.$store.commit("SET_LAYOUT", navbarPosition)
             },
             changeCollapse(){
-                var navbarPosition = this.$store.state.user.Collapse === 'false' ? 'true' : 'false';
-                console.log(navbarPosition)
-                this.$store.commit("SET_Collapse", navbarPosition)
+                var navbarPosition = this.$store.state.user.navbarPosition;
+                if(navbarPosition == 'left'){
+                   var Collapse = this.$store.state.user.Collapse === 'false' ? 'true' : 'false';
+                    this.$store.commit("SET_Collapse", Collapse) 
+                }else{
+                    this.$alert('菜单栏为垂直状态时才能收起菜单');
+                }
+                
             }
         }
     }

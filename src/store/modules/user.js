@@ -48,8 +48,10 @@ const user = {
       return new Promise((resolve, reject) => {     
           commit('SET_USERNAME','');
           commit('SET_USERID','');
+          commit('SET_Collapse','');
           sessionStorage.removeItem('USERNAME');
           sessionStorage.removeItem('USERID');
+          sessionStorage.removeItem('Collapse');
           resolve();
         }).catch(error => {
           reject(error);
