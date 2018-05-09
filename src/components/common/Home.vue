@@ -45,6 +45,6 @@
 </script>
 <style>
     .content.true{
-        left: 40px;
+        left: 60px;
     }
 </style>
