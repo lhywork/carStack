@@ -43,8 +43,3 @@
         }
     }
 </script>
-<style>
-    .content.true{
-        left: 40px;
-    }
-</style>
