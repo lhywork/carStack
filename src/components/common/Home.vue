@@ -11,7 +11,7 @@
                 </template>
             </v-header>
         </template>
-        <div class="content" :class="[ layout,collapse]">
+        <div class="content" :class="[layout,collapse]">
             <v-bread></v-bread>
             <transition name="fade" mode="out-in"><router-view></router-view></transition>
         </div>
