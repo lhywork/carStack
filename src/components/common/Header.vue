@@ -4,7 +4,7 @@
         <slot name="topnav"></slot>
         <div class="userinfo">
             <el-dropdown trigger="click">
-                <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{getUserName}}</span>
+                <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" class="radius-circle rotate-hover" height="50"  v-on:mouseenter="musicplay" v-on:mouseleave="musicstop"/>{{getUserName}}</span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item divided @click.native="userInfo">个人信息</el-dropdown-item>
                     <el-dropdown-item divided @click.native="changeTheme">切换布局</el-dropdown-item>
@@ -13,6 +13,7 @@
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
+        <audio src="http://dl.stream.qqmusic.qq.com/C400000Md1wq0vnwzE.m4a?vkey=7E5088ECFD58EB679C82E3F66D4C53AA8CEE92211D0E5599341ADDADF73EBB4AE79AF34768DB2FE1C0B46FB8B9508D4A1DD598EA255EDFB3&guid=9281566720&uin=0&fromtag=66" id="audio"></audio>
     </div>
 </template>
 <script>
@@ -22,7 +23,7 @@
             return {
                 sysName:'车栈金融后台管理',
                 sysUserAvatar:'./static/img/Avatar.jpg',
-                sysUserName: ''
+                sysUserName: '',
             }
         },
         created() {
@@ -68,11 +69,42 @@
                     this.$alert('菜单栏为垂直状态时才能收起菜单');
                 }
                 
+            },
+            musicplay(){
+                 var audio =document.querySelector('#audio');
+                 console.log(audio)
+                 audio.play();
+            },
+            musicstop(){
+                var audio =document.querySelector('#audio');
+                audio.pause();
             }
         }
     }
 </script>
 <style scoped>
+    .radius-circle{
+        border-radius: 50%;
+    }
+    .rotate-hover:hover{
+        animation: myfirst 2s infinite linear;
+        -webkit-animation: myfirst 2s infinite linear;
+    }
+    @keyframes myfirst
+    {
+        0%{
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        50%{
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+        100%{
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
     .header {
         position: relative;
         box-sizing: border-box;

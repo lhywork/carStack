@@ -15,6 +15,8 @@
             <v-bread></v-bread>
             <transition name="fade" mode="out-in"><router-view></router-view></transition>
         </div>
+        <div>
+        </div>
     </div>
 </template>
 
@@ -25,8 +27,8 @@
     export default {
         data(){
             return {
-            }
-        },
+                }
+            },
         computed: {
             layout(){
                 return this.$store.state.user.navbarPosition
