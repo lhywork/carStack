@@ -6,7 +6,7 @@ const user = {
   	username:sessionStorage.getItem('USERNAME'),
     userid:sessionStorage.getItem('USERID'),
   	navbarPosition:sessionStorage.getItem('THEME') || 'left',
-    Collapse:sessionStorage.getItem('Collapse') || false,
+    Collapse:sessionStorage.getItem('Collapse') || 'false',
   },
   mutations: {
   	SET_USERNAME:(state, username) => {
