@@ -45,3 +45,8 @@
         }
     }
 </script>
+<style>
+    .fa-diamond{
+        font-size: 12px;
+    }
+</style>

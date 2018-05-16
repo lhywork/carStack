@@ -103,5 +103,17 @@
             "path": "/RoleEdit",
             "isAuth":true
         }]
+    },{
+        "name":"扩展功能",
+        "isAuth":true,
+        "children": [{
+            "name": "用户评分",
+            "path": "/Scroller",
+            "isAuth":true
+        },{
+            "name": "下拉刷新",
+            "path": "/refresh",
+            "isAuth":true
+        }]
     }]
 }

@@ -131,6 +131,20 @@ const asyncRoute = [
             hidden: true,
             component: resolve => require(['@/components/page/RoleEdit.vue'], resolve)
         }]
+    },{
+        path: '/',
+        name: '扩展功能',
+        iconCls:'fa-diamond',
+        component: Home,
+        children: [{
+            path: '/Scroller',
+            name: '用户评分',
+            component: resolve => require(['@/components/page/Scroller.vue'], resolve)
+        },{
+            path: '/refresh',
+            name: '下拉刷新',
+            component: resolve => require(['@/components/page/refresh.vue'], resolve)
+        }]
     }
 ]
 
