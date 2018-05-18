@@ -52,6 +52,7 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
     export default {
         data() {
             return {
@@ -73,7 +74,8 @@
                     page:self.page,
                     epage:self.epage
                 }
-                self.$ajax.getBorrowProList(params).then((res)=> {
+                self.$store.dispatch('getlist',params).then((res)=> {
+                    console.log(res);
                     self.total = res.total;
                     self.tableData = res.lists;  
                 });

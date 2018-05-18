@@ -3,7 +3,7 @@
     <!-- <sub-nav mold="quickNav"></sub-nav> -->
     <h2 class="main-title"><i class="fa fa-tags"></i>下拉刷新-模仿豆瓣</h2>
     <list mold="thumbnail" :items="events"></list>
-    <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading">
+    <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" >
       <loading slot="spinner"></loading>
     </infinite-loading>
   </div>
@@ -40,7 +40,7 @@ export default {
     ])
   },
   created: function() {
-
+      console.log(mapState)
   }
 }
 
