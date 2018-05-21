@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="main-form">
-        <el-table  v-bind:data="tableData" style="width: 100%">
+        <el-table  v-bind:data="getBorrowProList.lists" style="width: 100%">
             <el-table-column prop="name" label="借款产品名称"  show-overflow-tooltip  align="center"></el-table-column>
             <el-table-column prop="if_forward" label="提前还款"  show-overflow-tooltip  align="center">
                 <template slot-scope="scope">
@@ -45,14 +45,14 @@
     </div>
     <el-row :gutter="24">
         <el-col :span="24">
-            <el-pagination background layout="prev, pager, next,sizes" v-bind:total="total" class="page" v-bind:page-size="epage" v-bind:current-page="page" @current-change="handleCurrentChange" v-bind:page-sizes="pagesizes" @size-change="handleSizeChange"></el-pagination>
+            <el-pagination background layout="prev, pager, next,sizes" v-bind:total="getBorrowProList.total" class="page" v-bind:page-size="epage" v-bind:current-page="page" @current-change="handleCurrentChange" v-bind:page-sizes="pagesizes" @size-change="handleSizeChange"></el-pagination>
             </el-pagination>
         </el-col>
     </el-row>
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+    import { mapState } from 'vuex'
     export default {
         data() {
             return {
@@ -66,24 +66,26 @@ import { mapActions } from 'vuex'
                 status1:''
             }
         },
+        computed: {
+            // Getting Vuex State from store/modules/search
+            ...mapState({
+               getBorrowProList: state => state.loan.getBorrowProList
+            })
+        },
         methods: {
-            getBorrowProList:function(){
+            getList:function(){
                 const self = this;
                 const params = {
                     name:self.name,
                     page:self.page,
                     epage:self.epage
                 }
-                self.$store.dispatch('getlist',params).then((res)=> {
-                    console.log(res);
-                    self.total = res.total;
-                    self.tableData = res.lists;  
-                });
+                self.$store.dispatch('getBorrowProList',params);
             },
             handleCurrentChange:function(e){
                 const self = this;
                 this.page = e;
-                self.getBorrowProList();
+                self.getList();
             },
             handleAdd(){
                 this.$router.push('/LoanAdd');
@@ -91,11 +93,11 @@ import { mapActions } from 'vuex'
             handleSizeChange(e){
                 const self = this;
                 this.epage = e;
-                self.getBorrowProList();
+                self.getList();
             },
             handleQuery(){
                 const self = this;
-                self.getBorrowProList();
+                self.getList();
             },
             Addtime(row,column){
                 const self = this;
@@ -116,9 +118,9 @@ import { mapActions } from 'vuex'
                     id:id,
                     status:self.status1,
                 }
-                self.$ajax.updateStatus(params).then((res)=> {
+                self.$store.dispatch('updateStatus',params).then((res)=> {
                     if(res.returnCode == 1){
-                        self.getBorrowProList();  
+                        self.getList();  
                     }else{
                         self.$alert(res.returnMsg,'系统提示')
                     }
@@ -135,9 +137,9 @@ import { mapActions } from 'vuex'
                     id:id,
                     status:self.status1,
                 }
-                self.$ajax.updateStatus(params).then((res)=> {
+                self.$store.dispatch('updateStatus',params).then((res)=> {
                     if(res.returnCode == 1){
-                        self.getBorrowProList();  
+                        self.getList();  
                     }else{
                         self.$alert(res.returnMsg,'系统提示')
                     }
@@ -160,7 +162,7 @@ import { mapActions } from 'vuex'
         }, 
         created:function(){ 
             const self = this; 
-            self.getBorrowProList();
+            self.getList();
         }
     }
 </script>

@@ -112,9 +112,14 @@ export default {
     //获取标的流水号 
     getTargetnid:params =>{
         return utils.postData(`${admin}/targetInfo/getTargetnid`, params);
-    }, 
+    },
+    //标的初审 
     auditorFirst:params => {
         return utils.postData(`${admin}/targetInfo/auditorFirst`, params);
+    },
+    //标的复审
+    auditorReview:params => {
+        return utils.postData(`${admin}/targetInfo/auditorReview`, params);
     }
     
 };

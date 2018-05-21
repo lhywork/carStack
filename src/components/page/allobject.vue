@@ -108,7 +108,7 @@
                     </div>
                 </div>
                 <div class="main-form">
-                    <el-table :data="tablist" style="width: 100%">
+                    <el-table :data="getTargetList.lists" style="width: 100%">
                         <el-table-column prop="target_nid" label="标的流水号"  show-overflow-tooltip  align="center"></el-table-column>
                         <el-table-column prop="borrow_id" label="借款产品"  show-overflow-tooltip  align="center"></el-table-column>
                         <el-table-column prop="dealer_name" label="经销商名称"  show-overflow-tooltip  align="center"></el-table-column>
@@ -133,11 +133,12 @@
                         </el-table-column>
                     </el-table>
                 </div>
-                <el-pagination v-if="total" :page-size="epage" :page-sizes="[5, 10, 15, 20]" background layout="prev, sizes, pager, next" :total="total" @current-change="handleCurrentChange" @size-change="pageSizeChange">
+                <el-pagination v-if="getTargetList.total" :page-size="epage" :page-sizes="[5, 10, 15, 20]" background layout="prev, sizes, pager, next" :total="getTargetList.total" @current-change="handleCurrentChange" @size-change="pageSizeChange">
                 </el-pagination>
             </div>
     </template>
 <script>
+    import { mapState } from 'vuex'
     import FileSaver from 'file-saver'
     import XLSX from 'xlsx'
     export default {
@@ -187,11 +188,12 @@
                 end_time:'',
             }
         },
-        created(){
-            const self = this;
-            self.getTargetList();
-
-        },
+        computed: {
+                // Getting Vuex State from store/modules/search
+                ...mapState({
+                   getTargetList: state => state.loan.getTargetList
+                })
+            },
         methods: {
             Addobject:function(){
                 const self = this;
@@ -223,7 +225,7 @@
                   }  
                 })) 
 　　　　    },
-            getTargetList(){
+            getList(){
                 const self = this;
                 const params = {
                     page:self.page,
@@ -236,10 +238,7 @@
                     start_time:self.start_time,
                     end_time:self.end_time,
                 }
-                this.$ajax.getTargetList(params).then((res)=> {
-                    self.total = res.total;
-                    self.tablist = res.lists
-                });
+                self.$store.dispatch('getTargetList',params)
             },
             Addtime(row,column){
                 const self = this;
@@ -252,16 +251,16 @@
             handleCurrentChange(e){
                 const self = this;
                 self.page = e;
-                self.getTargetList();
+                self.getList();
             },
             pageSizeChange(e){
                 const self = this;
                 self.epage = e;
-                self.getTargetList();
+                self.getList();
             },
             Allcheck(){
                const self = this;
-               self.getTargetList(); 
+               self.getList(); 
             },
             viewDetails(e){
                 const self = this;
@@ -270,7 +269,12 @@
                     query: {id: e}
                 })    
             }
-        }
+        },
+        created(){
+            const self = this;
+            self.getList();
+
+        },
     }
 </script>
 

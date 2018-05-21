@@ -680,7 +680,7 @@
                     self.ruleForm.interior = self.checked5 + ',' + self.checked6 + ',' + self.checked7;
                     self.ruleForm.security = self.checked8 + ',' + self.checked9 + ',' +self.checked10;
                     self.ruleForm.comfort = self.checked11 + ',' +self.checked12 + ',' +self.checked13 + ',' + self.checked14+ ',' +self.checked15 + ',' + self.checked16 + ',' + self.checked17;
-                    this.$ajax.investmentPro(params).then((res)=> {
+                    self.$store.dispatch('investmentPro',params).then((res)=> {
                         if(res.returnCode == 1){
                             self.$router.push({ path: '/Allobject' });   
                         }else{
@@ -694,7 +694,7 @@
                     const params={
                         fileId:fileId,
                     }
-                    this.$ajax.deletePicLink(params).then((res)=> {
+                    self.$store.dispatch('deletePicLink',params).then((res)=> {
                         if(res.returnCode == 1){ 
                         }else{
                             self.$alert(res.returnMsg,'系统提示')
@@ -786,7 +786,7 @@
                     const self = this;
                     const params = {
                     }
-                    this.$ajax.getTargetnid(params).then((res)=> {
+                    self.$store.dispatch('getTargetnid',params).then((res)=> {
                         self.ruleForm.target_nid = res.target_nid;
                         self.data1.linkno = res.target_nid;
                     });

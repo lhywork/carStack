@@ -319,7 +319,7 @@
               const params = {
                 target_nid:self.$route.query.id,
               }
-              self.$ajax.getTargetByTargetnid(params).then((res)=> {
+              self.$store.dispatch('getTargetByTargetnid',params).then((res)=> {
                   self.tabledata= res;
                   const imagesarr1 = res.stack_pic;
                   imagesarr1.forEach((item,index) => {

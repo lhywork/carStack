@@ -296,7 +296,7 @@
               const params = {
                 target_nid:self.target_nid
               }
-              self.$ajax.getTargetByTargetnid(params).then((res)=> {
+              self.$store.dispatch('getTargetByTargetnid',params).then((res)=> {
                   self.tabledata= res;
                   const imagesarr1 = res.stack_pic;
                   imagesarr1.forEach((item,index) => {
@@ -356,7 +356,7 @@
                 target_nid:self.target_nid,
                 examine_status:status,
               }
-              self.$ajax.auditorFirst(params).then((res)=> {
+              self.$store.dispatch('auditorFirst',params).then((res)=> {
                   if(res.returnCode == 1){
                     self.$router.push({ path: '/Firstobject' });   
                   }else{

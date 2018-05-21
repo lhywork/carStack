@@ -131,7 +131,8 @@
                             item.if_forward = self.form.if_forward;
                             params.push(item)
                         })
-                        this.$ajax.borrowProSave(params).then((res)=> {
+                        self.$store.dispatch('borrowProSave',params).then((res)=> {
+                            console.log(res);
                             if(res.data.returnCode == 1){
                                 self.$router.push({ path: '/LoanList' });   
                             }else{

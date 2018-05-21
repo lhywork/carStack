@@ -296,7 +296,7 @@
               const params = {
                 target_nid:self.target_nid
               }
-              self.$ajax.getTargetByTargetnid(params).then((res)=> {
+              self.$store.dispatch('getTargetByTargetnid',params).then((res)=> {
                   self.tabledata= res;
                   self.form.quote = res.quote;
                   self.form.valuation = res.valuation;
@@ -305,7 +305,6 @@
                   imagesarr1.forEach((item,index) => {
                      item.url = this.$ajax.getBaseUrl + '/images' + item.res_url;
                   })
-                  console.log(imagesarr1)
                   self.imagesarr = imagesarr1
                   self.initialize();
               });
@@ -364,7 +363,7 @@
                 target_nid:self.target_nid,
                 examine_status:status,
               }
-              self.$ajax.auditorFirst(params).then((res)=> {
+              self.$store.dispatch('auditorReview',params).then((res)=> {
                   if(res.returnCode == 1){
                     self.$router.push({ path: '/Secondobject' });   
                   }else{
