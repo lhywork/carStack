@@ -1,7 +1,7 @@
 import * as utils from '../utils';
 
 export const base = 'http://192.168.1.222:8087';
-export const admin = 'http://192.168.1.180:8087';
+export const admin = 'http://192.168.1.185:8087';
 export default {
     getBaseUrl:base,
     formatDate: (date,fmt) => {

@@ -29,6 +29,7 @@ export default {
   },
   methods:{
     onInfinite () {
+      console.log(this.events.length)
       setTimeout(() => {
         this.loadMore()
         this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
