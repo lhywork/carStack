@@ -1,6 +1,6 @@
 import api from "../../api";
-import request from 'superagent';
-import jsonp from 'superagent-jsonp';
+// import request from 'superagent';
+// import jsonp from 'superagent-jsonp';
 
 const refresh = {
   state: {
@@ -17,18 +17,18 @@ const refresh = {
   },
   actions: {
       loadMore ({commit, state}) {
-          request
-            .get('https://api.douban.com/v2/event/list?loc=108288&start=' +
-              state.skip + '&count=3')
-            .use(jsonp)
-            .end((err, res) => {
-              if (!err) {
-                commit({
-                  type: 'loadMore',
-                  res: res.body.events
-                })
-              }
-            })
+          // request
+          //   .get('https://api.douban.com/v2/event/list?loc=108288&start=' +
+          //     state.skip + '&count=3')
+          //   .use(jsonp)
+          //   .end((err, res) => {
+          //     if (!err) {
+          //       commit({
+          //         type: 'loadMore',
+          //         res: res.body.events
+          //       })
+          //     }
+          //   })
         }
       } 
 }

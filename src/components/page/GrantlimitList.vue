@@ -172,9 +172,11 @@ export default {
             account_no:'',
         }
         this.$ajax.getSubjectAndOptions(params).then((res)=> {
-          that.lists = res.lists;
-          that.listsData = res.lists.slice(0,that.size);
-          that.liststotal = res.total;
+          if(res){
+            that.lists = res.lists;
+            that.listsData = res.lists.slice(0,that.size);
+            that.liststotal = res.total;
+          }
         });
       },
       //点击评分

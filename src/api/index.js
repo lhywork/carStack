@@ -1,7 +1,10 @@
 import * as utils from '../utils';
 
-export const base = 'http://192.168.1.222:8087';
-export const admin = 'http://192.168.1.185:8087';
+// export const base = 'http://192.168.1.222:8087';
+// export const admin = 'http://192.168.1.185:8087';
+export const base = 'http://localhost:8087/mock';
+export const admin = 'http://localhost:8087/mock';
+
 export default {
     getBaseUrl:base,
     formatDate: (date,fmt) => {
